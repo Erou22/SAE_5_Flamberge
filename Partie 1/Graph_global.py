@@ -12,10 +12,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from collections import Counter
 from itertools import combinations
-
-# Charger les données en spécifiant le séparateur ";"
-data = pd.read_csv("/home/etuinfo/maallain/Documents/SAE/Graph/datasetIMDb.csv", sep=";")
-
+from Data import data
 
 # Supprimer les doublons de films en se basant sur le titre du film
 data_unique = data.drop_duplicates(subset='nomFilm')

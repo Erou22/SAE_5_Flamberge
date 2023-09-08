@@ -1,8 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-
-# Charger les données en spécifiant le séparateur ";"
-data = pd.read_csv("/home/etuinfo/efertray/Documents/SAE/datasetIMDb.csv", sep=";")
+from Data import data
 
 # Supprimer les doublons de films en se basant sur le titre du film
 data_unique = data.drop_duplicates(subset='nomFilm')
