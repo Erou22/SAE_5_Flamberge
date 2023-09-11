@@ -10,7 +10,7 @@ film_count_by_year = data_unique.groupby('annee').size().reset_index(name='nombr
 
 # Afficher le graphique à barres
 plt.figure(figsize=(12, 6))  # Réglage de la taille du graphique
-plt.bar(film_count_by_year['annee'], film_count_by_year['nombre_de_films'])
+plt.plot(film_count_by_year['annee'], film_count_by_year['nombre_de_films'], marker='o', linestyle='solid')
 plt.xlabel('Année')
 plt.ylabel('Nombre de films')
 plt.title('Nombre de films par année (films uniques)')
