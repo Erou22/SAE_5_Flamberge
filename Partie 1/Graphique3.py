@@ -10,7 +10,6 @@ data_unique = data.drop_duplicates(subset='nomFilm')
 def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
 
     # Filtrer les données pour les années 2015, 2017 et 2019
-    years_of_interest = year
     filtered_data = data_unique[data_unique['annee'].isin(years_of_interest)]
 
     # Diviser les genres multiples en genres individuels
@@ -37,7 +36,7 @@ def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
     #the top xx
     final_df = top_pairs[:nombre_afficher].copy()
 
-    print(len(top_pairs))
+    #print(len(top_pairs))
 
     if (len(top_pairs) > nombre_afficher) :
         #others
@@ -56,7 +55,6 @@ def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
     plt.show()
 
 
-# Drama,2017,11
-# Documentary,2017,9
-# Adult",[2015],11
-graphique_couple("Documentary",[2017],11)
+graphique_couple("Drama",[2017],11)
+#graphique_couple("Documentary",[2017],9)
+#graphique_couple("Adult",[2015],11)
