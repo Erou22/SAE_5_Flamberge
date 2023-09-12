@@ -19,9 +19,9 @@ pivot_table = filtered_data.pivot_table(index='annee', columns='genres', aggfunc
 # Utiliser la palette de couleurs automatique
 ax = pivot_table.plot(kind='bar', colormap='tab20')
 
-plt.xlabel('Année')
-plt.ylabel('Nombre de films')
-plt.title('Nombre de films par genre par année')
+plt.xlabel('Years')
+plt.ylabel('Number of films')
+plt.title('Number of films by genre by year')
 plt.xticks(rotation=0)  # Réinitialiser la rotation des étiquettes de l'axe des x
 plt.legend(title='Genre', bbox_to_anchor=(1.05, 1), loc='upper left')  # Légende
 plt.show()
