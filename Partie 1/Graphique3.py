@@ -40,7 +40,6 @@ def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
     print(len(top_pairs))
 
     if (len(top_pairs) > nombre_afficher) :
-        print("ok")
         #others
         new_row = pd.DataFrame(data = {
             'Genres' : ['others'],
