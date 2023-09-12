@@ -51,7 +51,7 @@ def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
     # Créer un diagramme circulaire pour les paires de genres
     plt.figure(figsize=(8, 8))  # Réglage de la taille du graphique
     plt.pie(final_df["counts"], labels=final_df["Genres"], autopct='%1.1f%%', startangle=140)
-    plt.title(f'Paires de Genres Associées à "{nom_genre}"')
+    plt.title(f'Pairs of genres associated with "{nom_genre}"')
     plt.show()
 
 
