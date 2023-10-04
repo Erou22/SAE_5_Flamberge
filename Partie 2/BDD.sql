@@ -49,4 +49,32 @@ CREATE TABLE _possede_genre (
     CONSTRAINT genre_fk FOREIGN KEY (idGenre) REFERENCES _genre(idGenre),
     CONSTRAINT possede_genre_pk PRIMARY KEY (idGenre,idFilm)
 );
-  
+
+-- Fonctions
+
+CREATE OR REPLACE FUNCTION split_genre_f() RETURNS TRIGGER AS 
+$$
+BEGIN
+    SELECT SPLIT_PART(idGenre, ',', 1) INTO monrec FROM _genre;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'genre not found';
+    END IF; 
+END;
+$$ language plpgsql
+
+-- Triggers
+
+CREATE TRIGGER split_genre_t
+    BEFORE INSERT ON _genre
+    FOR EACH ROW
+    EXECUTE FUNCTION split_genre_f();
+
+
+
+-- Peuplement
+
+WbImport ...
+
+
+-- Views
+
