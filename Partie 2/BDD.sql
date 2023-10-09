@@ -67,16 +67,15 @@ create table _temp(
 );
 
 Wbimport -file=../datasetIMDb.csv
-         -table=_temp
-         -delimiter=';'
-         -quoteChar='"'
-         -mode=insert
-         -filecolumns=$wb_skip$,titre,anneeSortie,$wb_skip$,genres,noteIMDb,nbVotes,role,nomArtiste,$wb_skip$,metiers;
-         
+        -table=_temp
+        -delimiter=';'
+        -quoteChar='"'
+        -mode=insert
+        -filecolumns=$wb_skip$,titre,anneeSortie,$wb_skip$,genres,noteIMDb,nbVotes,role,nomArtiste,$wb_skip$,metiers;
+        
 
-         
 -- Triggers
-         
+
 -- Views
 
 select * from _temp where titre like '%Semicolon%';
