@@ -53,6 +53,15 @@ CREATE TABLE _possede_genre (
 );
 -- Fonctions
 
+CREATE OR REPLACE FUNCTION split_genre_f() RETURNS TRIGGER AS 
+$$
+BEGIN
+    INSERT INTO _possede_genre (i)
+        SELECT i FROM SPLIT_PART(idGenre, ',', 1);
+    RETURNS NULL;
+END;
+$$ language plpgsql
+
 -- Peuplement
 
 create table _temp(
@@ -75,6 +84,11 @@ Wbimport -file=../datasetIMDb.csv
         
 
 -- Triggers
+
+CREATE TRIGGER split_genre_t
+    BEFORE INSERT ON _possede_genre
+    FOR EACH ROW
+    EXECUTE FUNCTION split_genre_f();
 
 -- Views
 
