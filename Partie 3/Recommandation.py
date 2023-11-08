@@ -31,19 +31,9 @@ cur.execute(f"SELECT * FROM {connect.schema}._artiste")
 artistes = pd.DataFrame(cur.fetchall())
 artistes.columns = ['idArtiste', 'nomArtiste']
 
-# Role
+# Roles
 cur.execute(f"SELECT * FROM {connect.schema}._role")
 roles = pd.DataFrame(cur.fetchall())
 roles.columns = ['idFilm', 'idArtiste', 'nomRole']
-
-# Metier
-cur.execute(f"SELECT * FROM {connect.schema}._metier")
-metiers = pd.DataFrame(cur.fetchall())
-metiers.columns = ['idMetier', 'nomMetier']
-
-# Exerce metier
-cur.execute(f"SELECT * FROM {connect.schema}._exerce_metier")
-exerce_metier = pd.DataFrame(cur.fetchall())
-exerce_metier.columns = ['idArtiste', 'idMetier']
 
 print(films)
