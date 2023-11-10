@@ -72,7 +72,7 @@ create table _temp(
     role varchar(20)
 );
 
-WbimpoRT -FILE=../DATASETIMDB.CSV
+WbimpoRT -FILE=../datasetIMDb.csv
         -TABLE=_TEMP
         -DELIMITER=';'
         -QUOTECHAR='"'
