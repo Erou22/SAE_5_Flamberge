@@ -21,10 +21,10 @@ cur.execute(f"SELECT * FROM {connect.schema}._genre")
 genres = pd.DataFrame(cur.fetchall())
 genres.columns = ['idGenre', 'nomGenre']
 
-# Films-Genres
+# Possede-Genres
 cur.execute(f"SELECT * FROM {connect.schema}._possede_genre")
-film_genre = pd.DataFrame(cur.fetchall())
-film_genre.columns = ['idFilm', 'idGenre']
+possede_genres = pd.DataFrame(cur.fetchall())
+possede_genres.columns = ['idGenre', 'idFilm']
 
 # Artistes
 cur.execute(f"SELECT * FROM {connect.schema}._artiste")
@@ -36,4 +36,27 @@ cur.execute(f"SELECT * FROM {connect.schema}._role")
 roles = pd.DataFrame(cur.fetchall())
 roles.columns = ['idFilm', 'idArtiste', 'nomRole']
 
-print(films)
+
+# 
+films_genres = pd.merge(films, possede_genres, on='idFilm')
+films_genres = pd.merge(films_genres, genres, on='idGenre')
+print(films_genres['nomGenre'].value_counts())
+print(films_genres[['idFilm','titre', 'nomGenre']])
+
+films_roles = pd.merge(films, roles, on='idFilm')
+#print(films_roles)
+
+# Supprimer les films avec des genres qui ont moins de 1000 films, car ils ne sont pas assez pertinents
+films_genres = films_genres[films_genres.groupby('nomGenre').nomGenre.transform(len) > 1000]
+print(films_genres['nomGenre'].value_counts())
+
+# Supprimer les films qui n'ont pas de genres ("\N")
+films_genres = films_genres[films_genres['nomGenre'] != '\\N']
+print(films_genres['nomGenre'].value_counts())
+
+# Supprimer dans les autres DataFrames les films qui ont été supprimés
+films = films[films['idFilm'].isin(films_genres['idFilm'])]
+films_roles = films_roles[films_roles['idFilm'].isin(films_genres['idFilm'])]
+possede_genres = possede_genres[possede_genres['idFilm'].isin(films_genres['idFilm'])]
+roles = roles[roles['idFilm'].isin(films_genres['idFilm'])]
+artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
