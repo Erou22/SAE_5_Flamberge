@@ -37,7 +37,10 @@ roles = pd.DataFrame(cur.fetchall())
 roles.columns = ['idFilm', 'idArtiste', 'nomRole']
 
 
-# 
+#
+# Fusionner les DataFrames
+#
+
 films_genres = pd.merge(films, possede_genres, on='idFilm')
 films_genres = pd.merge(films_genres, genres, on='idGenre')
 print(films_genres['nomGenre'].value_counts())
@@ -45,6 +48,10 @@ print(films_genres[['idFilm','titre', 'nomGenre']])
 
 films_roles = pd.merge(films, roles, on='idFilm')
 #print(films_roles)
+
+#
+# Nettoyage des données
+#
 
 # Supprimer les films avec des genres qui ont moins de 1000 films, car ils ne sont pas assez pertinents
 films_genres = films_genres[films_genres.groupby('nomGenre').nomGenre.transform(len) > 1000]
