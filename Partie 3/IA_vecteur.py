@@ -1,43 +1,26 @@
-import math 
+import math
+import Donnees as data
 
-vecteur_items = {
-    "R" : [1,1,0,1,1,1,1,1,0],
-    "J" : [1,1,1,0,1,2,0,0,2],
-    "B" : [1,1,1,1,1,1,0,0,0]
-}
+def transformation_vecteur():
+    vecteur = {}
+    dfGroupeGenre = data.films_genres.groupby("idFilm")["nomGenre"].agg(list).reset_index()
 
-vecteur_users = {
-    "U1" : [1,0,1],
-    "U2" : [1,2,1],
-    "U3" : [1,0,1]
-}
-
-
-note = {
-    "U1" : {
-        "R" : 8,
-        "J" : 9,
-        "B" : 7
-    },
-    "U2" : {
-        "R" : 2,
-        "J" : 3,
-        "B" : 4
-    },
-    "U3" : {
-        "R" : 7.5,
-        "J" : None,
-        "B" : 7
-    }
-}
-
-note_item = {
-    0 : [8,2,7.5],
-    1 : [9,3,None],
-    2 : [7,4,7]
-}
+    for i , row in dfGroupeGenre.iterrows() :
+        idFilm = row["idFilm"]
+        genres = row["nomGenre"]
+        vecteur[idFilm] = []
+        for j in data.genres["nomGenre"] :  
+            if (j in genres) : 
+                vecteur[idFilm].append(1)
+            else : 
+                vecteur[idFilm].append(0)
+    
+    return vecteur
 
 def sim(A,B) :
+    """
+    Similarité sur la distance Euclidienne 
+    """
     somme = 0 
     for i in zip(A,B) : 
         somme += (i[0] - i[1]) * (i[0] - i[1])
@@ -65,8 +48,6 @@ def prediction_user(A,B) :
     
     return somme_sur/somme_sous
 
-print(prediction_user("U3","J"))
-
 
 # Item based
 
@@ -85,4 +66,4 @@ def prediction_item(A,B) :
     
     return somme_sur/somme_sous
 
-print(prediction_item("U3","J"))
+vecteurs = transformation_vecteur()
