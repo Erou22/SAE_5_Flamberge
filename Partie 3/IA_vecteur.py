@@ -17,7 +17,7 @@ def transformation_vecteur():
     
     return vecteur
 
-def sim(A,B) :
+def sim_eucli(A,B) :
     """
     Similarité sur la distance Euclidienne 
     """
@@ -28,7 +28,7 @@ def sim(A,B) :
     if (somme > 0) : 
         rep = 1/math.sqrt(somme)
     else :
-        rep = 0
+        rep = 1
     return rep
 
 # User based
@@ -41,10 +41,10 @@ def prediction_user(A,B) :
     print(liste_users)
     for i in liste_users :  
         # print(i,"  ",note[i][B])
-        simu = sim(vecteur_users[A],vecteur_users[i])
-        # print(simu)
-        somme_sur += note[i][B] * simu
-        somme_sous += simu
+        simi = sim(vecteur_users[A],vecteur_users[i])
+        # print(simi)
+        somme_sur += note[i][B] * simi
+        somme_sous += simi
     
     return somme_sur/somme_sous
 
@@ -59,11 +59,21 @@ def prediction_item(A,B) :
     print(liste_items)
     for i in liste_items :  
         # print(i,"  ",note[A][i])
-        simu = sim(vecteur_items[B],vecteur_items[i])
-        # print(simu)
-        somme_sur += note[A][i] * simu
-        somme_sous += simu
+        simi = sim(vecteur_items[B],vecteur_items[i])
+        # print(simi)
+        somme_sur += note[A][i] * simi
+        somme_sous += simi
     
     return somme_sur/somme_sous
 
 vecteurs = transformation_vecteur()
+
+l = []
+
+print(vecteurs[1])
+
+for i in list(vecteurs.keys())[:100] :
+    print(vecteurs[i])
+    simi = sim_eucli(vecteurs[1], vecteurs[i])
+    print(simi)
+    l.append(simi)
