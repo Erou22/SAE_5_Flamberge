@@ -1,5 +1,6 @@
 import math
 import Donnees as data
+import time
 
 def transformation_vecteur():
     vecteur = {}
@@ -68,12 +69,28 @@ def prediction_item(A,B) :
 
 vecteurs = transformation_vecteur()
 
-l = []
+while 1 : 
+    recommandation = {}
+    nom_film = input("Sur quel film voulez vous faire la recommandation ?\n")
 
-print(vecteurs[1])
+    id_vecteur = data.films_genres.loc[data.films_genres['titre'] == nom_film, 'idFilm'].values[0]
+    
+    print(id_vecteur)
 
-for i in list(vecteurs.keys())[:100] :
-    print(vecteurs[i])
-    simi = sim_eucli(vecteurs[1], vecteurs[i])
-    print(simi)
-    l.append(simi)
+    start = time.time()
+
+    for i in list(vecteurs.keys()) :
+        recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])
+
+    recommandation_trie = dict(sorted(recommandation.items(), key=lambda item: item[1], reverse = True))
+
+    recommandation_trie_test = dict(list(recommandation_trie.items())[:10])
+
+    for i in recommandation_trie_test.keys() : 
+        print(data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0])
+
+    
+    stop = time.time() - start
+
+    print(recommandation_trie_test)
+    print(stop)
