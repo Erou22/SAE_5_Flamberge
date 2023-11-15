@@ -1,2 +1,2 @@
 # SAE_5_Flamberge
-c'est notre projet
+Création d'un système de recommandation 
