@@ -1,3 +1,6 @@
+from numpy import dot
+from numpy.linalg import norm
+
 import math
 import Donnees as data
 import time
@@ -32,8 +35,29 @@ def sim_eucli(A,B) :
         rep = 1
     return rep
 
-# User based
+def sim_cos(A,B) : 
+    """
+    Similarité du cosinus 
+    """
+    return dot(A, B) / (norm(A) * norm(B))
 
+def sim_jaccard(A,B) : 
+    """
+    Similarité : Coefficient de Jaccard 
+    """
+    intersection = sum((a and b) for a, b in zip(A, B))
+    union = sum((a or b) for a, b in zip(A, B))
+
+    # Éviter une division par zéro si les vecteurs sont tous les deux des zéros
+    if union == 0:
+        return 0.0
+
+    # Calculer le coefficient de similarité de Jaccard
+    similarity = intersection / union
+
+    return similarity
+
+# User based
 def prediction_user(A,B) : 
     somme_sur = 0
     somme_sous = 0
@@ -67,30 +91,35 @@ def prediction_item(A,B) :
     
     return somme_sur/somme_sous
 
+
+# Main programme
 vecteurs = transformation_vecteur()
+nom_film = "1"
 
-while 1 : 
-    recommandation = {}
-    nom_film = input("Sur quel film voulez vous faire la recommandation ?\n")
+while nom_film != "-1" : 
+    nom_film = input("Sur quel film voulez vous faire la recommandation (-1 pour stop) ?\n")
 
-    id_vecteur = data.films_genres.loc[data.films_genres['titre'] == nom_film, 'idFilm'].values[0]
-    
-    print(id_vecteur)
+    if nom_film != "-1" :
+        start = time.time()     # chrono
 
-    start = time.time()
+        recommandation = {}
+        id_vecteur = data.films_genres.loc[data.films_genres['titre'] == nom_film, 'idFilm'].values[0]   # Donne l'ID du film selon son titre
+        for i in list(vecteurs.keys()) :
+            recommandation[i] = sim_jaccard(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
 
-    for i in list(vecteurs.keys()) :
-        recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])
+        recommandation_trie = dict(sorted(recommandation.items(), key=lambda item: item[1], reverse = True))  # Trie pour avoir les plus haut taux de similarité en premier
+        recommandation_trie_test = dict(list(recommandation_trie.items())[:10])     # Sélectionne les 10 premiers éléments pour faire la reommandation 
 
-    recommandation_trie = dict(sorted(recommandation.items(), key=lambda item: item[1], reverse = True))
+        # Montre les films 
+        print("------------- Résultats ---------------")
+        for i in recommandation_trie_test.items() : 
+            print(data.films_genres.loc[data.films_genres['idFilm'] == i[0], 'titre'].values[0],
+            "\n ID film : ", i[0],
+            "\n Genre : ", data.films_genres.loc[data.films_genres['idFilm'] == i[0], 'nomGenre'].values,
+            "\n Taux similarité : ", float(i[1]*100)," %\n")
 
-    recommandation_trie_test = dict(list(recommandation_trie.items())[:10])
+        stop = time.time() - start
 
-    for i in recommandation_trie_test.keys() : 
-        print(data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0])
-
-    
-    stop = time.time() - start
-
-    print(recommandation_trie_test)
-    print(stop)
+        print("------------- Stats ---------------\nTemps d'execution : ",stop,"\n")
+        # print(recommandation)
+print("slt :(")
