@@ -81,13 +81,10 @@ def film_titre_proche(dataframe, id_film):
         # Obtenez le titre du film avec l'ID donné
         titre_reference = dataframe.loc[id_film, 'titre']
 
-        # Filtrer les valeurs non nulles et de type str dans la colonne 'titre'
-        films_non_nuls = dataframe[dataframe['titre'].notnull() & dataframe['titre'].apply(lambda x: isinstance(x, str))]
-
         # Exclure le film avec l'ID donné de la liste des films
-        films_non_nuls = films_non_nuls[films_non_nuls.index != id_film]
+        films_non_nuls = dataframe[dataframe.index != id_film]
 
-        # Calculez les distances d'édition avec tous les titres non nuls et de type str
+        # Calculez les distances d'édition avec tous les titres
         films_non_nuls['distance_edit'] = films_non_nuls['titre'].apply(lambda x: distance.levenshtein(titre_reference, str(x)))
 
         # Trouvez l'index du film avec la distance d'édition la plus basse
@@ -97,7 +94,7 @@ def film_titre_proche(dataframe, id_film):
         film_plus_proche = films_non_nuls.loc[index_plus_proche]
 
         # Supprimez la colonne temporaire ajoutée pour éviter des problèmes potentiels
-        films_non_nuls.drop('distance_edit', axis=1, inplace=True)
+        film_plus_proche.drop('distance_edit', inplace=True)
 
         return pd.DataFrame([film_plus_proche])
     except KeyError:
@@ -121,10 +118,8 @@ while True:
 
     if film_trouve is not None:
         df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
-        film_recommende1 = meilleur_film(df_filtre)
-        df_film_recommende = pd.concat([film_recommende1,df_film_recommende])
-        films_recommendes2 = film_aleatoires(df_filtre)
-        df_film_recommende = pd.concat([films_recommendes2,df_film_recommende])
-        film_recommende3 = film_titre_proche(df_filtre,id_film)
-        df_film_recommende = pd.concat([film_recommende3,df_film_recommende])
+        
+        df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
+        df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
+        df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
         print(df_film_recommende)

@@ -1,4 +1,5 @@
 import pandas as pd
+import distance
 
 df = pd.read_csv("Partie 3/clusters.csv", delimiter =",")
 # print(df)
@@ -6,7 +7,9 @@ df = pd.read_csv("Partie 3/clusters.csv", delimiter =",")
 def chercher_film_par_titre(dataframe, titre):
     try:
         dataframe["contains"] = dataframe["titre"].str.contains(titre, case=False)
-        return dataframe[dataframe["contains"] == True]
+        films = dataframe[dataframe["contains"] == True]
+        films['distance_edit'] = films['titre'].apply(lambda x: distance.levenshtein(titre, str(x)))
+        return films.sort_values(by=['distance_edit']).head(5)
     except KeyError:
         print(f"Aucun film trouvé avec le titre {titre}")
         return None
