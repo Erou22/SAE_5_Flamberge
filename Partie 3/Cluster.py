@@ -1,6 +1,8 @@
 import Donnees as data
+import IA_vecteur
 import pandas as pd
 from kmodes.kprototypes import KPrototypes
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 
@@ -16,35 +18,21 @@ dfGenres['nomGenre'] = dfGenres['nomGenre'].apply(lambda x: ','.join(x))
 
 dftout = pd.merge(data.films, dfGenres, on='idFilm')
 
-# Sélectionner les colonnes pertinentes pour le clustering
-df = dftout[['titre', 'note', 'nomGenre']]
-
-# Centrer et réduire les colonnes numériques
-scaler = StandardScaler()
-df[['note']] = scaler.fit_transform(df[['note']])
-
-# Convertir le DataFrame en array
-data_array = df.values
-
-# Colonnes catégorielles
-cat_columns = [0, 2]
-
-# Choisir le nombre de clusters
-n_clusters = 10
+vecteurs = IA_vecteur.vecteurs
 
 # Effectuer le clustering avec K-prototype
-kproto = KPrototypes(n_clusters=n_clusters, init='Cao', n_init=1, verbose=2, random_state=42)
-clusters = kproto.fit_predict(data_array, categorical=cat_columns)
+kmeans = KMeans(n_clusters=35, n_init=200)
+clusters = kmeans.fit_predict(list(vecteurs.values()))
 
 # Choosing optimal K
 # cost = []
-# for i in range(2, 10):
-#     kproto = KPrototypes(n_clusters=i, init='Cao', n_init=1, verbose=2, random_state=42)
-#     kproto.fit_predict(data_array, categorical=cat_columns)
-#     cost.append(kproto.cost_)
+# for i in range(1, 10):
+#     kmeans = KMeans(n_clusters=i, random_state=42)
+#     kmeans.fit_predict(list(vecteurs.values()))
+#     cost.append(kmeans.inertia_)
 
-# # Plot the elbow curve
-# plt.plot(range(2, 10), cost, marker='o')
+# Plot the elbow curve
+# plt.plot(range(1, 10), cost, marker='o')
 # plt.xlabel('Number of clusters (K)')
 # plt.ylabel('Inertia (Cost)')
 # plt.title('Elbow Method for Optimal K')
@@ -53,5 +41,5 @@ clusters = kproto.fit_predict(data_array, categorical=cat_columns)
 # Ajouter les clusters au DataFrame original
 dftout['cluster'] = clusters
 
-# Sauvegarder les clusters dans un fichier CSV
+# # Sauvegarder les clusters dans un fichier CSV
 dftout.to_csv('Partie 3/clusters.csv', index=False)
