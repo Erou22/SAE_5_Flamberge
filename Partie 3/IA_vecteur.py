@@ -1,43 +1,27 @@
-import math 
+import math
+import Donnees as data
+import time
 
-vecteur_items = {
-    "R" : [1,1,0,1,1,1,1,1,0],
-    "J" : [1,1,1,0,1,2,0,0,2],
-    "B" : [1,1,1,1,1,1,0,0,0]
-}
+def transformation_vecteur():
+    vecteur = {}
+    dfGroupeGenre = data.films_genres.groupby("idFilm")["nomGenre"].agg(list).reset_index()
 
-vecteur_users = {
-    "U1" : [1,0,1],
-    "U2" : [1,2,1],
-    "U3" : [1,0,1]
-}
+    for i , row in dfGroupeGenre.iterrows() :
+        idFilm = row["idFilm"]
+        genres = row["nomGenre"]
+        vecteur[idFilm] = []
+        for j in data.genres["nomGenre"] :  
+            if (j in genres) : 
+                vecteur[idFilm].append(1)
+            else : 
+                vecteur[idFilm].append(0)
+    
+    return vecteur
 
-
-note = {
-    "U1" : {
-        "R" : 8,
-        "J" : 9,
-        "B" : 7
-    },
-    "U2" : {
-        "R" : 2,
-        "J" : 3,
-        "B" : 4
-    },
-    "U3" : {
-        "R" : 7.5,
-        "J" : None,
-        "B" : 7
-    }
-}
-
-note_item = {
-    0 : [8,2,7.5],
-    1 : [9,3,None],
-    2 : [7,4,7]
-}
-
-def sim(A,B) :
+def sim_eucli(A,B) :
+    """
+    Similarité sur la distance Euclidienne 
+    """
     somme = 0 
     for i in zip(A,B) : 
         somme += (i[0] - i[1]) * (i[0] - i[1])
@@ -45,7 +29,7 @@ def sim(A,B) :
     if (somme > 0) : 
         rep = 1/math.sqrt(somme)
     else :
-        rep = 0
+        rep = 1
     return rep
 
 # User based
@@ -58,14 +42,12 @@ def prediction_user(A,B) :
     print(liste_users)
     for i in liste_users :  
         # print(i,"  ",note[i][B])
-        simu = sim(vecteur_users[A],vecteur_users[i])
-        # print(simu)
-        somme_sur += note[i][B] * simu
-        somme_sous += simu
+        simi = sim(vecteur_users[A],vecteur_users[i])
+        # print(simi)
+        somme_sur += note[i][B] * simi
+        somme_sous += simi
     
     return somme_sur/somme_sous
-
-print(prediction_user("U3","J"))
 
 
 # Item based
@@ -78,11 +60,37 @@ def prediction_item(A,B) :
     print(liste_items)
     for i in liste_items :  
         # print(i,"  ",note[A][i])
-        simu = sim(vecteur_items[B],vecteur_items[i])
-        # print(simu)
-        somme_sur += note[A][i] * simu
-        somme_sous += simu
+        simi = sim(vecteur_items[B],vecteur_items[i])
+        # print(simi)
+        somme_sur += note[A][i] * simi
+        somme_sous += simi
     
     return somme_sur/somme_sous
 
-print(prediction_item("U3","J"))
+vecteurs = transformation_vecteur()
+
+while 1 : 
+    recommandation = {}
+    nom_film = input("Sur quel film voulez vous faire la recommandation ?\n")
+
+    id_vecteur = data.films_genres.loc[data.films_genres['titre'] == nom_film, 'idFilm'].values[0]
+    
+    print(id_vecteur)
+
+    start = time.time()
+
+    for i in list(vecteurs.keys()) :
+        recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])
+
+    recommandation_trie = dict(sorted(recommandation.items(), key=lambda item: item[1], reverse = True))
+
+    recommandation_trie_test = dict(list(recommandation_trie.items())[:10])
+
+    for i in recommandation_trie_test.keys() : 
+        print(data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0])
+
+    
+    stop = time.time() - start
+
+    print(recommandation_trie_test)
+    print(stop)
