@@ -7,6 +7,7 @@ print(df)
 
 id_film="1"
 
+# Fixe l'index sur l'ID du film
 df.set_index('idFilm', inplace=True)
 
 # Recherche de film par ID

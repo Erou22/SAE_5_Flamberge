@@ -24,14 +24,14 @@ vecteurs = IA_vecteur.vecteurs
 kmeans = KMeans(n_clusters=35, n_init=200)
 clusters = kmeans.fit_predict(list(vecteurs.values()))
 
-# Choosing optimal K
+# Inertia
 # cost = []
 # for i in range(1, 10):
 #     kmeans = KMeans(n_clusters=i, random_state=42)
 #     kmeans.fit_predict(list(vecteurs.values()))
 #     cost.append(kmeans.inertia_)
 
-# Plot the elbow curve
+# Afficher le graphique de la méthode du coude
 # plt.plot(range(1, 10), cost, marker='o')
 # plt.xlabel('Number of clusters (K)')
 # plt.ylabel('Inertia (Cost)')
@@ -41,5 +41,5 @@ clusters = kmeans.fit_predict(list(vecteurs.values()))
 # Ajouter les clusters au DataFrame original
 dftout['cluster'] = clusters
 
-# # Sauvegarder les clusters dans un fichier CSV
+# Sauvegarder les clusters dans un fichier CSV
 dftout.to_csv('Partie 3/clusters.csv', index=False)
