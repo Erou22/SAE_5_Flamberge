@@ -1,38 +1,45 @@
 import Donnees as data
+import IA_vecteur
 import pandas as pd
 from kmodes.kprototypes import KPrototypes
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-
-# Chargement des données
-df = data.films_genres
-
 from sklearn.preprocessing import StandardScaler
 
-# Select relevant columns for clustering (excluding 'annee')
-df = data.films_genres[['titre', 'note', 'nbVotes', 'nomGenre']]
+# Chargement des données
 
-# Standardize numerical columns
-scaler = StandardScaler()
-df[['note', 'nbVotes']] = scaler.fit_transform(df[['note', 'nbVotes']])
+dfGenres = data.films_genres.groupby('idFilm')['nomGenre'].agg(list).reset_index()
 
-# Convert DataFrame to array for K-prototype
-data_array = df.values
+# Trier les genres par ordre alphabétique
+dfGenres['nomGenre'] = dfGenres['nomGenre'].apply(lambda x: sorted(x))
 
-# Specify categorical column indices
-cat_columns = [0, 3]  # Assuming 'titre' and 'nomGenre' are categorical columns
+# Convertir la liste de genres en chaîne de caractères
+dfGenres['nomGenre'] = dfGenres['nomGenre'].apply(lambda x: ','.join(x))
 
-# Choose the number of clusters (replace n_clusters with your desired number)
-n_clusters = 10
+dftout = pd.merge(data.films, dfGenres, on='idFilm')
 
-# Perform clustering with K-prototype
-kproto = KPrototypes(n_clusters=n_clusters, init='Cao', n_init=5, verbose=2, random_state=42)
-clusters = kproto.fit_predict(data_array, categorical=cat_columns)
+vecteurs = IA_vecteur.vecteurs
 
-# Add the cluster labels to the original DataFrame
-data.films_genres['cluster'] = clusters
+# Effectuer le clustering avec K-prototype
+kmeans = KMeans(n_clusters=35, n_init=200)
+clusters = kmeans.fit_predict(list(vecteurs.values()))
 
-# Display the resulting DataFrame with cluster labels
-print(data.films_genres[['titre', 'note', 'nbVotes', 'nomGenre', 'cluster']])
+# Inertia
+# cost = []
+# for i in range(1, 10):
+#     kmeans = KMeans(n_clusters=i, random_state=42)
+#     kmeans.fit_predict(list(vecteurs.values()))
+#     cost.append(kmeans.inertia_)
 
-# Save the resulting DataFrame to a CSV file
-data.films_genres.to_csv('clusters.csv', index=False)
+# Afficher le graphique de la méthode du coude
+# plt.plot(range(1, 10), cost, marker='o')
+# plt.xlabel('Number of clusters (K)')
+# plt.ylabel('Inertia (Cost)')
+# plt.title('Elbow Method for Optimal K')
+# plt.show()
+
+# Ajouter les clusters au DataFrame original
+dftout['cluster'] = clusters
+
+# Sauvegarder les clusters dans un fichier CSV
+dftout.to_csv('Partie 3/clusters.csv', index=False)
