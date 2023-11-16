@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib .pyplot as plt
+from Recherche import select_id_film
 
 df = pd.read_csv("Partie 3/clusters.csv", delimiter =",")
 
@@ -82,21 +83,21 @@ def film_titre_proche(dataframe, id_film):
         titre_reference = dataframe.loc[id_film, 'titre']
 
         # Exclure le film avec l'ID donné de la liste des films
-        films_non_nuls = dataframe[dataframe.index != id_film]
+        films = dataframe[dataframe.index != id_film].copy()
 
         # Calculez les distances d'édition avec tous les titres
-        films_non_nuls['distance_edit'] = films_non_nuls['titre'].apply(lambda x: distance.levenshtein(titre_reference, str(x)))
+        films['distance_edit'] = films['titre'].apply(lambda x: distance.levenshtein(titre_reference, str(x)))
 
         # Trouvez l'index du film avec la distance d'édition la plus basse
-        index_plus_proche = films_non_nuls['distance_edit'].idxmin()
+        index_plus_proche = films['distance_edit'].idxmin()
 
         # Récupérez le film correspondant
-        film_plus_proche = films_non_nuls.loc[index_plus_proche]
+        films_plus_proche = films.loc[index_plus_proche].copy()
 
         # Supprimez la colonne temporaire ajoutée pour éviter des problèmes potentiels
-        film_plus_proche.drop('distance_edit', inplace=True)
+        films_plus_proche.drop('distance_edit', inplace=True)
 
-        return pd.DataFrame([film_plus_proche])
+        return pd.DataFrame([films_plus_proche])
     except KeyError:
         print(f"Aucun film trouvé avec l'ID {id_film}")
         return None
@@ -105,21 +106,21 @@ def film_titre_proche(dataframe, id_film):
 
 # Programme principal
 
-while True:
+while id_film != "-1":
     df_film_recommende= pd.DataFrame()
-    id_film = input("Sur quel film voulez-vous faire la recommandation (id) ? (Entrez -1 pour quitter)\n")
+    # id_film = input("Sur quel film voulez-vous faire la recommandation (id) ? (Entrez -1 pour quitter)\n")
+    id_film = select_id_film()
 
-    if id_film == "-1":
-        break
+    if id_film != "-1":
+        id_film = int(id_film)  # Convertissez l'ID du film en entier
 
-    id_film = int(id_film)  # Convertissez l'ID du film en entier
+        film_trouve = chercher_film_par_id(df, id_film)
 
-    film_trouve = chercher_film_par_id(df, id_film)
-
-    if film_trouve is not None:
-        df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
-        
-        df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
-        df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
-        df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
-        print(df_film_recommende)
+        if film_trouve is not None:
+            df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
+            
+            df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
+            df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
+            df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
+            print("------------- Recommandations ---------------")
+            print(df_film_recommende, "\n")
