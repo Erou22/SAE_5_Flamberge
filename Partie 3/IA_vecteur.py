@@ -97,7 +97,7 @@ def recommandation(nom_film) :
     start = time.time()     # chrono
 
     recommandation = {}
-    id_vecteur = data.films_genres.loc[data.films_genres['titre'] == nom_film, 'idFilm'].values[0]   # Donne l'ID du film selon son titreS
+    id_vecteur = data.films_genres.loc[data.films_genres['titre'].str.lower() == nom_film.lower(), 'idFilm'].values[0]   # Donne l'ID du film selon son titreS
     for i in list(vecteurs.keys()) :
         recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
 
