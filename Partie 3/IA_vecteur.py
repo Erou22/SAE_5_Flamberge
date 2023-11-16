@@ -9,19 +9,20 @@ import time
 
 def transformation_vecteur():
     vecteur = {}
-    dfGroupeGenre = data.films_genres.groupby("idFilm")["nomGenre"].agg(list).reset_index()
+    df_groupe_genre = data.films_genres.groupby("idFilm")["nomGenre"].agg(list).reset_index()   # liste des films avec leurs genres sous forme de liste
 
-    for i , row in dfGroupeGenre.iterrows() :
+    for i , row in df_groupe_genre.iterrows() :     # parcours le dataframe des films liés à leurs genres
         idFilm = row["idFilm"]
         genres = row["nomGenre"]
         vecteur[idFilm] = []
-        for j in data.genres["nomGenre"] :  
+        for j in data.genres["nomGenre"] :          # parcours le dataframe des genres
             if (j in genres) : 
                 vecteur[idFilm].append(1)
             else : 
                 vecteur[idFilm].append(0)
     
     return vecteur
+
 
 def sim_eucli(A,B) :
     """
@@ -37,11 +38,13 @@ def sim_eucli(A,B) :
         rep = 1
     return rep
 
+
 def sim_cos(A,B) : 
     """
     Similarité du cosinus 
     """
     return dot(A, B) / (norm(A) * norm(B))
+
 
 def sim_jaccard(A,B) : 
     """
@@ -50,17 +53,20 @@ def sim_jaccard(A,B) :
     intersection = sum((a and b) for a, b in zip(A, B))
     union = sum((a or b) for a, b in zip(A, B))
 
-    # Éviter une division par zéro si les vecteurs sont tous les deux des zéros
+    # Éviter une division par zéro
     if union == 0:
         return 0.0
 
-    # Calculer le coefficient de similarité de Jaccard
-    similarity = intersection / union
+    return intersection / union
 
-    return similarity
 
-# User based
+# User based - ici pas utilisé dans le script 
 def prediction_user(A,B) : 
+    """
+    vecteur_users : à remplacer par le vecteur des users
+    sim :  à remplacer par la fonction de similraité
+    note :  à remplacer par les notes mis par users 
+    """
     somme_sur = 0
     somme_sous = 0
     liste_users = list(vecteur_users.keys())
@@ -76,9 +82,14 @@ def prediction_user(A,B) :
     return somme_sur/somme_sous
 
 
-# Item based
+# Item based - ici pas utilisé dans le script 
 
 def prediction_item(A,B) : 
+    """
+    vecteur_items : à remplacer par le vecteur des items
+    sim :  à remplacer par la fonction de similraité
+    note :  à remplacer par les notes des items 
+    """
     somme_sur = 0
     somme_sous = 0
     liste_items = list(vecteur_items.keys())
@@ -92,6 +103,8 @@ def prediction_item(A,B) :
         somme_sous += simi
     
     return somme_sur/somme_sous
+
+
 
 def recommandation(nom_film) :
     start = time.time()     # chrono
@@ -145,26 +158,23 @@ def recommandation(nom_film) :
     stop = time.time() - start
 
     print("------------- Stats ---------------\nTemps d'execution : ",stop,"\n")
-    # print(recommandation)
 
-# Main programme
 
-# Main programme
 vecteurs = transformation_vecteur()
-nom_film = "1"
+# Main programme
+if __name__ == '__main__' : 
+    nom_film = "1"
 
-while nom_film != "-1" : 
-    nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
+    while nom_film != "-1" : 
+        nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
 
-    if nom_film != "-1" :
-        recommandation(nom_film)
-    
-    else : 
-        rep = input("C'est un film ? (y/n) ?\n")
-        if (rep == "y") : 
-            print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
+        if nom_film != "-1" :
             recommandation(nom_film)
-        else :
-            print("Au revoir :(")
-
-nom_film = "1"
+        
+        else : 
+            rep = input("C'est un film ? (y/n) ?\n")
+            if (rep == "y") : 
+                print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
+                recommandation(nom_film)        # retire si on ne veut pas d'erreur
+            else :
+                print("Au revoir :(")
