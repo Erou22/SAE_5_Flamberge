@@ -21,7 +21,7 @@ dftout = pd.merge(data.films, dfGenres, on='idFilm')
 vecteurs = IA_vecteur.vecteurs
 
 # Effectuer le clustering avec K-prototype
-kmeans = KMeans(n_clusters=35, n_init=200)
+kmeans = KMeans(n_clusters=35)
 clusters = kmeans.fit_predict(list(vecteurs.values()))
 
 # Inertia
