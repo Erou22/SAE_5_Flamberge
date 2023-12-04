@@ -4,8 +4,8 @@ import numpy as np
 from sklearn.cluster import KMeans
 import matplotlib .pyplot as plt
 from Recherche import select_id_film
-
-df = pd.read_csv("~/Documents/SAE/Repo/SAE_5_Flamberge/Partie_3/clusters.csv", delimiter =",")
+from connect import clusters_path
+df = pd.read_csv(clusters_path, delimiter =",")
 
 df_film_recommende= pd.DataFrame()
 
@@ -149,3 +149,5 @@ def getFilm(id_film):
         return film
     except KeyError:
         return "Aucun film ne possède cet identifiant"
+    
+getRecommendation(1)

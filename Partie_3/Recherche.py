@@ -1,7 +1,8 @@
 import pandas as pd
 import distance
+from connect import clusters_path
 
-df = pd.read_csv("~/Documents/SAE/Repo/SAE_5_Flamberge/Partie_3/clusters.csv", delimiter =",")
+df = pd.read_csv(clusters_path, delimiter =",")
 # print(df)
 
 def chercher_film_par_titre(dataframe, titre):
