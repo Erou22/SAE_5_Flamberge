@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 import matplotlib .pyplot as plt
 from Recherche import select_id_film
 
-df = pd.read_csv("Partie 3/clusters.csv", delimiter =",")
+df = pd.read_csv("~/Documents/SAE/Repo/SAE_5_Flamberge/Partie_3/clusters.csv", delimiter =",")
 
 df_film_recommende= pd.DataFrame()
 
@@ -105,22 +105,47 @@ def film_titre_proche(dataframe, id_film):
 
 
 # Programme principal
+def main():
+    while id_film != "-1":
+        df_film_recommende= pd.DataFrame()
+        # id_film = input("Sur quel film voulez-vous faire la recommandation (id) ? (Entrez -1 pour quitter)\n")
+        id_film = select_id_film()
 
-while id_film != "-1":
+        if id_film != "-1":
+            id_film = int(id_film)  # Convertissez l'ID du film en entier
+
+            film_trouve = chercher_film_par_id(df, id_film)
+
+            if film_trouve is not None:
+                df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
+
+                df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
+                df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
+                df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
+                print("------------- Recommandations ---------------")
+                print(df_film_recommende, "\n")
+
+
+#Fonctions pour API
+
+
+
+def getRecommendation(id_film):
     df_film_recommende= pd.DataFrame()
-    # id_film = input("Sur quel film voulez-vous faire la recommandation (id) ? (Entrez -1 pour quitter)\n")
-    id_film = select_id_film()
-
-    if id_film != "-1":
-        id_film = int(id_film)  # Convertissez l'ID du film en entier
-
-        film_trouve = chercher_film_par_id(df, id_film)
-
-        if film_trouve is not None:
-            df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
-            
-            df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
-            df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
-            df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
-            print("------------- Recommandations ---------------")
-            print(df_film_recommende, "\n")
+    id_film = int(id_film)  # Convertissez l'ID du film en entier
+    film_trouve = chercher_film_par_id(df, id_film)
+    if film_trouve is not None:
+        df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
+        df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
+        df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
+        df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
+        return df_film_recommende
+    else :
+        return "Aucun film ne possède cet identifiant"
+    
+def getFilm(id_film):
+    try:
+        film = df.loc[id_film]
+        return film
+    except KeyError:
+        return "Aucun film ne possède cet identifiant"

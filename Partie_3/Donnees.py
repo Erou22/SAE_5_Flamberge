@@ -67,3 +67,15 @@ films_roles = films_roles[films_roles['idFilm'].isin(films_genres['idFilm'])]
 possede_genres = possede_genres[possede_genres['idFilm'].isin(films_genres['idFilm'])]
 roles = roles[roles['idFilm'].isin(films_genres['idFilm'])]
 artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
+
+
+#Fonctions pour API
+
+
+def getActeurs(id_film):
+    getActeurs=[]
+    if id_film in films_roles['idFilm']:
+        
+    else:
+        return "Aucun film ne possède cet identifiant"
+
