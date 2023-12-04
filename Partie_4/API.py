@@ -115,3 +115,17 @@ def read_realisteur(item_id: int):
     else:
         # Handle the case where getActeurs returned an error message
         return JSONResponse(content={"error": directors_data}, media_type="application/json")
+    
+# Retourne la fiche complète d'un film
+@app.get("/filmComplet/{item_id}")
+
+def read_filmComplet(item_id: int):
+    film_data = Donnees.getFilmComplet(item_id)
+    
+    if isinstance(film_data, list):
+        # Create a dictionary with the list of actors
+        result_dict = {"film": film_data}
+        return JSONResponse(content=result_dict, media_type="application/json")
+    else:
+        # Handle the case where getActeurs returned an error message
+        return JSONResponse(content={"error": film_data}, media_type="application/json")

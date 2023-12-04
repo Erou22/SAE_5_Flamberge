@@ -116,3 +116,16 @@ def getRealisateurs(id_film):
         return "Aucun film ne possède cet identifiant"
 
 
+def getFilmComplet(id_film):
+    if id_film in films['idFilm'].unique():
+        film = films[films['idFilm'] == id_film]
+                
+        genresFilm = films_genres[films_genres['idFilm'] == id_film]['nomGenre'].to_list()
+        
+        filmComplet = film.to_dict(orient="records")
+        filmComplet[0]['genres'] = genresFilm
+        filmComplet[0]['artistes'] = {"Acteurs/actrices": getActeurs(id_film), "Réalisateur": getRealisateurs(id_film)}
+        return filmComplet
+    else:
+        return "Aucun film ne possède cet identifiant"
+    
