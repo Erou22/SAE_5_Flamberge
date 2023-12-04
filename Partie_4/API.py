@@ -1,3 +1,4 @@
+# python3 -m uvicorn API:app
 import pandas as pd
 import sys
 import path
