@@ -149,5 +149,3 @@ def getFilm(id_film):
         return film
     except KeyError:
         return "Aucun film ne possède cet identifiant"
-    
-getRecommendation(1)

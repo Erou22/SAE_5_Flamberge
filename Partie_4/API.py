@@ -4,8 +4,8 @@ import path
 
 sys.path.append(str(path.partie_3_path))
 
-import Recommendation  # Assuming Recommendation is the module inside Partie_3 directory
-
+import Recommendation
+import Donnees
 
 from typing import Union
 from fastapi import FastAPI
@@ -83,3 +83,34 @@ def read_film(item_id: int):
         }
         
         return JSONResponse(content=result_dict, media_type="application/json")
+
+
+
+# Retourne tous les acteurs d'un film
+@app.get("/acteurs/{item_id}")
+
+def read_acteurs(item_id: int):
+    actors_data = Donnees.getActeurs(item_id)
+    
+    if isinstance(actors_data, list):
+        # Create a dictionary with the list of actors
+        result_dict = {"actors": actors_data}
+        return JSONResponse(content=result_dict, media_type="application/json")
+    else:
+        # Handle the case where getActeurs returned an error message
+        return JSONResponse(content={"error": actors_data}, media_type="application/json")
+    
+
+# Retourne tous les acteurs d'un film
+@app.get("/realisateur/{item_id}")
+
+def read_realisteur(item_id: int):
+    directors_data = Donnees.getRealisateurs(item_id)
+    
+    if isinstance(directors_data, list):
+        # Create a dictionary with the list of actors
+        result_dict = {"director": directors_data}
+        return JSONResponse(content=result_dict, media_type="application/json")
+    else:
+        # Handle the case where getActeurs returned an error message
+        return JSONResponse(content={"error": directors_data}, media_type="application/json")

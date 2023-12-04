@@ -73,9 +73,46 @@ artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
 
 
 def getActeurs(id_film):
-    getActeurs=[]
-    if id_film in films_roles['idFilm']:
-        
+    if id_film in films_roles['idFilm'].unique():
+        # Filter the DataFrame based on the provided id_film and roles containing "actor" or "actress"
+        actors_data = films_roles[
+            (films_roles['idFilm'] == id_film) & 
+            (films_roles['nomRole'].str.contains('actor|actress', case=False))
+        ]
+
+        # Merge with the "artistes" DataFrame
+        merged_result = pd.merge(actors_data, artistes, on="idArtiste", how="left")
+
+        if merged_result.empty:
+            return "Aucun acteur ou actrice n'a été trouvé pour ce film."
+        else:
+            # Extract relevant fields from the merged DataFrame
+            actors_list = merged_result[["idArtiste", "nomArtiste", "nomRole"]].to_dict(orient="records")
+
+            return actors_list
     else:
         return "Aucun film ne possède cet identifiant"
+
+
+def getRealisateurs(id_film):
+    if id_film in films_roles['idFilm'].unique():
+        # Filter the DataFrame based on the provided id_film and role "director"
+        realisateurs_data = films_roles[
+            (films_roles['idFilm'] == id_film) & 
+            (films_roles['nomRole'].str.contains('director', case=False))
+        ]
+
+        # Merge with the "artistes" DataFrame
+        merged_result = pd.merge(realisateurs_data, artistes, on="idArtiste", how="left")
+
+        if merged_result.empty:
+            return "Aucun réalisateur n'a été trouvé pour ce film."
+        else:
+            # Extract relevant fields from the merged DataFrame
+            realisateurs_list = merged_result[["idArtiste", "nomArtiste", "nomRole"]].to_dict(orient="records")
+
+            return realisateurs_list
+    else:
+        return "Aucun film ne possède cet identifiant"
+
 
