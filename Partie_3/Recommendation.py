@@ -149,5 +149,11 @@ def getFilm(id_film):
         return film
     except KeyError:
         return "Aucun film ne possède cet identifiant"
+
+def getAllFilm():
+    try:
+        return df
+    except KeyError:
+        return "Aucun film"
     
-getRecommendation(1)
+# print(getAllFilm())

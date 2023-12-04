@@ -15,18 +15,13 @@ from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
-
+# Base si l'API est accessible
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"L'API": "Fonctione"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
-#Retourne les recommendations d'un film
+# Retourne les recommendations d'un film
 @app.get("/recommendation/{item_id}")
 def read_recommendation(item_id: int):
     recommendations_data = Recommendation.getRecommendation(item_id)
@@ -53,9 +48,39 @@ def read_recommendation(item_id: int):
         
         return JSONResponse(content=result_dict, media_type="application/json")
     
+# Retourne les films
+@app.get("/film/")
+def read_film():
+    film_data = Recommendation.getAllFilm()
+    if isinstance(film_data, str):
+        # Handle the case where getFilm returned an error message
+        return JSONResponse(content={"error": film_data}, media_type="application/json")
+    
+    else : 
+        all_film = []
+        
+        for _, row in film_data.iterrows() :
+            films_dict = {
+                "titre": row["titre"],
+                "annee": row["annee"],
+                "note": row["note"],
+                "nbVotes": row["nbVotes"],
+                "nomGenre": row["nomGenre"],
+                "cluster": row["cluster"]
+            }
+
+            all_film.append(films_dict)
+            
+        out = {"films" : all_film}
+        
+        return JSONResponse(content=out, media_type="application/json")
+        
 
 
-#Retourne un film
+    return all_films
+
+
+# Retourne un film
 @app.get("/film/{item_id}")
 def read_film(item_id: int):
     # Assuming Recommendation.getFilm(item_id) returns a Pandas Series or a string
