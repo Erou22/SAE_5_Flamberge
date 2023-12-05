@@ -11,6 +11,7 @@ import Recommendation  # Assuming Recommendation is the module inside Partie_3 d
 from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 
 app = FastAPI()
@@ -55,25 +56,8 @@ def read_film():
     if isinstance(film_data, str):
         # Handle the case where getFilm returned an error message
         return JSONResponse(content={"error": film_data}, media_type="application/json")
-    
     else : 
-        all_film = []
-        
-        for _, row in film_data.iterrows() :
-            films_dict = {
-                "titre": row["titre"],
-                "annee": row["annee"],
-                "note": row["note"],
-                "nbVotes": row["nbVotes"],
-                "nomGenre": row["nomGenre"],
-                "cluster": row["cluster"]
-            }
-
-            all_film.append(films_dict)
-            
-        out = {"films" : all_film}
-        
-        return JSONResponse(content=out, media_type="application/json")
+        return JSONResponse(content=film_data.to_dict(orient="records"), media_type="application/json")
         
 
 
