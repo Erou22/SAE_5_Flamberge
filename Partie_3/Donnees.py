@@ -132,7 +132,7 @@ def getFilmComplet(id_film):
 
 def getFilmsAvecActeur(id_acteur):
     if id_acteur in artistes['idArtiste'].unique():
-        if (films_roles['idArtiste'] == id_acteur & (films_roles['nomRole'].str.contains('actor', case=False) | films_roles['nomRole'].str.contains('actress', case=False))).any():
+        if ((films_roles['idArtiste'] == id_acteur) & ((films_roles['nomRole'].str.contains('actor', case=False)) | (films_roles['nomRole'].str.contains('actress', case=False)))).any():
             films_data = films_roles[
                 (films_roles['idArtiste'] == id_acteur) & 
                 ((films_roles['nomRole'].str.contains('actor', case=False)) | 
@@ -148,6 +148,5 @@ def getFilmsAvecActeur(id_acteur):
     else:
         return "Aucun artiste ne possède cet identifiant."
         
-# print(getFilmsAvecActeur(14370))
-# if (films_roles['nomRole'].str.contains('actor', case=False) and films_roles['nomRole'].str.contains('actress', case=False).any()):
-#     print(films_roles['nomRole'].str.contains('actor', case=False) | films_roles['nomRole'].str.contains('actress', case=False))
+#print(getFilmsAvecActeur(171614))
+print(getFilmsAvecActeur(65977))

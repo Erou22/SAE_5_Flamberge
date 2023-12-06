@@ -129,3 +129,17 @@ def read_filmComplet(item_id: int):
     else:
         # Handle the case where getActeurs returned an error message
         return JSONResponse(content={"error": film_data}, media_type="application/json")
+    
+# Retourne tous les films d'un acteur
+@app.get("/filmsAvecActeur/{item_id}")
+
+def read_filmsAvecActeur(item_id: int):
+    films_data = Donnees.getFilmsAvecActeur(item_id)
+    
+    if isinstance(films_data, list):
+        # Create a dictionary with the list of actors
+        result_dict = {"films": films_data}
+        return JSONResponse(content=result_dict, media_type="application/json")
+    else:
+        # Handle the case where getActeurs returned an error message
+        return JSONResponse(content={"error": films_data}, media_type="application/json")
