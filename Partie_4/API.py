@@ -132,7 +132,7 @@ def read_filmComplet(item_id: int):
         return JSONResponse(content={"error": film_data}, media_type="application/json")
     
 # Retourne tous les films d'un acteur
-@app.get("/filmsAvecActeur/{item_id}")
+@app.get("/films/acteur/{item_id}")
 
 def read_filmsAvecActeur(item_id: int):
     films_data = Donnees.getFilmsAvecActeur(item_id)
@@ -147,7 +147,7 @@ def read_filmsAvecActeur(item_id: int):
     
 
 # Retourne tous les films d'un réalisateur
-@app.get("/filmsAvecRealisateur/{item_id}")
+@app.get("/films/realisateur/{item_id}")
 
 def read_filmsAvecRealisateur(item_id: int):
     films_data = Donnees.getFilmsAvecRealisateur(item_id)
