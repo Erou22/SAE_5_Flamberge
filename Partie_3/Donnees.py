@@ -192,12 +192,22 @@ def getFilmsAvecRealisateur(id_real):
 # print(getFilmsAvecRealisateur(55470))
 
 def getFilmsGenre(nom_genre):
-    if (films_genres['nomGenre'] == nom_genre).any():
-        films_data = films_genres[(films_genres['nomGenre'] == nom_genre)]
+    dfGenres = films_genres.groupby('idFilm')['nomGenre'].agg(list).reset_index()
+    data=pd.merge(films, dfGenres, on="idFilm", how="left")
+    
+    # Trier les genres par ordre alphabétique
+    data['nomGenre'] = data['nomGenre'].apply(lambda x: sorted(x))
+    # Convertir la liste de genres en chaîne de caractères
+    data['nomGenre'] = data['nomGenre'].apply(lambda x: ','.join(x))
+
+    if (data['nomGenre'] == nom_genre).any():
+        films_data = data[data['nomGenre'].str.contains(nom_genre)]
+        
         
         if films_data.empty:
             return "Aucun film n'a été trouvé pour ce genre."
         else:
-            return films_data[["idFilm", "titre", "annee", "note", "nbVotes","nomGenre"]].to_dict(orient="records")
+            films_data=films_data.rename(columns={'nomGenre': 'Genres'})
+            return films_data.to_dict(orient="records")
     else:
         return "Le genre n'existe pas dans la liste des films"
