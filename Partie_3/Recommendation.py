@@ -80,7 +80,7 @@ def film_aleatoires(dataframe):
 def film_titre_proche(dataframe, id_film):
     try:
         # Obtenez le titre du film avec l'ID donné
-        titre_reference = dataframe.loc[id_film, 'titre']
+        titre_reference = str(dataframe.loc[id_film, 'titre'])
 
         # Exclure le film avec l'ID donné de la liste des films
         films = dataframe[dataframe.index != id_film].copy()
