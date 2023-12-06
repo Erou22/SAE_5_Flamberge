@@ -128,7 +128,7 @@ def main():
 
 #Fonctions pour API
 
-
+# df = données chargées au début du programme depuis le csv qui détermine les clusters
 
 def getRecommendation(id_film):
     df_film_recommende= pd.DataFrame()
@@ -149,3 +149,12 @@ def getFilm(id_film):
         return film
     except KeyError:
         return "Aucun film ne possède cet identifiant"
+
+def getAllFilm():
+    try:
+        films = df
+        return films
+    except KeyError:
+        return "Aucun film"
+    
+# print(getAllFilm())

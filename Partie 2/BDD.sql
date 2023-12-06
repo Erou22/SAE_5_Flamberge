@@ -133,3 +133,5 @@ CREATE OR REPLACE VIEW fartiste AS
   SELECT * from _film NATURAL JOIN _role NATURAL JOIN _artiste NATURAL JOIN _exerce_metier NATURAL JOIN _metier;
   
 SELECT titre, anneeSortie, note, nbVotes, nomRole, nomArtiste, nomMetier FROM fartiste;
+
+SELECT idArtiste, nomArtiste, nomRole FROM fartiste WHERE nomArtiste like '%Christopher Nolan%';
