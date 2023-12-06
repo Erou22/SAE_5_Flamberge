@@ -23,7 +23,7 @@ def read_root():
 
 
 # Retourne les recommendations d'un film
-@app.get("/recommendation/{item_id}")
+@app.get("/recommendations/{item_id}")
 def read_recommendation(item_id: int):
     recommendations_data = Recommendation.getRecommendation(item_id)
     
@@ -75,7 +75,7 @@ def read_film():
 
 
 # Retourne un film
-@app.get("/film/{item_id}")
+@app.get("/films/{item_id}")
 def read_film(item_id: int):
     # Assuming Recommendation.getFilm(item_id) returns a Pandas Series or a string
     film_data = Recommendation.getFilm(item_id)
