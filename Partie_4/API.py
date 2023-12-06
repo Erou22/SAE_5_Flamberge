@@ -11,23 +11,19 @@ import Donnees
 from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 
 app = FastAPI()
 
-
+# Base si l'API est accessible
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"L'API": "Fonctione"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
-#Retourne les recommendations d'un film
-@app.get("/recommendation/{item_id}")
+# Retourne les recommendations d'un film
+@app.get("/recommendations/{item_id}")
 def read_recommendation(item_id: int):
     recommendations_data = Recommendation.getRecommendation(item_id)
     
@@ -39,12 +35,11 @@ def read_recommendation(item_id: int):
         recommendations_list = []
         for _, row in recommendations_data.iterrows():
             recommendation_dict = {
-                "titre": row["titre"],
+                "titre": str(row["titre"]),
                 "annee": row["annee"],
                 "note": row["note"],
                 "nbVotes": row["nbVotes"],
-                "nomGenre": row["nomGenre"],
-                "cluster": row["cluster"]
+                "nomGenre": row["nomGenre"]
             }
             recommendations_list.append(recommendation_dict)
         
@@ -53,10 +48,34 @@ def read_recommendation(item_id: int):
         
         return JSONResponse(content=result_dict, media_type="application/json")
     
+# Retourne tous les films
+@app.get("/films/")
+def read_film():
+    film_data = Recommendation.getAllFilm()
+    if isinstance(film_data, str):
+        return JSONResponse(content={"error": film_data}, media_type="application/json")
+    else : 
+        all_film_list = []
+        for id, row in film_data.iterrows():
+            all_film_dict = {
+                "idFilm" : id,
+                "titre": str(row["titre"]),
+                "annee": row["annee"],
+                "note": row["note"],
+                "nbVotes": row["nbVotes"],
+                "nomGenre": row["nomGenre"]
+            }
+            all_film_list.append(all_film_dict)
+        
+        # Create a dictionary with the recommendations
+        result_dict = {"Films": all_film_list}
+        
+        return JSONResponse(content=result_dict, media_type="application/json")
 
 
-#Retourne un film
-@app.get("/film/{item_id}")
+
+# Retourne un film
+@app.get("/films/{item_id}")
 def read_film(item_id: int):
     # Assuming Recommendation.getFilm(item_id) returns a Pandas Series or a string
     film_data = Recommendation.getFilm(item_id)
@@ -67,11 +86,10 @@ def read_film(item_id: int):
     else:
         # Extract relevant fields and convert to native Python types
         annee = film_data.get("annee", None).item()
-        titre = str(film_data.get("titre", None))
+        titre = str(str(film_data.get("titre", None)))
         note = film_data.get("note", None).item()
         nbVotes = film_data.get("nbVotes", None).item()
         nomGenre = film_data.get("nomGenre", None)
-        cluster = film_data.get("cluster", None).item()
         
         # Create a dictionary with the selected fields
         result_dict = {
@@ -80,8 +98,7 @@ def read_film(item_id: int):
             "titre": titre,
             "note": note,
             "nbVotes": nbVotes,
-            "nomGenre": nomGenre,
-            "cluster": cluster
+            "nomGenre": nomGenre
         }
         
         return JSONResponse(content=result_dict, media_type="application/json")
