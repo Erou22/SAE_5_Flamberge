@@ -75,6 +75,7 @@ def read_film(item_id: int):
         
         # Create a dictionary with the selected fields
         result_dict = {
+            "id film": item_id,
             "annee": annee,
             "titre": titre,
             "note": note,
