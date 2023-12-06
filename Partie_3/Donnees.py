@@ -166,5 +166,27 @@ def getFilmsAvecActeur(id_acteur):
     else:
         return "Aucun artiste ne possède cet identifiant."
         
+# acteur = Tom Hanks
 # print(getFilmsAvecActeur(171614))
 # print(getFilmsAvecActeur(65977))
+
+def getFilmsAvecRealisateur(id_real):
+    if id_real in artistes['idArtiste'].unique():
+        if ((films_roles['idArtiste'] == id_real) & (films_roles['nomRole'].str.contains('director', case=False))).any():
+            films_data = films_roles[
+                (films_roles['idArtiste'] == id_real) & 
+                (films_roles['nomRole'].str.contains('director', case=False))
+            ]
+            
+            if films_data.empty:
+                return "Aucun film n'a été trouvé pour ce réalisateur."
+            else:
+                return films_data[["idFilm", "titre", "annee", "note", "nbVotes"]].to_dict(orient="records")
+        else: 
+            return "Aucun réalisateur n'a été trouvé avec cet identifiant."
+        
+    else:
+        return "Aucun artiste ne possède cet identifiant."
+    
+# real = Christopher Nolan
+# print(getFilmsAvecRealisateur(55470))
