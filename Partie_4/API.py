@@ -35,12 +35,11 @@ def read_recommendation(item_id: int):
         recommendations_list = []
         for _, row in recommendations_data.iterrows():
             recommendation_dict = {
-                "titre": row["titre"],
+                "titre": str(row["titre"]),
                 "annee": row["annee"],
                 "note": row["note"],
                 "nbVotes": row["nbVotes"],
-                "nomGenre": row["nomGenre"],
-                "cluster": row["cluster"]
+                "nomGenre": row["nomGenre"]
             }
             recommendations_list.append(recommendation_dict)
         
@@ -49,19 +48,30 @@ def read_recommendation(item_id: int):
         
         return JSONResponse(content=result_dict, media_type="application/json")
     
-# Retourne les films
-@app.get("/film/")
+# Retourne tous les films
+@app.get("/films/")
 def read_film():
     film_data = Recommendation.getAllFilm()
     if isinstance(film_data, str):
-        # Handle the case where getFilm returned an error message
         return JSONResponse(content={"error": film_data}, media_type="application/json")
     else : 
-        return JSONResponse(content=film_data.to_dict(orient="records"), media_type="application/json")
+        all_film_list = []
+        for id, row in film_data.iterrows():
+            all_film_dict = {
+                "idFilm" : id,
+                "titre": str(row["titre"]),
+                "annee": row["annee"],
+                "note": row["note"],
+                "nbVotes": row["nbVotes"],
+                "nomGenre": row["nomGenre"]
+            }
+            all_film_list.append(all_film_dict)
         
+        # Create a dictionary with the recommendations
+        result_dict = {"Films": all_film_list}
+        
+        return JSONResponse(content=result_dict, media_type="application/json")
 
-
-    return all_films
 
 
 # Retourne un film
@@ -76,11 +86,10 @@ def read_film(item_id: int):
     else:
         # Extract relevant fields and convert to native Python types
         annee = film_data.get("annee", None).item()
-        titre = film_data.get("titre", None)
+        titre = str(film_data.get("titre", None))
         note = film_data.get("note", None).item()
         nbVotes = film_data.get("nbVotes", None).item()
         nomGenre = film_data.get("nomGenre", None)
-        cluster = film_data.get("cluster", None).item()
         
         # Create a dictionary with the selected fields
         result_dict = {
@@ -88,8 +97,7 @@ def read_film(item_id: int):
             "titre": titre,
             "note": note,
             "nbVotes": nbVotes,
-            "nomGenre": nomGenre,
-            "cluster": cluster
+            "nomGenre": nomGenre
         }
         
         return JSONResponse(content=result_dict, media_type="application/json")
