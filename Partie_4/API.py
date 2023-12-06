@@ -67,7 +67,7 @@ def read_film(item_id: int):
     else:
         # Extract relevant fields and convert to native Python types
         annee = film_data.get("annee", None).item()
-        titre = film_data.get("titre", None)
+        titre = str(film_data.get("titre", None))
         note = film_data.get("note", None).item()
         nbVotes = film_data.get("nbVotes", None).item()
         nomGenre = film_data.get("nomGenre", None)
