@@ -168,3 +168,14 @@ def getFilmsAvecActeur(id_acteur):
         
 # print(getFilmsAvecActeur(171614))
 # print(getFilmsAvecActeur(65977))
+
+def getFilmsGenre(nom_genre):
+    if (films_genres['nomGenre'] == nom_genre).any():
+        films_data = films_genres[(films_genres['nomGenre'] == nom_genre)]
+        
+        if films_data.empty:
+            return "Aucun film n'a été trouvé pour ce genre."
+        else:
+            return films_data[["idFilm", "titre", "annee", "note", "nbVotes","nomGenre"]].to_dict(orient="records")
+    else:
+        return "Le genre n'existe pas dans la liste des films"

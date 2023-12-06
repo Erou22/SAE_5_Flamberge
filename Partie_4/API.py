@@ -144,3 +144,18 @@ def read_filmsAvecActeur(item_id: int):
     else:
         # Handle the case where getActeurs returned an error message
         return JSONResponse(content={"error": films_data}, media_type="application/json")
+    
+
+# Retourne tous les films avec un genre
+@app.get("/genres/{nom_genre}")
+
+def read_genre(nom_genre: str):
+    films_data = Donnees.getFilmsGenre(nom_genre)
+    
+    if isinstance(films_data, list):
+        # Create a dictionary with the list of actors
+        result_dict = {"films": films_data}
+        return JSONResponse(content=result_dict, media_type="application/json")
+    else:
+        # Handle the case where getActeurs returned an error message
+        return JSONResponse(content={"error": films_data}, media_type="application/json")
