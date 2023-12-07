@@ -18,7 +18,7 @@ filtered_data = filtered_data.explode('genres')
 filtered_data = filtered_data[filtered_data['note'] != '\\N']
 filtered_data = filtered_data[filtered_data['genres'] != '\\N']
 
-print(filtered_data)
+# print(filtered_data)
 
 # Convertir la colonne 'note' en type float
 filtered_data['note'] = filtered_data['note'].astype(float)

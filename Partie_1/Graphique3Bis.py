@@ -31,6 +31,6 @@ plt.figure(figsize=(12, 6))  # Réglage de la taille du graphique
 plt.bar(df_dico.head(nb_genre).index, df_dico.head(nb_genre)[0])
 plt.xlabel('Types')
 plt.ylabel('Number of films in the genre')
-plt.title(f'Number of films with "{genre} in the genre"')
+plt.title(f'Number of films with "{genre}" in the genre')
 plt.xticks(rotation=60)  # Faire pivoter les étiquettes de l'axe des x pour une meilleure lisibilité
 plt.show()

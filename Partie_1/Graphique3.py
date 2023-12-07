@@ -9,6 +9,8 @@ data_unique = data.drop_duplicates(subset='nomFilm')
 
 def graphique_couple(nom_genre:str, year:list, nombre_afficher:int) :
 
+    years_of_interest = [2015, 2017, 2019]
+
     # Filtrer les données pour les années 2015, 2017 et 2019
     filtered_data = data_unique[data_unique['annee'].isin(years_of_interest)]
 
