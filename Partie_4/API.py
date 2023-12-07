@@ -33,8 +33,9 @@ def read_recommendation(item_id: int):
     else:
         # Extract relevant fields from the DataFrame
         recommendations_list = []
-        for _, row in recommendations_data.iterrows():
+        for id, row in recommendations_data.iterrows():
             recommendation_dict = {
+                "idFilm" : id,
                 "titre": str(row["titre"]),
                 "annee": row["annee"],
                 "note": row["note"],
@@ -51,13 +52,13 @@ def read_recommendation(item_id: int):
 # Retourne tous les films
 @app.get("/films/")
 def read_film():
-    film_data = Recommendation.getAllFilm()
-    if isinstance(film_data, str):
-        return JSONResponse(content={"error": film_data}, media_type="application/json")
+    films_data = Recommendation.getAllFilm()
+    if isinstance(films_data, str):
+        return JSONResponse(content={"error": films_data}, media_type="application/json")
     else : 
-        all_film_list = []
-        for id, row in film_data.iterrows():
-            all_film_dict = {
+        all_films_list = []
+        for id, row in films_data.iterrows():
+            all_films_dict = {
                 "idFilm" : id,
                 "titre": str(row["titre"]),
                 "annee": row["annee"],
@@ -65,10 +66,10 @@ def read_film():
                 "nbVotes": row["nbVotes"],
                 "nomGenre": row["nomGenre"]
             }
-            all_film_list.append(all_film_dict)
+            all_films_list.append(all_films_dict)
         
         # Create a dictionary with the recommendations
-        result_dict = {"Films": all_film_list}
+        result_dict = {"Films": all_films_list}
         
         return JSONResponse(content=result_dict, media_type="application/json")
 
@@ -78,18 +79,18 @@ def read_film():
 @app.get("/films/{item_id}")
 def read_film(item_id: int):
     # Assuming Recommendation.getFilm(item_id) returns a Pandas Series or a string
-    film_data = Recommendation.getFilm(item_id)
+    films_data = Recommendation.getFilm(item_id)
     
-    if isinstance(film_data, str):
+    if isinstance(films_data, str):
         # Handle the case where getFilm returned an error message
-        return JSONResponse(content={"error": film_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json")
     else:
         # Extract relevant fields and convert to native Python types
-        annee = film_data.get("annee", None).item()
-        titre = str(str(film_data.get("titre", None)))
-        note = film_data.get("note", None).item()
-        nbVotes = film_data.get("nbVotes", None).item()
-        nomGenre = film_data.get("nomGenre", None)
+        annee = films_data.get("annee", None).item()
+        titre = str(str(films_data.get("titre", None)))
+        note = films_data.get("note", None).item()
+        nbVotes = films_data.get("nbVotes", None).item()
+        nomGenre = films_data.get("nomGenre", None)
         
         # Create a dictionary with the selected fields
         result_dict = {
@@ -120,8 +121,8 @@ def read_acteurs(item_id: int):
         return JSONResponse(content={"error": actors_data}, media_type="application/json")
     
 
-# Retourne tous les acteurs d'un film
-@app.get("/realisateur/{item_id}")
+# Retourne tous les realisateur d'un film
+@app.get("/realisateurs/{item_id}")
 
 def read_realisteur(item_id: int):
     directors_data = Donnees.getRealisateurs(item_id)
