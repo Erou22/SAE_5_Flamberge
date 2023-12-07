@@ -200,8 +200,8 @@ def getFilmsGenre(nom_genre):
     # Convertir la liste de genres en chaîne de caractères
     data['nomGenre'] = data['nomGenre'].apply(lambda x: ','.join(x))
 
-    if (data['nomGenre'] == nom_genre).any():
-        films_data = data[data['nomGenre'].str.contains(nom_genre)]
+    if data['nomGenre'].str.lower().eq(nom_genre.lower()).any():        
+        films_data = data[data['nomGenre'].str.contains(nom_genre, case=False)]
         
         
         if films_data.empty:
