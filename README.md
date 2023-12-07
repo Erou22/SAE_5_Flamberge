@@ -21,14 +21,15 @@ Fichier sql de la création et du peuplement de la BDD. Il faut le fichier __dat
 * __Recherche.py__ sert pour recommandation.py, il fait la recherche du nom de film le plus proche. 
 
 ## API 
+Données au format __JSON__
 
 * __/__ : Voit si l'API est en fonctionnement 
-* __/recommendations/{item_id}__ : La recommandation de plusieurs films pour un identifiant de film donné
-* __/films/__
-* __/films/{item_id}__
-* __/films/{item_id}/fiche__
-* __/films/acteur/{item_id}__
-* __/films/realisateur/{item_id}__
-* __/films/genre/{nom_genre}__
-* __/acteurs/{item_id}__
-* __/realisateurs/{item_id}__
+* __/recommendations/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné
+* __/films/__ : Renvoie la liste de tous les films 
+* __/films/{id_film}__ : Renvoie le film lié à l'identifiant donné
+* __/films/{id_film}/fiche__ : Renvoie la fiche complète du film lié à l'identifiant donné (Info base + acteurs + realisateurs + autres personnes liées)
+* __/films/acteur/{id_acteur}__ : Renvoie les films où a joué l'acteur donné
+* __/films/realisateur/{id_realisateur}__ : Renvoie les films qui ont été réalisés le réalisateur donné
+* __/films/genre/{nom_genre}__ : Renvoie tous les films pour un genre donné
+* __/acteurs/{id_film}__ : Renvoie les acteurs d'un film 
+* __/realisateurs/{id_film}__ : Renvoie les réalisateurs d'un film

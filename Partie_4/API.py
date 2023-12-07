@@ -26,9 +26,9 @@ def read_root():
 # ============================================================================================
 
 # Retourne les recommendations d'un film
-@app.get("/recommendations/{item_id}")
-def read_recommendation(item_id: int):
-    recommendations_data = Recommendation.getRecommendation(item_id)
+@app.get("/recommendations/{id_film}")
+def read_recommendation(id_film: int):
+    recommendations_data = Recommendation.getRecommendation(id_film)
     
     if isinstance(recommendations_data, str):
         # Si il y a un message d'erreur de getRecommendation()
@@ -54,7 +54,7 @@ def read_recommendation(item_id: int):
     
 # Retourne tous les films
 @app.get("/films/")
-def read_film():
+def read_films():
     films_data = Recommendation.getAllFilm()
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getAllFilm()
@@ -80,9 +80,9 @@ def read_film():
 
 
 # Retourne un film
-@app.get("/films/{item_id}")
-def read_film(item_id: int):
-    films_data = Recommendation.getFilm(item_id)
+@app.get("/films/{id_film}")
+def read_film(id_film: int):
+    films_data = Recommendation.getFilm(id_film)
     
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getFilm()
@@ -97,7 +97,7 @@ def read_film(item_id: int):
         
         # Création d'un dictionnaire avec ces champs
         result_dict = {
-            "id film": item_id,
+            "id film": id_film,
             "annee": annee,
             "titre": titre,
             "note": note,
@@ -109,9 +109,9 @@ def read_film(item_id: int):
 
 
 # Retourne la fiche complète d'un film
-@app.get("/films/{item_id}/fiche")
-def read_filmComplet(item_id: int):
-    film_data = Donnees.getFilmComplet(item_id)
+@app.get("/films/{id_film}/fiche")
+def read_filmFiche(id_film: int):
+    film_data = Donnees.getFilmComplet(id_film)
     
     if isinstance(film_data, str):
         # Si il y a un message d'erreur de getFilmComplet()
@@ -123,9 +123,9 @@ def read_filmComplet(item_id: int):
 
 
 # Retourne tous les films d'un acteur
-@app.get("/films/acteur/{item_id}")
-def read_filmsAvecActeur(item_id: int):
-    films_data = Donnees.getFilmsAvecActeur(item_id)
+@app.get("/films/acteur/{id_acteur}")
+def read_filmsAvecActeur(id_acteur: int):
+    films_data = Donnees.getFilmsAvecActeur(id_acteur)
     
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getFilmsAvecActeur()
@@ -137,9 +137,9 @@ def read_filmsAvecActeur(item_id: int):
    
 
 # Retourne tous les films d'un réalisateur
-@app.get("/films/realisateur/{item_id}")
-def read_filmsAvecRealisateur(item_id: int):
-    films_data = Donnees.getFilmsAvecRealisateur(item_id)
+@app.get("/films/realisateur/{id_realisateur}")
+def read_filmsAvecRealisateur(id_realisateur: int):
+    films_data = Donnees.getFilmsAvecRealisateur(id_realisateur)
     
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getFilmsAvecRealisateur()
@@ -169,9 +169,9 @@ def read_genre(nom_genre: str):
 # ============================================================================================
 
 # Retourne tous les acteurs d'un film
-@app.get("/acteurs/{item_id}")
-def read_acteurs(item_id: int):
-    actors_data = Donnees.getActeurs(item_id)
+@app.get("/acteurs/{id_film}")
+def read_acteurs(id_film: int):
+    actors_data = Donnees.getActeurs(id_film)
     
     if isinstance(actors_data, str):
         # Si il y a un message d'erreur de getActeurs()
@@ -186,9 +186,9 @@ def read_acteurs(item_id: int):
 # ============================================================================================
 
 # Retourne tous les realisateur d'un film
-@app.get("/realisateurs/{item_id}")
-def read_realisteur(item_id: int):
-    directors_data = Donnees.getRealisateurs(item_id)
+@app.get("/realisateurs/{id_film}")
+def read_realisteur(id_film: int):
+    directors_data = Donnees.getRealisateurs(id_film)
     
     if isinstance(directors_data, str):
         # Si il y a un message d'erreur de getRealisateurs
