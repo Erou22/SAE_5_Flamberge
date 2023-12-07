@@ -1,4 +1,4 @@
-# python3 -m uvicorn API:app
+# python3 -m uvicorn API:app --reload
 import pandas as pd
 import sys
 import path
