@@ -70,7 +70,7 @@ def read_film():
         # Create a dictionary with the recommendations
         result_dict = {"Films": all_film_list}
         
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
 
 
@@ -101,7 +101,7 @@ def read_film(item_id: int):
             "nomGenre": nomGenre
         }
         
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
 
 
@@ -114,10 +114,10 @@ def read_acteurs(item_id: int):
     if isinstance(actors_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"actors": actors_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": actors_data}, media_type="application/json")
+        return JSONResponse(content={"error": actors_data}, media_type="application/json", status_code=404)
     
 
 # Retourne tous les acteurs d'un film
@@ -129,10 +129,10 @@ def read_realisteur(item_id: int):
     if isinstance(directors_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"director": directors_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": directors_data}, media_type="application/json")
+        return JSONResponse(content={"error": directors_data}, media_type="application/json", status_code=404)
     
 # Retourne la fiche complète d'un film
 @app.get("/filmComplet/{item_id}")
@@ -143,10 +143,10 @@ def read_filmComplet(item_id: int):
     if isinstance(film_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"film": film_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": film_data}, media_type="application/json")
+        return JSONResponse(content={"error": film_data}, media_type="application/json", status_code=404)
     
 # Retourne tous les films d'un acteur
 @app.get("/films/acteur/{item_id}")
@@ -157,10 +157,10 @@ def read_filmsAvecActeur(item_id: int):
     if isinstance(films_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"films": films_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": films_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     
 
 # Retourne tous les films d'un réalisateur
@@ -172,10 +172,10 @@ def read_filmsAvecRealisateur(item_id: int):
     if isinstance(films_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"films": films_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": films_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     
 
 # Retourne tous les films avec un genre
@@ -187,7 +187,7 @@ def read_genre(nom_genre: str):
     if isinstance(films_data, list):
         # Create a dictionary with the list of actors
         result_dict = {"films": films_data}
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     else:
         # Handle the case where getActeurs returned an error message
-        return JSONResponse(content={"error": films_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
