@@ -29,7 +29,7 @@ def read_recommendation(item_id: int):
     
     if isinstance(recommendations_data, str):
         # Handle the case where getRecommendation returned an error message
-        return JSONResponse(content={"error": recommendations_data}, media_type="application/json")
+        return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
     else:
         # Extract relevant fields from the DataFrame
         recommendations_list = []
@@ -47,14 +47,14 @@ def read_recommendation(item_id: int):
         # Create a dictionary with the recommendations
         result_dict = {"recommendations": recommendations_list}
         
-        return JSONResponse(content=result_dict, media_type="application/json")
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     
 # Retourne tous les films
 @app.get("/films/")
 def read_film():
     films_data = Recommendation.getAllFilm()
     if isinstance(films_data, str):
-        return JSONResponse(content={"error": films_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     else : 
         all_films_list = []
         for id, row in films_data.iterrows():
@@ -83,7 +83,7 @@ def read_film(item_id: int):
     
     if isinstance(films_data, str):
         # Handle the case where getFilm returned an error message
-        return JSONResponse(content={"error": films_data}, media_type="application/json")
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     else:
         # Extract relevant fields and convert to native Python types
         annee = films_data.get("annee", None).item()
