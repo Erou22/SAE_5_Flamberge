@@ -150,11 +150,10 @@ def getFilmComplet(id_film):
 
 def getFilmsAvecActeur(id_acteur):
     if id_acteur in artistes['idArtiste'].unique():
-        if ((films_roles['idArtiste'] == id_acteur) & ((films_roles['nomRole'].str.contains('actor', case=False)) | (films_roles['nomRole'].str.contains('actress', case=False)))).any():
+        if ((films_roles['idArtiste'] == id_acteur) & (films_roles['nomRole'].str.contains('actor|actress', case=False))).any():
             films_data = films_roles[
                 (films_roles['idArtiste'] == id_acteur) & 
-                ((films_roles['nomRole'].str.contains('actor', case=False)) | 
-                (films_roles['nomRole'].str.contains('actress', case=False)))
+                (films_roles['nomRole'].str.contains('actor|actress', case=False))
             ]
             
             if films_data.empty:
