@@ -26,9 +26,9 @@ Fichier sql de la création et du peuplement de la BDD. Il faut le fichier __dat
 * __/recommendations/{item_id}__ : La recommandation de plusieurs films pour un identifiant de film donné
 * __/films/__
 * __/films/{item_id}__
+* __/films/{item_id}/fiche__
 * __/films/acteur/{item_id}__
 * __/films/realisateur/{item_id}__
-* __/filmComplet/{item_id}__
-* __/genres/{nom_genre}__
+* __/films/genre/{nom_genre}__
 * __/acteurs/{item_id}__
-* __/realisateur/{item_id}__
+* __/realisateurs/{item_id}__
