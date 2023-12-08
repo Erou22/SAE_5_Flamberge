@@ -32,18 +32,19 @@ def init():
     # Sauvegarder les clusters dans un fichier CSV
     dftout.to_csv(clusters_path, index=False)
     
-#init()
+if __name__ == "__main__":
+    init()
 
-# Inertia
-# cost = []
-# for i in range(1, 10):
-#     kmeans = KMeans(n_clusters=i, random_state=42)
-#     kmeans.fit_predict(list(vecteurs.values()))
-#     cost.append(kmeans.inertia_)
+    # Inertia
+    # cost = []
+    # for i in range(1, 10):
+    #     kmeans = KMeans(n_clusters=i, random_state=42)
+    #     kmeans.fit_predict(list(vecteurs.values()))
+    #     cost.append(kmeans.inertia_)
 
-# Afficher le graphique de la méthode du coude
-# plt.plot(range(1, 10), cost, marker='o')
-# plt.xlabel('Number of clusters (K)')
-# plt.ylabel('Inertia (Cost)')
-# plt.title('Elbow Method for Optimal K')
-# plt.show()
+    # Afficher le graphique de la méthode du coude
+    # plt.plot(range(1, 10), cost, marker='o')
+    # plt.xlabel('Number of clusters (K)')
+    # plt.ylabel('Inertia (Cost)')
+    # plt.title('Elbow Method for Optimal K')
+    # plt.show()
