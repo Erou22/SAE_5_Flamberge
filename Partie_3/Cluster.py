@@ -1,49 +1,48 @@
 import Donnees as data
+import IA_vecteur
 import pandas as pd
-from kmodes.kprototypes import KPrototypes
-from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 # Chargement des données
-df = data.films_genres
+def init():
+    data.init()
+    
+    dfGenres = data.films_genres.groupby('idFilm')['nomGenre'].agg(list).reset_index()
 
-# Select relevant columns for clustering (excluding 'annee')
-df = data.films_genres[['note', 'nomGenre']]
+    # Trier les genres par ordre alphabétique
+    dfGenres['nomGenre'] = dfGenres['nomGenre'].apply(lambda x: sorted(x))
 
-# Standardize numerical columns
-scaler = StandardScaler()
-df[['note']] = scaler.fit_transform(df[['note']])
+    # Convertir la liste de genres en chaîne de caractères
+    dfGenres['nomGenre'] = dfGenres['nomGenre'].apply(lambda x: ','.join(x))
 
-# Convert DataFrame to array for K-prototype
-data_array = df.values
+    dftout = pd.merge(data.films, dfGenres, on='idFilm')
 
-# Specify categorical column indices
-cat_columns = [1]  # Assuming 'titre' and 'nomGenre' are categorical columns
+    vecteurs = IA_vecteur.vecteurs
 
-# Choosing optimal K
-cost = []
-for i in range(2, 10):
-    kproto = KPrototypes(n_clusters=i, init='Cao', n_init=2, verbose=2, random_state=42)
-    kproto.fit_predict(data_array, categorical=cat_columns)
-    cost.append(kproto.cost_)
+    # Effectuer le clustering avec K-means
+    kmeans = KMeans(n_clusters=35)
+    clusters = kmeans.fit_predict(list(vecteurs.values()))
 
-# Plot the elbow curve
-plt.plot(range(2, 10), cost, marker='o')
-plt.xlabel('Number of clusters (K)')
-plt.ylabel('Inertia (Cost)')
-plt.title('Elbow Method for Optimal K')
-plt.show()
+    # Ajouter les clusters au DataFrame original
+    dftout['cluster'] = clusters
 
+    # Sauvegarder les clusters dans un fichier CSV
+    dftout.to_csv('Partie 3/clusters.csv', index=False)
+    
+init()
 
-# # Choose the number of clusters (replace n_clusters with your desired number)
-# n_clusters = 10
+# Inertia
+# cost = []
+# for i in range(1, 10):
+#     kmeans = KMeans(n_clusters=i, random_state=42)
+#     kmeans.fit_predict(list(vecteurs.values()))
+#     cost.append(kmeans.inertia_)
 
-# # Perform clustering with K-prototype
-# kproto = KPrototypes(n_clusters=n_clusters, init='Cao', n_init=2, verbose=2, random_state=42)
-# clusters = kproto.fit_predict(data_array, categorical=cat_columns)
-
-# # Add the cluster labels to the original DataFrame
-# data.films_genres['cluster'] = clusters
-
-# # Save the resulting DataFrame to a CSV file
-# data.films_genres.to_csv('Partie 3/clusters.csv', index=False)
+# Afficher le graphique de la méthode du coude
+# plt.plot(range(1, 10), cost, marker='o')
+# plt.xlabel('Number of clusters (K)')
+# plt.ylabel('Inertia (Cost)')
+# plt.title('Elbow Method for Optimal K')
+# plt.show()
