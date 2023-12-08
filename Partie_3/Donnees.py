@@ -71,7 +71,8 @@ def init():
     roles = roles[roles['idFilm'].isin(films_genres['idFilm'])]
     artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
 
-init()
+if __name__ == "__main__":
+    init()
 #Fonctions pour API
 
 
