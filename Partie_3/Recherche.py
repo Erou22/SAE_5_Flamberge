@@ -11,13 +11,12 @@ def chercher_film_par_titre(dataframe, titre):
         films = dataframe[dataframe["contains"] == True].copy()
         films['distance_edit'] = films['titre'].apply(lambda x: distance.levenshtein(titre, str(x)))
         if films.empty:
-            return None
+            return f"Aucun film trouvé avec le titre {titre}"
         else:
             films.drop(columns=['contains'], inplace=True)
             return films.sort_values(by=['distance_edit']).head(5).drop(columns=['distance_edit'])
     except KeyError:
-        print(f"Aucun film trouvé avec le titre {titre}")
-        return None
+        return f"Aucun film trouvé avec le titre {titre}"
 
 def select_id_film():
     titre,film = "", ""

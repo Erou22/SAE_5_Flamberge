@@ -32,7 +32,7 @@ def init():
     # Sauvegarder les clusters dans un fichier CSV
     dftout.to_csv(clusters_path, index=False)
     
-init()
+#init()
 
 # Inertia
 # cost = []
