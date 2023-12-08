@@ -8,6 +8,7 @@ sys.path.append(str(path.partie_3_path))
 import Recommendation
 import Donnees
 import Cluster
+import Recherche
 
 from typing import Union
 from fastapi import FastAPI
@@ -171,6 +172,18 @@ def read_genre(nom_genre: str):
         result_dict = {"films": films_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
         
+# Retourne les 5 films avec le nom le plus proche
+@app.get("/films/recherche/{titre}")
+def read_recherche(titre: str):
+    films_data = Recherche.chercher_film_par_titre(Donnees.films, titre).to_dict(orient="records")
+    
+    if isinstance(films_data, str):
+        # Si il y a un message d'erreur de chercher_film_par_titre()
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
+    else:
+        # Création d'un dictionnaire avec le résultat
+        result_dict = {"films": films_data}
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
 # ============================================================================================
 # ==================================== Retourne des acteurs===================================
