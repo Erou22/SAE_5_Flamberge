@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
+from connect import clusters_path
 
 # Chargement des données
 def init():
@@ -29,7 +30,7 @@ def init():
     dftout['cluster'] = clusters
 
     # Sauvegarder les clusters dans un fichier CSV
-    dftout.to_csv('Partie_3/clusters.csv', index=False)
+    dftout.to_csv(clusters_path, index=False)
     
 init()
 

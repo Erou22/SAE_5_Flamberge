@@ -7,6 +7,7 @@ sys.path.append(str(path.partie_3_path))
 
 import Recommendation
 import Donnees
+import Cluster
 
 from typing import Union
 from fastapi import FastAPI
@@ -20,6 +21,13 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"L'API": "Fonctione"}
+
+# Met à jour les données et les clusters
+@app.get("/update")
+def update():
+    Cluster.init()
+    return {"Mise à jour": "Terminée"}
+
 
 # ============================================================================================
 # ===================================== Retourne des films ===================================
