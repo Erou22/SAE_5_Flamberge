@@ -29,7 +29,7 @@ def init():
     dftout['cluster'] = clusters
 
     # Sauvegarder les clusters dans un fichier CSV
-    dftout.to_csv('Partie 3/clusters.csv', index=False)
+    dftout.to_csv('Partie_3/clusters.csv', index=False)
     
 init()
 
