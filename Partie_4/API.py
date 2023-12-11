@@ -9,8 +9,8 @@ import Recommendation
 import Donnees
 import Cluster
 import Recherche
+import IA_vecteur
 
-from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -34,13 +34,40 @@ def update():
 # ===================================== Retourne des films ===================================
 # ============================================================================================
 
-# Retourne les recommendations d'un film
+# Retourne les recommendations d'un film avec le clustering
 @app.get("/recommendations/{id_film}")
 def read_recommendation(id_film: int):
     recommendations_data = Recommendation.getRecommendation(id_film)
     
     if isinstance(recommendations_data, str):
         # Si il y a un message d'erreur de getRecommendation()
+        return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
+    else:
+        # Récupère les données et stock les données sous forme de dictionnaire
+        recommendations_list = []
+        for id, row in recommendations_data.iterrows():
+            recommendation_dict = {
+                "idFilm" : id,
+                "titre": str(row["titre"]),
+                "annee": row["annee"],
+                "note": row["note"],
+                "nbVotes": row["nbVotes"],
+                "nomGenre": row["nomGenre"]
+            }
+            recommendations_list.append(recommendation_dict)
+        
+        # Creation d'un dictionnaire avec les recommendations
+        result_dict = {"recommendations": recommendations_list}
+        
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
+    
+# Retourne les recommendations d'un film avec les vecteurs et la similarité Item-based
+@app.get("/recommendations/similarite/{id_film}")
+def read_recommendationSimilarite(id_film: int):
+    recommendations_data = IA_vecteur.recommandation(id_film)
+    
+    if isinstance(recommendations_data, str):
+        # Si il y a un message d'erreur de recommandation()
         return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
     else:
         # Récupère les données et stock les données sous forme de dictionnaire
@@ -69,7 +96,7 @@ def read_films():
         # Si il y a un message d'erreur de getAllFilm()
         return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     else : 
-         # Récupère les données et stock les données sous forme de dictionnaire
+        # Récupère les données et stock les données sous forme de dictionnaire
         all_films_list = []
         for id, row in films_data.iterrows():
             all_films_dict = {
@@ -126,7 +153,7 @@ def read_filmFiche(id_film: int):
         # Si il y a un message d'erreur de getFilmComplet()
         return JSONResponse(content={"error": film_data}, media_type="application/json", status_code=404)
     else:
-         # Création d'un dictionnaire avec le résultat
+        # Création d'un dictionnaire avec le résultat
         result_dict = {"film": film_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
@@ -143,7 +170,7 @@ def read_filmsAvecActeur(id_acteur: int):
         # Création d'un dictionnaire avec le résultat
         result_dict = {"films": films_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
-   
+
 
 # Retourne tous les films d'un réalisateur
 @app.get("/films/realisateur/{id_realisateur}")
