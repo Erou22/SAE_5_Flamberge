@@ -11,7 +11,6 @@ import Cluster
 import Recherche
 import IA_vecteur
 
-from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -97,7 +96,7 @@ def read_films():
         # Si il y a un message d'erreur de getAllFilm()
         return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     else : 
-         # Récupère les données et stock les données sous forme de dictionnaire
+        # Récupère les données et stock les données sous forme de dictionnaire
         all_films_list = []
         for id, row in films_data.iterrows():
             all_films_dict = {
@@ -154,7 +153,7 @@ def read_filmFiche(id_film: int):
         # Si il y a un message d'erreur de getFilmComplet()
         return JSONResponse(content={"error": film_data}, media_type="application/json", status_code=404)
     else:
-         # Création d'un dictionnaire avec le résultat
+        # Création d'un dictionnaire avec le résultat
         result_dict = {"film": film_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
@@ -171,7 +170,7 @@ def read_filmsAvecActeur(id_acteur: int):
         # Création d'un dictionnaire avec le résultat
         result_dict = {"films": films_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
-   
+
 
 # Retourne tous les films d'un réalisateur
 @app.get("/films/realisateur/{id_realisateur}")
