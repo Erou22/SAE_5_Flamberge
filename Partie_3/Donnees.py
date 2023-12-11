@@ -6,6 +6,7 @@ import connect
 conn = connect.conn
 cur = conn.cursor()
 
+
 def init():
     global films, genres, artistes, films_genres, films_roles
     
@@ -70,9 +71,10 @@ def init():
     possede_genres = possede_genres[possede_genres['idFilm'].isin(films_genres['idFilm'])]
     roles = roles[roles['idFilm'].isin(films_genres['idFilm'])]
     artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
+    print("HAHAHAHAHAHAHA")
 
-if __name__ == "__main__":
-    init()
+
+init()
 #Fonctions pour API
 
 
