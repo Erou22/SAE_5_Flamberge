@@ -2,9 +2,12 @@ from numpy import dot
 from numpy.linalg import norm
 from numpy import random
 
+import pandas as pd
 import math
 import Donnees as data
 import time
+import json
+from connect import vecteurs_path
 
 
 def transformation_vecteur():
@@ -21,8 +24,12 @@ def transformation_vecteur():
             else : 
                 vecteur[idFilm].append(0)
     
-    return vecteur
+    json_data = json.dumps(vecteur)
 
+    with open(vecteurs_path, 'w') as json_file:
+        json_file.write(json_data)
+
+    return 0
 
 def sim_eucli(A,B) :
     """
@@ -106,13 +113,16 @@ def prediction_item(A,B) :
 
 
 
-def recommandation(nom_film) :
+def recommandation_affichage(nom_film) :
     start = time.time()     # chrono
 
+    with open(vecteurs_path, "r") as fp:
+        vecteurs = json.load(fp)
+
     recommandation = {}
-    id_vecteur = data.films_genres.loc[data.films_genres['titre'].str.lower() == nom_film.lower(), 'idFilm'].values[0]   # Donne l'ID du film selon son titreS
+    id_vecteur = data.films_genres.loc[data.films_genres['titre'].str.lower() == nom_film.lower(), 'idFilm'].values[0]   # Donne l'ID du film selon son titres
     for i in list(vecteurs.keys()) :
-        recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
+        recommandation[i] = sim_cos(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
 
     # pour ne pas recommandé le même film
     del recommandation[id_vecteur]
@@ -159,8 +169,53 @@ def recommandation(nom_film) :
 
     print("------------- Stats ---------------\nTemps d'execution : ",stop,"\n")
 
+def getRecommendation(id_film) :
 
-vecteurs = transformation_vecteur()
+
+    with open(vecteurs_path, "r") as fp:
+        vecteurs = json.load(fp)
+
+    vecteurs = vecteurs
+    
+    recommandation = {}
+    for i in list(vecteurs.keys()) :
+        recommandation[i] = sim_cos(vecteurs[id_film], vecteurs[i])   # Similarité entre les différents vecteurs 
+
+    # pour ne pas recommandé le même film
+    del recommandation[id_film]
+
+    recommandation_trie = dict(sorted(recommandation.items(), key=lambda item: item[1], reverse = True))  # Trie pour avoir les plus haut taux de similarité en premier
+    recommandation_trie_premiers = dict(list(recommandation_trie.items())[:10])     # Sélectionne les 10 premiers éléments pour faire la recommandation 
+    
+    max_value = max(recommandation_trie.values())
+    max_values = [key for key, value in recommandation_trie.items() if value == max_value]
+
+    print(recommandation_trie_premiers)
+    # if len(max_values) > 10 : 
+    #     # Ici on prends les films qui ont la note maximal sur la similarité
+    #     # donc sont égaux, pour ne pas faire resortir les mêmes films en boucle 
+    #     reco_random_top = random.choice(max_values, 10)
+
+    #     # res dans dataFrame
+    #     for i in reco_random_top : 
+    #         print(data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0],
+    #         "\n ID film : ", i,
+    #         "\n Genre : ", data.films_genres.loc[data.films_genres['idFilm'] == i, 'nomGenre'].values,
+    #         "\n Taux similarité : ", float(recommandation[i]*100)," %\n")
+
+    # else : 
+    #     # res dans dataFrame
+    #      for i in recommandation_trie_premiers.items() : 
+    #         print(data.films_genres.loc[data.films_genres['idFilm'] == i[0], 'titre'].values[0],
+    #         "\n ID film : ", i[0],
+    #         "\n Genre : ", data.films_genres.loc[data.films_genres['idFilm'] == i[0], 'nomGenre'].values,
+    #         "\n Taux similarité : ", float(i[1]*100)," %\n")
+
+
+    return 0
+
+transformation_vecteur()
+getRecommendation(15911)
 # Main programme
 if __name__ == '__main__' : 
     nom_film = "1"
@@ -169,12 +224,12 @@ if __name__ == '__main__' :
         nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
 
         if nom_film != "-1" :
-            recommandation(nom_film)
+            recommandation_affichage(nom_film)
         
         else : 
             rep = input("C'est un film ? (y/n) ?\n")
             if (rep == "y") : 
                 print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
-                recommandation(nom_film)        # retire si on ne veut pas d'erreur
+                recommandation_affichage(nom_film)        # retire si on ne veut pas d'erreur
             else :
                 print("Au revoir :(")
