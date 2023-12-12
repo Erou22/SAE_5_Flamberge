@@ -76,7 +76,7 @@ def read_recommendation(id_film: int):
         recommendations_list = []
         for id, row in recommendations_data.iterrows():
             recommendation_dict = {
-                "idFilm" : id,
+                "idFilm" : row["idFilm"],
                 "titre": str(row["titre"]),
                 "annee": row["annee"],
                 "note": row["note"],

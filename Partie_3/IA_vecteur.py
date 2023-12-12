@@ -201,8 +201,7 @@ def getRecommendation(id_film) :
         for i in reco_random_top : 
 
             df = data.films_genres.loc[data.films_genres['idFilm'] == i]
-            grouped_df = df.groupby(['idFilm', 'titre']).agg({'annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
-
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 'titre' : 'first','annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
             df_reco = pd.concat([grouped_df,df_reco])
 
     else : 
@@ -210,7 +209,7 @@ def getRecommendation(id_film) :
          for i in recommandation_trie_premiers.keys() : 
             
             df = data.films_genres.loc[data.films_genres['idFilm'] == i]
-            grouped_df = df.groupby(['idFilm', 'titre']).agg({'annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 'titre' : 'first','annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
 
             df_reco = pd.concat([grouped_df,df_reco])
 
