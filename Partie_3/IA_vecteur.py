@@ -190,7 +190,7 @@ def getRecommendation(id_film) :
     max_value = max(recommandation_trie.values())
     max_values = [key for key, value in recommandation_trie.items() if value == max_value]
 
-    recommendation_list = []
+    df_reco = pd.DataFrame()
 
     if len(max_values) > 10 : 
         # Ici on prends les films qui ont la note maximal sur la similarité
@@ -200,64 +200,40 @@ def getRecommendation(id_film) :
         # res dans dataFrame
         for i in reco_random_top : 
 
-            titre = data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0]
-            annee = data.films_genres.loc[data.films_genres['idFilm'] == i, 'annee'].values[0]
-            note = data.films_genres.loc[data.films_genres['idFilm'] == i, 'note'].values[0]
-            nbVotes = data.films_genres.loc[data.films_genres['idFilm'] == i, 'nbVotes'].values[0]
-            nomGenre = data.films_genres.loc[data.films_genres['idFilm'] == i, 'nomGenre'].values
+            df = data.films_genres.loc[data.films_genres['idFilm'] == i]
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
 
-            recommendation_dict = {
-                "idFilm" : i,
-                "titre": titre,
-                "annee": annee,
-                "note": note,
-                "nbVotes": nbVotes,
-                "nomGenre": nomGenre
-            }
-
-            recommendation_list.append(recommendation_dict)
+            df_reco = pd.concat([grouped_df,df_reco])
 
     else : 
         # res dans dataFrame
          for i in recommandation_trie_premiers.keys() : 
             
-            titre = data.films_genres.loc[data.films_genres['idFilm'] == i, 'titre'].values[0]
-            annee = data.films_genres.loc[data.films_genres['idFilm'] == i, 'annee'].values[0]
-            note = data.films_genres.loc[data.films_genres['idFilm'] == i, 'note'].values[0]
-            nbVotes = data.films_genres.loc[data.films_genres['idFilm'] == i, 'nbVotes'].values[0]
-            nomGenre = data.films_genres.loc[data.films_genres['idFilm'] == i, 'nomGenre'].values
+            df = data.films_genres.loc[data.films_genres['idFilm'] == i]
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
 
-            recommendation_dict = {
-                "idFilm" : i,
-                "titre": titre,
-                "annee": annee,
-                "note": note,
-                "nbVotes": nbVotes,
-                "nomGenre": nomGenre
-            }
-
-            recommendation_list.append(recommendation_dict)
+            df_reco = pd.concat([grouped_df,df_reco])
 
     
-    return pd.DataFrame(recommendation_list)
+    return df_reco
 
 # transformation_vecteur()
-a = getRecommendation(15911)
-print(a)
+# print(getRecommendation(15911))
+
 # Main programme
-# if __name__ == '__main__' : 
-#     nom_film = "1"
+if __name__ == '__main__' : 
+    nom_film = "1"
 
-#     while nom_film != "-1" : 
-#         nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
+    while nom_film != "-1" : 
+        nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
 
-#         if nom_film != "-1" :
-#             recommandation_affichage(nom_film)
+        if nom_film != "-1" :
+            recommandation_affichage(nom_film)
         
-#         else : 
-#             rep = input("C'est un film ? (y/n) ?\n")
-#             if (rep == "y") : 
-#                 print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
-#                 recommandation_affichage(nom_film)        # retire si on ne veut pas d'erreur
-#             else :
-#                 print("Au revoir :(")
+        else : 
+            rep = input("C'est un film ? (y/n) ?\n")
+            if (rep == "y") : 
+                print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
+                recommandation_affichage(nom_film)        # retire si on ne veut pas d'erreur
+            else :
+                print("Au revoir :(")

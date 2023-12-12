@@ -43,6 +43,7 @@ def read_recommendation(id_film: int):
         # Si il y a un message d'erreur de getRecommendation()
         return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
     else:
+        print(recommendations_data)
         # Récupère les données et stock les données sous forme de dictionnaire
         recommendations_list = []
         for id, row in recommendations_data.iterrows():
@@ -58,7 +59,35 @@ def read_recommendation(id_film: int):
         
         # Creation d'un dictionnaire avec les recommendations
         result_dict = {"recommendations": recommendations_list}
+        print(result_dict)
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
+
+# Retourne les recommendations d'un film avec la similarite
+@app.get("/recommendations/{id_film}/similarite")
+def read_recommendation(id_film: int):
+    recommendations_data = IA_vecteur.getRecommendation(id_film)
+    
+    if isinstance(recommendations_data, str):
+        # Si il y a un message d'erreur de getRecommendation()
+        return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
+    else:
+        print(recommendations_data)
+        # Récupère les données et stock les données sous forme de dictionnaire
+        recommendations_list = []
+        for id, row in recommendations_data.iterrows():
+            recommendation_dict = {
+                "idFilm" : id,
+                "titre": str(row["titre"]),
+                "annee": row["annee"],
+                "note": row["note"],
+                "nbVotes": row["nbVotes"],
+                "nomGenre": row["nomGenre"]
+            }
+            recommendations_list.append(recommendation_dict)
         
+        # Creation d'un dictionnaire avec les recommendations
+        result_dict = {"recommendations": recommendations_list}
+        print(result_dict)
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     
 # Retourne les recommendations d'un film avec les vecteurs et la similarité Item-based
