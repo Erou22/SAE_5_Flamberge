@@ -5,6 +5,9 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from connect import clusters_path
+from connect import vecteurs_path
+import json
+
 
 # Chargement des données
 def init():
@@ -20,7 +23,9 @@ def init():
 
     dftout = pd.merge(data.films, dfGenres, on='idFilm')
 
-    vecteurs = IA_vecteur.vecteurs
+    with open(vecteurs_path, "r") as fp:
+        vecteurs = json.load(fp)
+    vecteurs = {int(k): v for k, v in vecteurs.items()}
 
     # Effectuer le clustering avec K-means
     kmeans = KMeans(n_clusters=35)
