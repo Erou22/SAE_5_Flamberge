@@ -47,6 +47,7 @@ Données au format __JSON__
 
 ### GET
 * __/__ : Voit si l'API est en fonctionnement 
+* __/update__ : Recharge les clusters et les vecteurs
 * __/recommendations/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné
 * __/recommendations/similarite/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné utilisant la méthode de similarite
 * __/films/__ : Renvoie la liste de tous les films 
