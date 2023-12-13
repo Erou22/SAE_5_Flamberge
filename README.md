@@ -45,13 +45,16 @@ Fichier sql de la création et du peuplement de la BDD. Il faut le fichier __dat
 ## API 
 Données au format __JSON__
 
+### GET
 * __/__ : Voit si l'API est en fonctionnement 
 * __/recommendations/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné
+* __/recommendations/similarite/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné utilisant la méthode de similarite
 * __/films/__ : Renvoie la liste de tous les films 
 * __/films/{id_film}__ : Renvoie le film lié à l'identifiant donné
 * __/films/{id_film}/fiche__ : Renvoie la fiche complète du film lié à l'identifiant donné (Info base + acteurs + realisateurs + autres personnes liées)
 * __/films/acteur/{id_acteur}__ : Renvoie les films où a joué l'acteur donné
 * __/films/realisateur/{id_realisateur}__ : Renvoie les films qui ont été réalisés le réalisateur donné
 * __/films/genre/{nom_genre}__ : Renvoie tous les films pour un genre donné
+* __/films/recherche/{titre}__ : Renvoie des films qui ont un titre proche du titrre donné
 * __/acteurs/{id_film}__ : Renvoie les acteurs d'un film 
 * __/realisateurs/{id_film}__ : Renvoie les réalisateurs d'un film
