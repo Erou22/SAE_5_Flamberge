@@ -1,6 +1,28 @@
 # SAE_5_Flamberge
 Création d'un système de recommandation 
 
+## .gitignore
+__path.py__
+``` py
+from pathlib import Path
+
+partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
+```
+
+__connect.py__
+``` py
+import psycopg2
+
+conn = psycopg2.connect(
+    host=host,
+    database=database,
+    user=user,
+    password=password)
+
+clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/clusters.csv"
+vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
+```
+
 ## Analyse des données 
 Un graphique par fichier :
 * __1__ : Nombre de films par année de 2015 à 2020
