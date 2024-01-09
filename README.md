@@ -59,3 +59,15 @@ Données au format __JSON__
 * __/films/recherche/{titre}__ : Renvoie des films qui ont un titre proche du titrre donné
 * __/acteurs/{id_film}__ : Renvoie les acteurs d'un film 
 * __/realisateurs/{id_film}__ : Renvoie les réalisateurs d'un film
+
+## Installation
+
+### Prérequis
+* Python 3.9.2 ou supérieur
+* PostgreSQL 13.11 ou supérieur
+* pip 20.3.4 ou supérieur
+
+### Installation des dépendances
+``` bash
+pip install -r requirements.txt
+```
