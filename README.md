@@ -71,3 +71,14 @@ Données au format __JSON__
 ``` bash
 pip install -r requirements.txt
 ```
+
+### Lancement de l'API
+Depuis le dossier __Partie_4__ :
+* PC IUT :
+``` bash
+~/.local/bin/uvicorn API:app --reload
+```
+* PC perso Windows:
+``` bash
+python3 -m uvicorn API:app --reload
+```
