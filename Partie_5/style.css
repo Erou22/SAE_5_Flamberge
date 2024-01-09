@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; 
+  }
+  
+  header {
+    height: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
+    background-color: #3498db; 
+    display: flex;
+    align-items: center;
+  }
+  
+  #logo {
+    width: 50px; 
+    height: 50px;
+    margin-right: 20px;
+    background: url('chemin/vers/votre/logo.png') no-repeat center center;
+    background-size: cover;
+  }
+  
+  #search-bar {
+    flex: 1;
+    margin-left: 15em;
+    margin-right: 6em;
+    display: flex;
+    align-items: center;
+  }
+  
+  #search-bar input {
+    height: 2em;
+    width: 30em;;
+    padding: 5px;
+    margin-right: 0.2em;
+    border-radius: 0.5em;
+  }
+  
+  #search-button {
+    width: 3em;
+    height: 3em;
+    background: url('./images/logo_loupe.png') no-repeat center center;
+    background-size: 1em;
+    border: none;
+    border-radius: 5em;
+    background-color: #ddd;
+    cursor: pointer;
+  }
+  
+  nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  nav div {
+    padding-left: auto;
+    margin: 2em;
+    text-decoration: none;
+    border-left-color: #349;
+    border-left-style: solid;
+    border-left-width: 2px;
+    color: #fff;
+  }
