@@ -10,45 +10,52 @@
 <body>
     <header>
         <div>
-        <div id="logo"></div>
-        <div id="search-bar">
-          <!-- Ajoutez ici votre code pour la barre de recherche -->
-          <input type="text" placeholder="Rechercher...">
-          <button type="submit" id="search-button"></button>
-        </div></div>
+            <div id="logo"></div>
+            <div id="search-bar">
+                <!-- Ajoutez ici votre code pour la barre de recherche -->
+                <input type="text" placeholder="Rechercher...">
+                <button type="submit" id="search-button"></button>
+            </div>
+        </div>
         <nav>
-          <a href="index.html">
-            <div>Accueil</div>
-          </a>
-          <a href="detail_film.html">
-            <div>Genres</div>
-          </a>
-          <a href="contacts.html">
-            <div>Contacts</div>
-          </a>
-          <a href="documentation.html">
-            <div>Documentation</div>
-          </a>
+            <a href="index.html">
+                <div>Accueil</div>
+            </a>
+            <a href="detail_film.html">
+                <div>Genres</div>
+            </a>
+            <a href="contacts.html">
+                <div>Contacts</div>
+            </a>
+            <a href="documentation.html">
+                <div>Documentation</div>
+            </a>
         </nav>
         <div class="burger-menu" onclick="toggleMenu()">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
-      </header>
+    </header>
 
     <main>
         <h1>Documentation</h1>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- Importation des icônes -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
 
         <section id="docu-bdd" class="clickable-section">
             <div class="section-title">
                 <h2>Base de données</h2>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </div>
-            <div class="content">
+            <div class="content" style="display: none;">
                 <h4>Tables</h4>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio
                     asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet
@@ -65,8 +72,19 @@
                 <h2>Système de recommandation</h2>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </div>
-            <div class="content">
-
+            <div class="content" style="display: none;">
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi consequatur facilis obcaecati velit,
+                    nostrum aspernatur neque minima ipsam! Officiis possimus minus sunt quo maxime rerum at eius culpa,
+                    reprehenderit consequuntur? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error a
+                    cupiditate mollitia neque deserunt ipsum quam illum obcaecati, sequi placeat labore alias? Doloribus
+                    porro, architecto error consequuntur maxime dolore assumenda? Lorem ipsum dolor sit, amet
+                    consectetur adipisicing elit. Quia magnam inventore modi atque rerum, et eius placeat explicabo
+                    repellat eaque repudiandae praesentium voluptate ad perspiciatis dicta ullam ipsum labore at. Lorem
+                    ipsum dolor sit amet consectetur, adipisicing elit. Unde veritatis obcaecati molestias!
+                    Reprehenderit ullam et blanditiis tempora laudantium obcaecati quia magni dolorum est possimus,
+                    quisquam ipsa perferendis voluptatum quis aspernatur! Lorem ipsum dolor sit amet consectetur
+                    adipisicing elit. Illum et dolore a perferendis ab? Molestiae veritatis velit, quaerat eveniet vitae
+                    quae unde repellendus minus officia nisi doloribus, dolorum fuga exercitationem.</p>
             </div>
         </section>
 
@@ -75,7 +93,7 @@
                 <h2>API</h2>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </div>
-            <div class="content">
+            <div class="content" style="display: none;">
 
             </div>
         </section>
@@ -86,7 +104,7 @@
                 <h2>Installation</h2>
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </div>
-            <div class="content">
+            <div class="content" style="display: none;">
 
             </div>
         </section>
