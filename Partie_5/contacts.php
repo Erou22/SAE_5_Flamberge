@@ -57,7 +57,6 @@
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
 
   <?php require("./footer.php") ?>
-  <script src="script.js"></script>
 </body>
 
 </html>
