@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <?php require("./film.php") ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiche film</title>
@@ -13,35 +14,7 @@
 </head>
 
 <body>
-  <header>
-    <div>
-      <div id="logo"></div>
-      <div id="search-bar">
-        <!-- Ajoutez ici votre code pour la barre de recherche -->
-        <input type="text" placeholder="Rechercher...">
-        <button type="submit" id="search-button"></button>
-      </div>
-    </div>
-    <nav>
-      <a href="index.html">
-        <div>Accueil</div>
-      </a>
-      <a href="detail_film.html">
-        <div>Genres</div>
-      </a>
-      <a href="contacts.html">
-        <div>Contacts</div>
-      </a>
-      <a href="documentation.html">
-        <div>Documentation</div>
-      </a>
-    </nav>
-    <div class="burger-menu" onclick="toggleMenu()">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-  </header>
+<?php require("./header.php") ?>
 
   <main class="main_p_detail_film">
     <section>
@@ -140,9 +113,7 @@
 
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
 
-  <footer>
-    Gros bouf
-  </footer>
+  <?php require("./footer.php") ?>
   <script src="script.js"></script>
 </body>
 
