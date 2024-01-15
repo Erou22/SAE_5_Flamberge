@@ -24,8 +24,8 @@
 
 .carousel-slide{
     display: none;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    align-items: stretch;
     text-align: center;
     width: 100%;
     height: 100%;
