@@ -245,6 +245,10 @@ main {
 /* Contacts                */
 /* ----------------------- */
 
+.presentation {
+    margin: 1em;
+}
+
 i {
     margin-right: 0.25em;
 }
@@ -256,6 +260,10 @@ article a {
 
 article a:hover {
     text-decoration: underline;
+}
+
+article:last-child {
+    margin-bottom: 2em;
 }
 
 /* ----------------------- */
@@ -354,4 +362,54 @@ article a:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+
+/* ----------------------- */
+/* Recommendations         */
+/* ----------------------- */
+
+form.recommandation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 20em;
+    margin-top: 2em;
+}
+
+.recommandation .search-bar{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.recommandation .search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.recommandation .search-bar button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.recommandation .methode-button {
+    background-color: var(--couleur-principal);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
 }

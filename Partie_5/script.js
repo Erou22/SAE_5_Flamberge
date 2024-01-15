@@ -55,3 +55,41 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+/* ----------------------- */
+/* Contacts                */
+/* ----------------------- */
+
+const articles = document.querySelectorAll("article");
+
+if (articles[3].style.display == "none") {
+    articles[2].style.marginBottom = "2em";
+} else {
+    articles[2].style.marginBottom = "0";
+}
+
+var observer = new MutationObserver(function () {
+    if (articles[3].style.display != 'none') {
+        articles[2].style.marginBottom = "0";
+    } else {
+        articles[2].style.marginBottom = "2em";
+    }
+});
+observer.observe(articles[3], { attributes: true, childList: true });
+
+
+/* ----------------------- */
+/*  Recommendations        */
+/* ----------------------- */
+
+const methode = document.querySelector(".methode-button");
+
+methode.addEventListener("click", () => {
+    if (methode.value == "clusters") {
+        methode.value = "similarity";
+        methode.innerHTML = "Méthode par similarité Item-Based";
+    } else {
+        methode.value = "clusters";
+        methode.innerHTML = "Méthode par clusters";
+    }
+});
