@@ -45,11 +45,26 @@
 }
 
 .film {
-    display: flex;
     flex-direction: row;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .film .detail_film_recommendation {
     height: 15em;
     width: 11em;
+}
+
+.film_reco {
+    display: flex;
+    justify-content: center;
+}
+
+#bouton_reco {
+    display: flex;
+    justify-content: center;
+}
+
+section > h3 {
+    margin-left: 2em;
 }
