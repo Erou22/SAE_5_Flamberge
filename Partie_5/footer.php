@@ -1,0 +1,3 @@
+<footer>
+    Gros bouf
+</footer>

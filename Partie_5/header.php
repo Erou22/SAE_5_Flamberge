@@ -8,16 +8,16 @@
         </div>
     </div>
     <nav>
-        <a href="index.html">
+        <a href="index.php">
             <div>Accueil</div>
         </a>
-        <a href="detail_film.html">
+        <a href="detail_film.php">
             <div>Genres</div>
         </a>
-        <a href="contacts.html">
+        <a href="contacts.php">
             <div>Contacts</div>
         </a>
-        <a href="documentation.html">
+        <a href="documentation.php">
             <div>Documentation</div>
         </a>
     </nav>
