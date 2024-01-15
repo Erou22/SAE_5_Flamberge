@@ -1,6 +1,6 @@
 <header>
     <div>
-        <div id="logo"></div>
+        <a href="index.php"><div id="logo"></div></a>
         <div id="search-bar">
             <!-- Ajoutez ici votre code pour la barre de recherche -->
             <input type="text" placeholder="Rechercher...">
