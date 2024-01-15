@@ -1,0 +1,55 @@
+.main_p_detail_film section article {
+    display: flex;
+}
+
+#article_1_film_detail {
+    margin-bottom: 3em;
+    display: flex;
+    flex-direction: row;
+}
+
+#article_2_film_detail {
+    flex-direction: column;
+}
+
+#article_2_film_detail div {
+    margin: 1em;
+}
+
+#affiche_film_detail {
+    height: 15em;
+}
+
+#titre_note {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#titre_note h2 {
+    margin-left: 0;
+}
+
+.note_etoile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#infos_pricipales {
+    margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.film {
+    display: flex;
+    flex-direction: row;
+}
+
+.film .detail_film_recommendation {
+    height: 15em;
+    width: 11em;
+}

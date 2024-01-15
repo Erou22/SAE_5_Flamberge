@@ -2,6 +2,7 @@
 <html lang="fr">
 
 <head>
+  <?php require("./film.php")?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ma Page d'Accueil</title>
@@ -59,11 +60,20 @@
 
         <div class="carousel-wrapper">
           <div class="carousel-slide">
-            <div class=".img"></div>
-            <div class="description"></div>
+            <div class="img"><img src="./images/flamberge.png"></div>
+            <div class="description">
+              <h4>Le titre du film</h4>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio
+                asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet
+                aspernatur doloremque nobis.</p>
+              <aside>
+                <div>★</div>
+                <div>6.4</div>
+              </aside>
+            </div>
           </div>
           <div class="carousel-slide">
-            <div class=".img"></div>
+            <div class="img"><img src="./images/logo_loupe.png"></div>
             <div class="description"></div>
           </div>
           <div class="carousel-slide">
