@@ -61,21 +61,22 @@ document.addEventListener("DOMContentLoaded", function () {
 /* ----------------------- */
 
 const articles = document.querySelectorAll("article");
+const val = document.getElementById("valerian");
+
+val.addEventListener("click", () => {
+    if (articles[3].style.display == "none") {
+        articles[3].style.display = "block";
+        articles[2].style.marginBottom = "0";
+    } else {
+        articles[3].style.display = "none";
+        articles[2].style.marginBottom = "2em";
+    }});
 
 if (articles[3].style.display == "none") {
     articles[2].style.marginBottom = "2em";
 } else {
     articles[2].style.marginBottom = "0";
 }
-
-var observer = new MutationObserver(function () {
-    if (articles[3].style.display != 'none') {
-        articles[2].style.marginBottom = "0";
-    } else {
-        articles[2].style.marginBottom = "2em";
-    }
-});
-observer.observe(articles[3], { attributes: true, childList: true });
 
 
 /* ----------------------- */

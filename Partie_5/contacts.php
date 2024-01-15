@@ -16,7 +16,7 @@
     <h1>Contacts</h1>
 
     <aside class="presentation">
-      <p>Nous sommes 3 étudiants (précédemment 4) en 3ème année en BUT Informatique à l'IUT de Lannion.</p>
+      <p>Nous sommes 3 étudiants (précédemment <span id="valerian">4</span>) en 3ème année en BUT Informatique à l'IUT de Lannion.</p>
       <br>
       <p>Pour la SAÉ 5C, il nous a fallu réaliser un système de recommandation de films, et celui-ci est intégré à ce
         site par le biais d'une API.</p>
