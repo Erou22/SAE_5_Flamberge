@@ -59,105 +59,28 @@
     </section>
 
 
+
     <section class="film">
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
+    
+    
+    <?php
+      $max=getNumberFilms();
+      $max= $max["count"];
+      for($i=0;$i <10;$i++){
+        $rand=rand(0,$max);
+        $film=getFilmById($rand);
+        echo '<article> <img src="./images/logo_loupe.png"> <h3 class="">', $film["titre"], '</h3>';
+            if($film['note']!=-1){
+              echo '<aside> <div>★</div>
+                     <div>', $film['note'], '</div> <div class=\'gris\'>(', $film['nbvotes'], ')</aside>';
+            }
+        echo '</article>';
+      }
 
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
 
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
+    ?>
 
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
 
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
-
-      <article>
-        <img src="./images/logo_loupe.png">
-        <h3 class="">Titre du film</h3>
-        <aside>
-          <div>★</div>
-          <div>6.4</div>
-        </aside>
-      </article>
 
     </section>
   </main>
