@@ -1,7 +1,7 @@
 <?php
 
 try {
-    include('../connect.php');
+    include('./connect.php');
     $dbh = new PDO("$driver:host=$server;dbname=$dbname", $user, $pass);
     
     $dbh -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

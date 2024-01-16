@@ -17,14 +17,14 @@
 <?php require("./header.php") ?>
 
   <main class="main_p_detail_film">
-    <section>
+    <section class="section_resumer_detail">
       <article id="article_1_film_detail">
         <aside>
           <img id="affiche_film_detail" src="images/logo_loupe.png" alt="">
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">
-            <h2>Titre</h2>
+            <h2>Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
               <div>6.4</div>
               <div>★</div>
@@ -103,11 +103,11 @@
             <h3 class="">Titre du film</h3>
             <aside>
               <div>★</div>
-              <div>6.4</div>
+              <div>6.4 <span class="weak">(1500)<span></div>
             </aside>
           </article>
       </div>
-      <div id="bouton_reco"><a href=""><button>Faire des recommendations</button></a></div>
+      <div id="bouton_reco"><a href="recommandation.php"><button class="button">Faire des recommendations</button></a></div>
     </section>
   </main>
 
