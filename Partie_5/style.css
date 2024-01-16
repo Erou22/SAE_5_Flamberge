@@ -256,7 +256,7 @@ i {
 
 article a {
     text-decoration: none;
-    color: var(--couleur-principal);
+    color: var(--couleur-secondaire);
 }
 
 article a:hover {
