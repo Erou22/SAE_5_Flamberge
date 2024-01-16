@@ -63,19 +63,21 @@ document.addEventListener("DOMContentLoaded", function () {
 const articles = document.querySelectorAll("article");
 const val = document.getElementById("valerian");
 
-val.addEventListener("click", () => {
+if (val != null){
+    val.addEventListener("click", () => {
+        if (articles[3].style.display == "none") {
+            articles[3].style.display = "block";
+            articles[2].style.marginBottom = "0";
+        } else {
+            articles[3].style.display = "none";
+            articles[2].style.marginBottom = "2em";
+        }});
+    
     if (articles[3].style.display == "none") {
-        articles[3].style.display = "block";
-        articles[2].style.marginBottom = "0";
-    } else {
-        articles[3].style.display = "none";
         articles[2].style.marginBottom = "2em";
-    }});
-
-if (articles[3].style.display == "none") {
-    articles[2].style.marginBottom = "2em";
-} else {
-    articles[2].style.marginBottom = "0";
+    } else {
+        articles[2].style.marginBottom = "0";
+    }
 }
 
 
@@ -85,12 +87,14 @@ if (articles[3].style.display == "none") {
 
 const methode = document.querySelector(".methode-button");
 
-methode.addEventListener("click", () => {
-    if (methode.value == "clusters") {
-        methode.value = "similarity";
-        methode.innerHTML = "Méthode par similarité Item-Based";
-    } else {
-        methode.value = "clusters";
-        methode.innerHTML = "Méthode par clusters";
-    }
-});
+if (methode != null){
+    methode.addEventListener("click", () => {
+        if (methode.value == "clusters") {
+            methode.value = "similarity";
+            methode.innerHTML = "Méthode par similarité Item-Based";
+        } else {
+            methode.value = "clusters";
+            methode.innerHTML = "Méthode par clusters";
+        }
+    });
+}

@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-  <?php require("./film.php") ?>
+  <?php //require("./film.php") ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiche film</title>
@@ -24,24 +24,23 @@
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">
-            <h2>Titre  du film qui est trop bien</h2>
+            <span id="id_detail_film" style="display: none;">84256</span>
+            <h2 id="titre_detail_film">Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
-              <div>6.4</div>
+              <div id="note">6.4</div>
               <div>★</div>
             </div>
           </div>
-          <div>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><button>Genre 1</button></a>
-            <a href="https://www.youtube.com/watch?v=OVh0bMNSFss"><button>Genre 2</button></a>
-            <a href="https://www.youtube.com/watch?v=EUc1AhTdG3U"><button>Genre 3</button></a>
+          <div id="div_button_genres">
+            
           </div>
-          <div>Année</div>
+          <div id="annee">Année</div>
         </div>
       </article>
       <article id="article_2_film_detail">
-        <div>resume : ceci va être un piti resume du film, mtn il faut le rajouter à la BDD</div>
-        <div>Realisateurs</div>
-        <div>2-3 acteurs</div>
+        <div id="resume_detail_film">resume : ceci va être un piti resume du film, mtn il faut le rajouter à la BDD</div>
+        <div id="real_detail_film">Realisateurs</div>
+        <div id="acteurs_detail_film">2-3 acteurs</div>
       </article>
     </section>
     <section>
@@ -49,6 +48,38 @@
       <div>La liste des acteurs</div>
       <h4>Liste des autres intervenants</h4>
     </section>
+    <script>
+      function loadFilm() {
+        let id = document.getElementById("id_detail_film").innerHTML;
+        let div_genres = document.getElementById("div_button_genres");
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://127.0.0.1:8000/films/' + id + '/fiche', true);
+        xhr.onload = function () {
+          if (this.status == 200) {
+            let film = JSON.parse(this.responseText).film[0];
+            document.getElementById("titre_detail_film").innerHTML = film.titre;
+            //document.getElementById("affiche_film").src = film.affiche;
+            //document.getElementById("resume").innerHTML = film.resume;
+            // document.getElementById("real").innerHTML = film.realisateur;
+            // document.getElementById("acteurs").innerHTML = film.acteurs;
+            document.getElementById("annee").innerHTML = film.annee;
+            document.getElementById("note").innerHTML = film.note;
+            //document.getElementById("genre").innerHTML = film.nomGenre;
+            for (let i = 0; i < film.genres.length; i++) {
+              let genre = film.genres[i];
+              let button = document.createElement("button");
+              button.innerHTML = genre;
+              button.onclick = function () {
+                window.location.href = "http://localhost:8080/genres/" + genre;
+              }
+              div_genres.appendChild(button);
+            }
+          }
+        }
+        xhr.send();
+      }
+      loadFilm();
+    </script>
     <section>
       <h3>Reco</h3>
       <div class="film_reco">
