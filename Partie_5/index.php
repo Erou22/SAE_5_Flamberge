@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="carousel.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21"></script>
+  <script src="./sidescroll.js"></script>
 </head>
 
 <body>
@@ -58,37 +61,52 @@
       </div>
     </section>
 
-
-
-    <section class="film">
-    
-    
+  <section class="film film-section" id="row-1">
     <?php
-      $max=getNumberFilms();
-      $max= $max["count"];
-      for($i=0;$i <10;$i++){
-        $rand=rand(0,$max);
-        $film=getFilmById($rand);
-        echo '<article> <img src="./images/logo_loupe.png"> <h3 class="">', $film["titre"], '</h3>';
-            if($film['note']!=-1){
-              echo '<aside> <div>★</div>
-                     <div>', $film['note'], '</div> <div class=\'gris\'>(', $film['nbvotes'], ')</aside>';
-            }
-        echo '</article>';
+      // Loop through your existing movies to create placeholders
+      for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
+        $max=getNumberFilms();
+        $film = getFilmById(rand(1,$max['count'])); // Replace with your function to get movie details
+    ?>
+        <article>
+          <!-- Your existing article content -->
+          <img src="<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
+          <h3><?php echo $film['titre']; ?></h3>
+          <aside>
+            <div>★</div>
+            <div><?php echo $film['note']; ?></div>
+          </aside>
+        </article>
+    <?php
       }
-
-
     ?>
 
+</section>
 
+<section class="film film-section" id="row-2">
+    <?php
+      // Loop through your existing movies to create placeholders
+      for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
+        $film = getFilmById(rand(1,$max['count'])); // Replace with your function to get movie details
+    ?>
+        <article>
+          <!-- Your existing article content -->
+          <img src="<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
+          <h3><?php echo $film['titre']; ?></h3>
+          <aside>
+            <div>★</div>
+            <div><?php echo $film['note']; ?></div>
+          </aside>
+        </article>
+    <?php
+      }
+    ?>
 
-    </section>
+</section>
   </main>
 
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
 
   <?php require("./footer.php") ?>
 </body>
-
-
 </html>
