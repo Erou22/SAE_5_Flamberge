@@ -4,10 +4,10 @@
         <div id="search-bar">
             <!-- Ajoutez ici votre code pour la barre de recherche -->
             
-            <input type="text" placeholder="Rechercher...">
-            
-
-            <button type="submit" id="search-button"></button>
+            <form action="./recherche.php" method="get">
+                <input type="text" placeholder="Rechercher..." name="search">
+                <button type="submit" id="search-button"></button>
+            </form>
         </div>
     </div>
     <nav>
