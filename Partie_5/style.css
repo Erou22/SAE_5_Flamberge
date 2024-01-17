@@ -173,6 +173,13 @@ nav div:hover {
     }
 }
 
+/* Recherche */
+
+
+
+
+
+
 /* ----------------------- */
 /* Footer                  */
 /* ----------------------- */
@@ -288,6 +295,11 @@ article:last-child {
     flex-direction: column;
     align-items: center;
     margin-right: 20px; /* Adjusted margin for spacing between articles */
+    transition: transform .2s; /* Animation */
+}
+
+.film article:hover{
+    transform: scale(1.2);
 }
 
 .film article img {

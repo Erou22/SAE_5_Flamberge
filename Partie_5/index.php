@@ -77,8 +77,6 @@
               echo "<div>★</div>";
               echo "<div>", $film['note'],"</div>";
             }?>
-            
-            
           </aside>
         </article>
     <?php
@@ -98,8 +96,10 @@
           <img src="<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
           <h3><?php echo $film['titre']; ?></h3>
           <aside>
-            <div>★</div>
-            <div><?php echo $film['note']; ?></div>
+            <?php if($film['note']!=-1){
+              echo "<div>★</div>";
+              echo "<div>", $film['note'],"</div>";
+            }?>
           </aside>
         </article>
     <?php
