@@ -147,7 +147,7 @@ def getFilmComplet(id_film):
         filmComplet = film.to_dict(orient="records")
         filmComplet[0]['genres'] = genresFilm
         # filmComplet[0]['artistes'] = {"Acteurs/actrices": getActeurs(id_film)["idArtiste","nomArtiste"], "Réalisateur": getRealisateurs(id_film)["idArtiste","nomArtiste"], "Autres": autresArtistes(id_film)}
-        filmComplet[0]['artistes'] = {"Acteurs/actrices": getActeurs(id_film), "Réalisateur": getRealisateurs(id_film), "Autres": autresArtistes(id_film)}
+        filmComplet[0]['artistes'] = {"Acteurs": getActeurs(id_film), "Réalisateur": getRealisateurs(id_film), "Autres": autresArtistes(id_film)}
         return filmComplet
     else:
         return "Aucun film ne possède cet identifiant"

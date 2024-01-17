@@ -39,14 +39,14 @@
       </article>
       <article id="article_2_film_detail">
         <div id="resume_detail_film">resume : ceci va être un piti resume du film, mtn il faut le rajouter à la BDD</div>
-        <div id="real_detail_film">Realisateurs</div>
-        <div id="acteurs_detail_film">2-3 acteurs</div>
+        <div id="real_detail_film">Réalisateurs</div>
       </article>
     </section>
     <section>
       <h3>Liste des acteurs</h3>
-      <div>La liste des acteurs</div>
-      <h4>Liste des autres intervenants</h4>
+      <div id="div_acteurs"></div>
+      <h3>Liste des autres intervenants</h4>
+      <div id="div_autres_intervenants"></div>
     </section>
     <script>
       function loadFilm() {
@@ -60,11 +60,8 @@
             document.getElementById("titre_detail_film").innerHTML = film.titre;
             //document.getElementById("affiche_film").src = film.affiche;
             //document.getElementById("resume").innerHTML = film.resume;
-            // document.getElementById("real").innerHTML = film.realisateur;
-            // document.getElementById("acteurs").innerHTML = film.acteurs;
             document.getElementById("annee").innerHTML = film.annee;
             document.getElementById("note").innerHTML = film.note;
-            //document.getElementById("genre").innerHTML = film.nomGenre;
             for (let i = 0; i < film.genres.length; i++) {
               let genre = film.genres[i];
               let button = document.createElement("button");
@@ -73,6 +70,57 @@
                 window.location.href = "http://localhost:8080/genres/" + genre;
               }
               div_genres.appendChild(button);
+            }
+            let acteurs = film.artistes.Acteurs;
+            let realisateurs = film.artistes.Réalisateur;
+            let autres = film.artistes.Autres;
+            let div_realisateurs = document.getElementById("real_detail_film");
+            let div_acteurs = document.getElementById("div_acteurs");
+            let div_autres = document.getElementById("div_autres_intervenants");
+            for (let i = 0; i < acteurs.length; i++) {
+              let acteur = acteurs[i];
+              let button = document.createElement("button");
+              button.classList.add("people");
+              button.innerHTML = acteur.nomArtiste;
+              button.onclick = function () {
+                window.location.href = "http://localhost:8080/artistes/" + acteur.idArtiste;
+              }
+              div_acteurs.appendChild(button);
+            }
+            if (realisateurs.length > 1) {
+              div_realisateurs.innerHTML = "Réalisateurs : ";
+            } else {
+              div_realisateurs.innerHTML = "Réalisateur : ";
+            }
+            for (let i = 0; i < realisateurs.length; i++) {
+              let realisateur = realisateurs[i];
+              let button = document.createElement("button");
+              button.classList.add("people");
+              button.innerHTML = realisateur.nomArtiste;
+              button.onclick = function () {
+                window.location.href = "http://localhost:8080/artistes/" + realisateur.idArtiste;
+              }
+              div_realisateurs.appendChild(button);
+            }
+            let liste_roles = []
+            for (let i = 0; i < autres.length; i++) {
+              let autre = autres[i];
+              if (!liste_roles.includes(autre.nomRole)) {
+                liste_roles.push(autre.nomRole);
+                let div_role = document.createElement("div");
+                div_role.innerHTML = autre.nomRole + " : ";
+                div_role.id = autre.nomRole;
+                div_role.style.marginBottom = "0.25em";
+                div_autres.appendChild(div_role);
+              }
+              let button = document.createElement("button");
+              let div_role = document.getElementById(autre.nomRole);
+              button.classList.add("people");
+              button.innerHTML = autre.nomArtiste;
+              button.onclick = function () {
+                window.location.href = "http://localhost:8080/artistes/" + autre.idArtiste;
+              }
+              div_role.appendChild(button);
             }
           }
         }

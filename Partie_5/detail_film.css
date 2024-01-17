@@ -93,3 +93,18 @@ section > h3 {
     display: flex;
     justify-content: center;
 }
+
+.people {
+    background-color: transparent;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: 0.5em;
+}
+
+#div_acteurs, #div_autres_intervenants {
+    margin-left: 2em;
+}
+
+#div_autres_intervenants {
+    margin-bottom: 1em;
+}
