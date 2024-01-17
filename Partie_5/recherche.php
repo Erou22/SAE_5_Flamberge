@@ -17,23 +17,8 @@
 <body>
   <?php require("./header.php") ?>
   <main>
-    <section class="result">
+    <section class="result" id="result">
         <h3> Résultats de recherche pour <?php echo $_GET["search"] ?>  </h3>
-
-        <div class="ligneResult">
-            <img src="./images/logo_loupe.png" alt="titre"/>
-            <div class="desc">
-              <h4>Le titre du film</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio
-                asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet
-                aspernatur doloremque nobis.</p>
-                <aside>
-                <div>★</div>
-                <div>6.4</div>
-              </aside>
-              <div class="real"> Réalisateur: <a> Jean </a></div>
-            </div>
-        </div>
     </section>
   </main>
 
