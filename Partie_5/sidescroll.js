@@ -1,6 +1,6 @@
 function transformScroll(event) {
     // Adjust the scrolling speed by multiplying with a factor (e.g., 3)
-    var speedFactor = 4;
+    var speedFactor = 0.4;
   
     // Find the section under the mouse cursor
     var sectionUnderCursor = findSectionUnderCursor(event);
