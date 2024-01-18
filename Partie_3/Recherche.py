@@ -14,7 +14,7 @@ def chercher_film_par_titre(dataframe, titre):
             return f"Aucun film trouvé avec le titre {titre}"
         else:
             films.drop(columns=['contains'], inplace=True)
-            return films.sort_values(by=['distance_edit']).head(5).drop(columns=['distance_edit'])
+            return films.sort_values(by=['distance_edit']).head(10).drop(columns=['distance_edit'])
     except KeyError:
         return f"Aucun film trouvé avec le titre {titre}"
 
