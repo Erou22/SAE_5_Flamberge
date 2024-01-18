@@ -18,7 +18,7 @@
   <?php require("./header.php") ?>
   <main>
     <section class="result" id="result">
-        <h3> Résultats de recherche pour <?php echo $_GET["search"] ?>  </h3>
+        <h3> Résultats de recherche pour "<?php echo $_GET["search"] ?>"  </h3>
     </section>
   </main>
 
