@@ -1,64 +1,169 @@
 
 function loadRecherche() {
-    // Assuming `resultat` is the variable holding the "titre" value
-    let resultatModified = resultat.replace(/ /g, '+');
-  
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://127.0.0.1:8000/films/recherche/' + resultatModified, true);
-    xhr.onload = function () {
-      if (this.status == 200) {
-        let obj = JSON.parse(this.responseText);
-        console.log(obj.films.length);
-  
-        if (obj.films.length > 0) {
-          obj.films.forEach(film => {
-            addData(film);
-          });
-        } else {
-          displayNoResultsMessage();
-        }
+  // Assuming `resultat` is the variable holding the "titre" value
+  let resultatModified = resultat.replace(/ /g, '+');
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/films/recherche/' + resultatModified, true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let obj = JSON.parse(this.responseText);
+      //console.log(obj.films.length);
+
+      if (obj.films.length > 0) {
+        obj.films.forEach(film => {
+          addData(film);
+        });
+      } else {
+        displayNoResultsMessage();
       }
     }
-    xhr.send();
   }
-  
-  function displayNoResultsMessage() {
-    // Replace this with the logic to display a message in your HTML
-    alert("Aucun film n'a été trouvé.");
+  xhr.send();
+}
+
+function displayNoResultsMessage() {
+  // Replace this with the logic to display a message in your HTML
+  alert("Aucun film n'a été trouvé.");
+}
+
+
+function addData(film) {
+  var res = document.getElementById("result")
+  var ligne = document.createElement("div")
+  ligne.classList.add("ligneResult")
+  var img = document.createElement("img")
+  img.src = "./images/logo_loupe.png"
+  img.alt = film["titre"]
+  var desc = document.createElement("div")
+  desc.classList.add("desc")
+  var titre = document.createElement("h4")
+  titre.innerHTML = film["titre"]
+  var description = document.createElement("p")
+  description.innerHTML = "Lorem ipsum"
+  var aside = document.createElement("aside")
+  var etoile = document.createElement("div")
+  etoile.innerHTML = "★"
+  var note = document.createElement("div")
+  note.innerHTML = film["note"]
+  var real = document.createElement("div")
+
+  real.classList.add("real")
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/realisateurs/' + film["idFilm"], true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let obj = JSON.parse(this.responseText);
+      real.innerHTML = "Réalisateur : " + obj.realisateur.nomArtiste
+    }
   }
-  
 
-function addData(film){
-    var res=document.getElementById("result")
-    var ligne=document.createElement("div")
-    ligne.classList.add("ligneResult")
-    var img=document.createElement("img")
-    img.src="./images/logo_loupe.png"
-    img.alt=film["titre"]
-    var desc=document.createElement("div")
-    desc.classList.add("desc")
-    var titre=document.createElement("h4")
-    titre.innerHTML=film["titre"]
-    var description=document.createElement("p")
-    description.innerHTML="Lorem ipsum"
-    var aside=document.createElement("aside")
-    var etoile=document.createElement("div")
-    etoile.innerHTML = "★"
-    var note=document.createElement("div")
-    note.innerHTML=film["note"]
-    var real=document.createElement("div")
-    real.classList.add("real")
-    real.innerHTML= "Réalisateur : réal"
+  res.appendChild(ligne)
+  ligne.appendChild(img)
+  ligne.appendChild(desc)
+  desc.appendChild(titre)
+  desc.appendChild(description)
+  desc.appendChild(aside)
+  desc.appendChild(real)
+  aside.appendChild(etoile)
+  aside.appendChild(note)
 
-    res.appendChild(ligne)
-    ligne.appendChild(img)
-    ligne.appendChild(desc)
-    desc.appendChild(titre)
-    desc.appendChild(description)
-    desc.appendChild(aside)
-    desc.appendChild(real)
-    aside.appendChild(etoile)
-    aside.appendChild(note)
-    
+}
 
+// Permet de remplir la page de détails d'un film
+function loadFilmDetails() {
+  // Récupère l'id du film dans la page, et l'envoie à l'API
+  let id = document.getElementById("id_detail_film").innerHTML;
+  let div_genres = document.getElementById("div_button_genres");
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/films/' + id + '/fiche', true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let film = JSON.parse(this.responseText).film[0];
+      document.getElementById("titre_detail_film").innerHTML = film.titre;
+      //document.getElementById("affiche_film").src = film.poster;
+      //document.getElementById("resume").innerHTML = film.resume;
+      document.getElementById("annee").innerHTML = film.annee;
+      document.getElementById("note").innerHTML = film.note;
+      for (let i = 0; i < film.genres.length; i++) {
+        let genre = film.genres[i];
+        let button = document.createElement("button");
+        button.innerHTML = genre;
+        button.onclick = function () {
+          window.location.href = "http://localhost:8080/genres/" + genre;
+        }
+        div_genres.appendChild(button);
+      }
+      let acteurs = film.artistes.Acteurs;
+      let realisateurs = film.artistes.Réalisateur;
+      let autres = film.artistes.Autres;
+      let div_realisateurs = document.getElementById("real_detail_film");
+      let div_acteurs = document.getElementById("div_acteurs");
+      let div_autres = document.getElementById("div_autres_intervenants");
+      // Création des boutons pour les acteurs
+      if (typeof acteurs !== "string") {
+        for (let i = 0; i < acteurs.length; i++) {
+          let acteur = acteurs[i];
+          let button = document.createElement("button");
+          button.classList.add("people");
+          button.innerHTML = acteur.nomArtiste;
+          button.onclick = function () {
+            window.location.href = "http://localhost:8080/artistes/" + acteur.idArtiste;
+          }
+          div_acteurs.appendChild(button);
+        }
+      } else {
+        div_acteurs.innerHTML = "Aucun acteur/actrice n'est répertorié pour ce film.";
+        div_acteurs.style.color = "lightgrey";
+      }
+      // Création des boutons pour les réalisateurs
+      if (typeof realisateurs !== "string") {
+        if (realisateurs.length > 1) {
+          div_realisateurs.innerHTML = "Réalisateurs : ";
+        } else {
+          div_realisateurs.innerHTML = "Réalisateur : ";
+        }
+        for (let i = 0; i < realisateurs.length; i++) {
+          let realisateur = realisateurs[i];
+          let button = document.createElement("button");
+          button.classList.add("people");
+          button.innerHTML = realisateur.nomArtiste;
+          button.onclick = function () {
+            window.location.href = "http://localhost:8080/artistes/" + realisateur.idArtiste;
+          }
+          div_realisateurs.appendChild(button);
+        }
+      } else {
+        div_realisateurs.innerHTML = "Aucun réalisateur n'est répertorié pour ce film.";
+        div_realisateurs.style.color = "lightgrey";
+      }
+      // Création des roles et des boutons pour les autres intervenants
+      if (typeof autres !== "string") {
+        let liste_roles = []
+        for (let i = 0; i < autres.length; i++) {
+          let autre = autres[i];
+          if (!liste_roles.includes(autre.nomRole)) {
+            liste_roles.push(autre.nomRole);
+            let div_role = document.createElement("div");
+            div_role.innerHTML = autre.nomRole + " : ";
+            div_role.id = autre.nomRole;
+            div_role.style.marginBottom = "0.25em";
+            div_autres.appendChild(div_role);
+          }
+          let button = document.createElement("button");
+          let div_role = document.getElementById(autre.nomRole);
+          button.classList.add("people");
+          button.innerHTML = autre.nomArtiste;
+          button.onclick = function () {
+            window.location.href = "http://localhost:8080/artistes/" + autre.idArtiste;
+          }
+          div_role.appendChild(button);
+        }
+      } else {
+        div_autres.innerHTML = "Aucun autre intervenant(e) n'est répertorié(e) pour ce film.";
+        div_autres.style.color = "lightgrey";
+      }
+    }
+  }
+  xhr.send();
 }
