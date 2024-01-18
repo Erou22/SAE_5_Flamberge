@@ -176,7 +176,38 @@ nav div:hover {
 /* Recherche */
 
 
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
+.result{
+    border: none;
+    box-shadow: none;
+}
+
+.ligneResult{
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    border-bottom: 1px dotted var(--couleur-secondaire);
+}
+
+.ligneResult:last-child{
+    border-bottom: none;
+}
+
+
+.ligneResult img{
+    margin: 2em;
+    height: 15%;
+    width: 15%;
+}
+
+.real{
+    margin-top: 1em;
+}
 
 
 
