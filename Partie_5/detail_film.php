@@ -24,7 +24,7 @@
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">
-            <span id="id_detail_film" style="display: none;">84256</span>
+            <span id="id_detail_film" style="display: none;">59724</span>
             <h2 id="titre_detail_film">Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
               <div id="note">6.4</div>
@@ -43,91 +43,13 @@
       </article>
     </section>
     <section>
-      <h3>Liste des acteurs</h3>
+      <h3>Liste des acteurs et des actrices</h3>
       <div id="div_acteurs"></div>
       <h3>Liste des autres intervenants</h4>
       <div id="div_autres_intervenants"></div>
     </section>
-    <script>
-      function loadFilm() {
-        let id = document.getElementById("id_detail_film").innerHTML;
-        let div_genres = document.getElementById("div_button_genres");
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://127.0.0.1:8000/films/' + id + '/fiche', true);
-        xhr.onload = function () {
-          if (this.status == 200) {
-            let film = JSON.parse(this.responseText).film[0];
-            document.getElementById("titre_detail_film").innerHTML = film.titre;
-            //document.getElementById("affiche_film").src = film.affiche;
-            //document.getElementById("resume").innerHTML = film.resume;
-            document.getElementById("annee").innerHTML = film.annee;
-            document.getElementById("note").innerHTML = film.note;
-            for (let i = 0; i < film.genres.length; i++) {
-              let genre = film.genres[i];
-              let button = document.createElement("button");
-              button.innerHTML = genre;
-              button.onclick = function () {
-                window.location.href = "http://localhost:8080/genres/" + genre;
-              }
-              div_genres.appendChild(button);
-            }
-            let acteurs = film.artistes.Acteurs;
-            let realisateurs = film.artistes.Réalisateur;
-            let autres = film.artistes.Autres;
-            let div_realisateurs = document.getElementById("real_detail_film");
-            let div_acteurs = document.getElementById("div_acteurs");
-            let div_autres = document.getElementById("div_autres_intervenants");
-            for (let i = 0; i < acteurs.length; i++) {
-              let acteur = acteurs[i];
-              let button = document.createElement("button");
-              button.classList.add("people");
-              button.innerHTML = acteur.nomArtiste;
-              button.onclick = function () {
-                window.location.href = "http://localhost:8080/artistes/" + acteur.idArtiste;
-              }
-              div_acteurs.appendChild(button);
-            }
-            if (realisateurs.length > 1) {
-              div_realisateurs.innerHTML = "Réalisateurs : ";
-            } else {
-              div_realisateurs.innerHTML = "Réalisateur : ";
-            }
-            for (let i = 0; i < realisateurs.length; i++) {
-              let realisateur = realisateurs[i];
-              let button = document.createElement("button");
-              button.classList.add("people");
-              button.innerHTML = realisateur.nomArtiste;
-              button.onclick = function () {
-                window.location.href = "http://localhost:8080/artistes/" + realisateur.idArtiste;
-              }
-              div_realisateurs.appendChild(button);
-            }
-            let liste_roles = []
-            for (let i = 0; i < autres.length; i++) {
-              let autre = autres[i];
-              if (!liste_roles.includes(autre.nomRole)) {
-                liste_roles.push(autre.nomRole);
-                let div_role = document.createElement("div");
-                div_role.innerHTML = autre.nomRole + " : ";
-                div_role.id = autre.nomRole;
-                div_role.style.marginBottom = "0.25em";
-                div_autres.appendChild(div_role);
-              }
-              let button = document.createElement("button");
-              let div_role = document.getElementById(autre.nomRole);
-              button.classList.add("people");
-              button.innerHTML = autre.nomArtiste;
-              button.onclick = function () {
-                window.location.href = "http://localhost:8080/artistes/" + autre.idArtiste;
-              }
-              div_role.appendChild(button);
-            }
-          }
-        }
-        xhr.send();
-      }
-      loadFilm();
-    </script>
+    <script src=loadData.js></script>
+    <script>loadFilmDetails();</script>
     <section>
       <h3>Reco</h3>
       <div class="film_reco">
