@@ -1,4 +1,3 @@
-
 function loadRecherche() {
   // Assuming `resultat` is the variable holding the "titre" value
   let resultatModified = resultat.replace(/ /g, '+');
@@ -8,25 +7,34 @@ function loadRecherche() {
   xhr.onload = function () {
     if (this.status == 200) {
       let obj = JSON.parse(this.responseText);
-      //console.log(obj.films.length);
+      console.log(obj.films);
 
       if (obj.films.length > 0) {
         obj.films.forEach(film => {
           addData(film);
         });
       } else {
-        displayNoResultsMessage();
+        displayNoResultsMessage("Aucun film n'a été trouvé avec le titre " + resultat);
       }
+    } else if (this.status == 404) {
+      let obj = JSON.parse(this.responseText);
+      console.log(obj.error);
+      displayNoResultsMessage(obj.error);
     }
   }
   xhr.send();
 }
 
-function displayNoResultsMessage() {
-  // Replace this with the logic to display a message in your HTML
-  alert("Aucun film n'a été trouvé.");
-}
+function displayNoResultsMessage(message) {
+  // Create a new element for the message
+  var noResultsElement = document.createElement("div");
+  noResultsElement.textContent = message;
+  noResultsElement.classList.add("no-results-message"); // You can add a class for styling if needed
 
+  // Append the message element to the result container
+  var resultContainer = document.getElementById("result");
+  resultContainer.appendChild(noResultsElement);
+}
 
 function addData(film) {
   var res = document.getElementById("result")
@@ -48,16 +56,6 @@ function addData(film) {
   note.innerHTML = film["note"]
   var real = document.createElement("div")
 
-  real.classList.add("real")
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://127.0.0.1:8000/realisateurs/' + film["idFilm"], true);
-  xhr.onload = function () {
-    if (this.status == 200) {
-      let obj = JSON.parse(this.responseText);
-      real.innerHTML = "Réalisateur : " + obj.realisateur.nomArtiste
-    }
-  }
-
   res.appendChild(ligne)
   ligne.appendChild(img)
   ligne.appendChild(desc)
@@ -67,7 +65,6 @@ function addData(film) {
   desc.appendChild(real)
   aside.appendChild(etoile)
   aside.appendChild(note)
-
 }
 
 // Permet de remplir la page de détails d'un film
