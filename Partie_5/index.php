@@ -61,51 +61,65 @@
       </div>
     </section>
 
-  <section class="film film-section" id="row-1">
+    <section class="film film-section" id="row-1">
     <?php
       // Loop through your existing movies to create placeholders
       for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
-        $max=getNumberFilms();
-        $film = getFilmById(rand(1,$max['count'])); // Replace with your function to get movie details
+        $max = getNumberFilms();
+        $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get movie details
+
+        // Limit title length to 20 characters (adjust as needed)
+        $limitedTitle = strlen($film['titre']) > 20 ? substr($film['titre'], 0, 20) . '...' : $film['titre'];
     ?>
-        <article>
-          <!-- Your existing article content -->
-          <img src="<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
-          <h3><?php echo $film['titre']; ?></h3>
-          <aside>
-            <?php if($film['note']!=-1){
-              echo "<div>★</div>";
-              echo "<div>", $film['note'],"</div>";
-            }?>
-          </aside>
-        </article>
+        <a href="detail_film.php?idFilm=<?php echo $film["idfilm"];?>">
+          <article>
+            <!-- Your existing article content -->
+            <div class="image-container">
+              <img src="./images/poster_sans_film.png" alt="<?php echo $limitedTitle; ?>">
+            </div>
+            <h3><?php echo $limitedTitle; ?></h3>
+            <aside>
+              <?php if ($film['note'] != -1) {
+                echo "<div>★</div>";
+                echo "<div>", $film['note'], "</div>";
+              } ?>
+            </aside>
+          </article>
+        </a>
     <?php
       }
     ?>
-
 </section>
+
 
 <section class="film film-section" id="row-2">
     <?php
       // Loop through your existing movies to create placeholders
       for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
-        $film = getFilmById(rand(1,$max['count'])); // Replace with your function to get movie details
+        $max = getNumberFilms();
+        $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get movie details
+
+        // Limit title length to 20 characters (adjust as needed)
+        $limitedTitle = strlen($film['titre']) > 20 ? substr($film['titre'], 0, 20) . '...' : $film['titre'];
     ?>
-        <article>
-          <!-- Your existing article content -->
-          <img src="<?php echo $film['image']; ?>" alt="<?php echo $film['titre']; ?>">
-          <h3><?php echo $film['titre']; ?></h3>
-          <aside>
-            <?php if($film['note']!=-1){
-              echo "<div>★</div>";
-              echo "<div>", $film['note'],"</div>";
-            }?>
-          </aside>
-        </article>
+        <a href="detail_film.php?idFilm=<?php echo $film["idfilm"];?>">
+          <article>
+            <!-- Your existing article content -->
+            <div class="image-container">
+              <img src="./images/poster_sans_film.png" alt="<?php echo $limitedTitle; ?>">
+            </div>
+            <h3><?php echo $limitedTitle; ?></h3>
+            <aside>
+              <?php if ($film['note'] != -1) {
+                echo "<div>★</div>";
+                echo "<div>", $film['note'], "</div>";
+              } ?>
+            </aside>
+          </article>
+        </a>
     <?php
       }
     ?>
-
 </section>
   </main>
 

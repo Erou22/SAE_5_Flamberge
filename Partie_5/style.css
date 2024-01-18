@@ -316,7 +316,12 @@ article:last-child {
     padding: 20px; /* Adjusted as needed */
 }
 
-.film article {
+.film a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.film a article {
     box-shadow: #ccc 0px 0px 2px;
     margin: 1em;
     padding: 0.5em;
@@ -327,29 +332,35 @@ article:last-child {
     align-items: center;
     margin-right: 20px; /* Adjusted margin for spacing between articles */
     transition: transform .2s; /* Animation */
+    overflow: hidden; /* Hide overflow content */
 }
 
-.film article:hover{
-    transform: scale(1.2);
-}
-
-.film article img {
+.film a article img {
     width: 10em;
-    height: 15em;
-    object-fit: scale-down;
+    height: 15em; /* Adjusted height to fit inside the article */
+    object-fit: scale-down; /* Scale down the image to fit within the container */
 }
 
-.film article h3 {
+.film a article .image-container {
+    flex: 1;
+    overflow: hidden; /* Hide overflow content for the container */
+}
+
+.film a article h3 {
     text-align: center;
-    margin-top: 0.5em; /* Added margin for spacing */
+    margin-top: 0.1em; /* Added margin for spacing */
+    height: 2.5em; /* Fixed height for the title container */
+    overflow: hidden; /* Hide overflow content for the title */
 }
 
-.film article aside {
+.film a article aside {
     display: flex;
     align-items: center;
     justify-content: space-between; /* Added for better alignment */
-    margin-top: 0.5em; /* Added margin for spacing */
+    margin-top: 0.1em; /* Added margin for spacing */
 }
+
+
 
 .laUne {
     border: none;
