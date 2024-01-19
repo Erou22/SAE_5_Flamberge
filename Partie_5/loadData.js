@@ -1,17 +1,29 @@
 
 function getFilmIdFromUrl() {
-  // Get the query string from the URL
+  // Récupère la chaîne de requête de l'URL
   var queryString = window.location.search;
 
-  // Create a URLSearchParams object with the query string
+  // Crée un objet URLSearchParams avec la chaîne de requête
   var urlSearchParams = new URLSearchParams(queryString);
 
-  // Get the value of 'idFilm' from the query string
+  // Obtient la valeur de 'idFilm' de la chaîne de requête
   var idFilm = urlSearchParams.get('idFilm');
 
   return idFilm;
 }
 
+function getGenreFromUrl() {
+  // Récupère la chaîne de requête de l'URL
+  var queryString = window.location.search;
+
+  // Crée un objet URLSearchParams avec la chaîne de requête
+  var urlSearchParams = new URLSearchParams(queryString);
+
+  // Obtient la valeur de 'genre' de la chaîne de requête
+  var genre = urlSearchParams.get('genre');
+
+  return genre;
+}
 
 
 
@@ -54,34 +66,61 @@ function displayNoResultsMessage(message) {
 }
 
 function addData(film) {
-  var res = document.getElementById("result")
-  var ligne = document.createElement("div")
-  ligne.classList.add("ligneResult")
-  var img = document.createElement("img")
-  img.src = "./images/logo_loupe.png"
-  img.alt = film.titre
-  var desc = document.createElement("div")
-  desc.classList.add("desc")
-  var titre = document.createElement("h4")
-  titre.innerHTML = film.titre
-  var description = document.createElement("p")
-  description.innerHTML = "Lorem ipsum"
-  var aside = document.createElement("aside")
-  var etoile = document.createElement("div")
-  etoile.innerHTML = "★"
-  var note = document.createElement("div")
-  note.innerHTML = film.note
-  var real = document.createElement("div")
+  var res = document.getElementById("result");
 
+  // Creating the container for each film result
+  var ligne = document.createElement("div");
+  ligne.classList.add("ligneResult");
+
+  // Creating the film details link
+  var filmLink = document.createElement("a");
+  filmLink.href = "http://localhost:8080/detail_film.php?idFilm=" + film.idFilm;
+
+  // Creating the film poster image
+  var img = document.createElement("img");
+  img.src = "./images/poster_sans_film.png";
+  img.alt = film.titre;
+
+  // Creating the description container
+  var desc = document.createElement("div");
+  desc.classList.add("desc");
+
+  // Creating the film title
+  var titre = document.createElement("h4");
+  titre.innerHTML = film.titre;
+
+  // Creating the film description
+  var description = document.createElement("p");
+  var originalText =
+    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur doloremque nobis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur .";
+
+  if (originalText.length > 400) {
+    description.innerHTML = originalText.substring(0, 400) + "...";
+  } else {
+    description.innerHTML = originalText;
+  }
+
+  // Creating the aside container for rating and note
+  var aside = document.createElement("aside");
+  var etoile = document.createElement("div");
+  etoile.innerHTML = "★";
+
+  var note = document.createElement("div");
+  note.innerHTML = film.note;
+
+  // Creating the container for the director information
+  var real = document.createElement("div");
+
+  // Fetching director information using XMLHttpRequest
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://127.0.0.1:8000/realisateurs/' + film["idFilm"], true);
-  listreal = []
+  xhr.open("GET", "http://127.0.0.1:8000/realisateurs/" + film["idFilm"], true);
+  listreal = [];
   xhr.onload = function () {
     if (this.status == 200) {
-      let obj = JSON.parse(this.responseText);
-      if (obj.director && obj.director.length > 0) {
-        for (let i = 0; i < obj.director.length; i++) {
-          listreal.push(obj.director[i].nomArtiste);
+      let realisateurs = JSON.parse(this.responseText).director;
+      if (realisateurs && realisateurs.length > 0) {
+        for (let i = 0; i < realisateurs.length; i++) {
+          listreal.push(realisateurs[i].nomArtiste);
         }
         if (listreal.length > 1) {
           real.innerHTML = "Réalisateurs : " + listreal.join(", ");
@@ -94,19 +133,41 @@ function addData(film) {
     } else if (this.status == 404) {
       real.innerHTML = "Réalisateur : inconnu";
     }
-  }
+  };
   xhr.send();
 
-  res.appendChild(ligne)
-  ligne.appendChild(img)
-  ligne.appendChild(desc)
-  desc.appendChild(titre)
-  desc.appendChild(description)
-  desc.appendChild(aside)
-  desc.appendChild(real)
-  aside.appendChild(etoile)
-  aside.appendChild(note)
+  // Creating the "Faire plus de recommendations" button
+  var recoButton = document.createElement("button");
+  recoButton.classList.add("button");
+  recoButton.innerHTML = "Faire plus de recommendations";
+
+  recoButton.addEventListener("click", function (event) {
+    // Prevent the link's default behavior when the button is clicked
+    event.preventDefault();
+    // Redirect to the recommendation page
+    window.location.href = "recommandation.php?idFilm=" + film.idFilm;
+  });
+
+  // Appending elements to the document
+  res.appendChild(filmLink);
+  filmLink.appendChild(ligne);
+  ligne.appendChild(img);
+  ligne.appendChild(desc);
+  desc.appendChild(titre);
+  desc.appendChild(description);
+  desc.appendChild(aside);
+  real.classList.add("real");
+  desc.appendChild(real);
+  recoButton.style.marginTop = "2em"; // Adjusting the button margin
+  desc.appendChild(recoButton); // Adding the button to the desc element
+  aside.appendChild(etoile);
+  aside.appendChild(note);
 }
+
+
+
+
+
 
 
 
@@ -122,6 +183,7 @@ function loadFilmDetails() {
     if (this.status == 200) {
       let film = JSON.parse(this.responseText).film[0];
       document.getElementById("titre_detail_film").innerHTML = film.titre;
+      document.getElementById('reco_link').setAttribute('href', 'recommandation.php?idFilm=' + getFilmIdFromUrl());
       //document.getElementById("affiche_film").src = film.poster;
       //document.getElementById("resume").innerHTML = film.resume;
       document.getElementById("annee").innerHTML = film.annee;
@@ -131,7 +193,7 @@ function loadFilmDetails() {
         let button = document.createElement("button");
         button.innerHTML = genre;
         button.onclick = function () {
-          window.location.href = "http://localhost:8080/genres/" + genre;
+          window.location.href = "http://localhost:8080/genre.php?genre=" + genre;
         }
         div_genres.appendChild(button);
       }
@@ -211,5 +273,30 @@ function loadFilmDetails() {
 
 
 
+function loadGenre() {
+  let genre = getGenreFromUrl();
+  let h3_genres = document.querySelector(".result > h3");
+  h3_genres.innerHTML += genre +"\"";
 
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/films/genre/' + genre, true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let films = JSON.parse(this.responseText).films;
+      //console.log(films);
 
+      if (films.length > 0) {
+        films.slice(0,10).forEach(film => {
+          addData(film);
+        });
+      } else {
+        displayNoResultsMessage("Aucun film n'a été trouvé avec le genre " + genre);
+      }
+    } else if (this.status == 404) {
+      let obj = JSON.parse(this.responseText);
+      //console.log(obj.error);
+      displayNoResultsMessage(obj.error);
+    }
+  }
+  xhr.send();
+}

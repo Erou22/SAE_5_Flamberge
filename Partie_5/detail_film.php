@@ -20,11 +20,10 @@
     <section class="section_resumer_detail">
       <article id="article_1_film_detail">
         <aside>
-          <img id="affiche_film_detail" src="images/logo_loupe.png" alt="">
+          <img id="affiche_film_detail" src="images/poster_sans_film.png" alt="">
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">
-            <span id="id_detail_film" style="display: none;">59724</span>
             <h2 id="titre_detail_film">Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
               <div id="note">6.4</div>
@@ -51,7 +50,7 @@
     <script src=loadData.js></script>
     <script>loadFilmDetails();</script>
     <section>
-      <h3>Reco</h3>
+      <h3>Recommendations</h3>
       <div class="film_reco">
         <section class="film">
           <article class="detail_film_recommendation">
@@ -108,7 +107,7 @@
             </aside>
           </article>
       </div>
-      <div id="bouton_reco"><a href="recommandation.php"><button class="button">Faire des recommendations</button></a></div>
+      <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
     </section>
   </main>
 

@@ -12,7 +12,7 @@ section > h3 {
     box-shadow: none;
     margin: 0;
     padding : 2em 0 0 3em;
-    background-color: var(--principale-sombre);
+    background-color: #111;
 }
 
 .note_etoile {
@@ -36,6 +36,16 @@ section > h3 {
 .film_reco {
     display: flex;
     justify-content: center;
+}
+
+#div_button_genres button {
+    background-color: transparent;
+    color: white;
+    padding: 0.4em;
+}
+
+#div_button_genres button:hover {
+    background-color: var(--principale-sombre);
 }
 
 .button {
@@ -99,6 +109,11 @@ section > h3 {
     color: #fff;
     border-radius: 5px;
     margin-right: 0.5em;
+    border-width: 1px;
+}
+
+.people:hover {
+    background-color: var(--principale-sombre);
 }
 
 #div_acteurs, #div_autres_intervenants {
