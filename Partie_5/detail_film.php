@@ -20,7 +20,7 @@
     <section class="section_resumer_detail">
       <article id="article_1_film_detail">
         <aside>
-          <img id="affiche_film_detail" src="images/logo_loupe.png" alt="">
+          <img id="affiche_film_detail" src="images/poster_sans_film.png" alt="">
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">

@@ -1,17 +1,29 @@
 
 function getFilmIdFromUrl() {
-  // Get the query string from the URL
+  // Récupère la chaîne de requête de l'URL
   var queryString = window.location.search;
 
-  // Create a URLSearchParams object with the query string
+  // Crée un objet URLSearchParams avec la chaîne de requête
   var urlSearchParams = new URLSearchParams(queryString);
 
-  // Get the value of 'idFilm' from the query string
+  // Obtient la valeur de 'idFilm' de la chaîne de requête
   var idFilm = urlSearchParams.get('idFilm');
 
   return idFilm;
 }
 
+function getGenreFromUrl() {
+  // Récupère la chaîne de requête de l'URL
+  var queryString = window.location.search;
+
+  // Crée un objet URLSearchParams avec la chaîne de requête
+  var urlSearchParams = new URLSearchParams(queryString);
+
+  // Obtient la valeur de 'genre' de la chaîne de requête
+  var genre = urlSearchParams.get('genre');
+
+  return genre;
+}
 
 
 
@@ -105,10 +117,10 @@ function addData(film) {
   listreal = [];
   xhr.onload = function () {
     if (this.status == 200) {
-      let obj = JSON.parse(this.responseText);
-      if (obj.director && obj.director.length > 0) {
-        for (let i = 0; i < obj.director.length; i++) {
-          listreal.push(obj.director[i].nomArtiste);
+      let realisateurs = JSON.parse(this.responseText).director;
+      if (realisateurs && realisateurs.length > 0) {
+        for (let i = 0; i < realisateurs.length; i++) {
+          listreal.push(realisateurs[i].nomArtiste);
         }
         if (listreal.length > 1) {
           real.innerHTML = "Réalisateurs : " + listreal.join(", ");
@@ -181,7 +193,7 @@ function loadFilmDetails() {
         let button = document.createElement("button");
         button.innerHTML = genre;
         button.onclick = function () {
-          window.location.href = "http://localhost:8080/genres/" + genre;
+          window.location.href = "http://localhost:8080/genre.php?genre=" + genre;
         }
         div_genres.appendChild(button);
       }
@@ -261,5 +273,30 @@ function loadFilmDetails() {
 
 
 
+function loadGenre() {
+  let genre = getGenreFromUrl();
+  let h3_genres = document.querySelector(".result > h3");
+  h3_genres.innerHTML += genre +"\"";
 
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/films/genre/' + genre, true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let films = JSON.parse(this.responseText).films;
+      //console.log(films);
 
+      if (films.length > 0) {
+        films.slice(0,10).forEach(film => {
+          addData(film);
+        });
+      } else {
+        displayNoResultsMessage("Aucun film n'a été trouvé avec le genre " + genre);
+      }
+    } else if (this.status == 404) {
+      let obj = JSON.parse(this.responseText);
+      //console.log(obj.error);
+      displayNoResultsMessage(obj.error);
+    }
+  }
+  xhr.send();
+}
