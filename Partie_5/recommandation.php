@@ -14,15 +14,7 @@
 <?php require("./header.php")?>
 
     <main>
-        <form class="recommandation" action="recommandation.php" method="post">
-            <div class="search-bar">
-                <!-- Ajoutez ici votre code pour la barre de recherche -->
-                <input type="text" placeholder="Nom du film">
-                <button type="submit" class="recommandation search-button"></button>
-            </div>
-            <button type="button" class="recommandation methode-button" value="clusters">Méthode par clusters</button>
-        </form>
-
+        
     </main>
 
     <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>

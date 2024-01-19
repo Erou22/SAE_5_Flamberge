@@ -85,16 +85,3 @@ if (val != null){
 /*  Recommendations        */
 /* ----------------------- */
 
-const methode = document.querySelector(".methode-button");
-
-if (methode != null){
-    methode.addEventListener("click", () => {
-        if (methode.value == "clusters") {
-            methode.value = "similarity";
-            methode.innerHTML = "Méthode par similarité Item-Based";
-        } else {
-            methode.value = "clusters";
-            methode.innerHTML = "Méthode par clusters";
-        }
-    });
-}
