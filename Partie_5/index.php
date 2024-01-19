@@ -17,81 +17,40 @@
 <body>
   <?php require("./header.php") ?>
   <main>
-
-    <section class="laUne">
-      <div class="carousel">
-
-        <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
-        <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
-        <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
-        <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
-
-        <label for="carousel-css-slide-1" data-value="slide-1"></label>
-        <label for="carousel-css-slide-2" data-value="slide-2"></label>
-        <label for="carousel-css-slide-3" data-value="slide-3"></label>
-        <label for="carousel-css-slide-4" data-value="slide-4"></label>
-
-        <div class="carousel-wrapper">
-          <div class="carousel-slide">
-            <div class="img"><img src="./images/flamberge.png"></div>
-            <div class="description">
-              <h4>Le titre du film</h4>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio
-                asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet
-                aspernatur doloremque nobis.</p>
-              <aside>
-                <div>★</div>
-                <div>6.4</div>
-              </aside>
-            </div>
-          </div>
-          <div class="carousel-slide">
-            <div class="img"><img src="./images/logo_loupe.png"></div>
-            <div class="description"></div>
-          </div>
-          <div class="carousel-slide">
-            <div class=".img"></div>
-            <div class="description"></div>
-          </div>
-          <div class="carousel-slide">
-            <div class=".img"></div>
-            <div class="description"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="laUne">
   <div class="carousel">
-
+      <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
+      <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
+      <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
+      <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
+      
+      <label for="carousel-css-slide-1" data-value="slide-1"></label>
+      <label for="carousel-css-slide-2" data-value="slide-2"></label>
+      <label for="carousel-css-slide-3" data-value="slide-3"></label>
+      <label for="carousel-css-slide-4" data-value="slide-4"></label>
+      <div class="carousel-wrapper">"
     <?php
     $numberOfCarouselSlides = 4;
 
-    for ($i = 1; $i <= $numberOfCarouselSlides; $i++) {
+    for ($i = 0; $i < $numberOfCarouselSlides; $i++) {
       $max = getNumberFilms();
       $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
-    ?>
-      <input type="radio" id="carousel-css-slide-<?php echo $i; ?>" name="carousel-css" value="slide-<?php echo $i; ?>" <?php echo ($i === 1) ? 'checked' : ''; ?> />
-      <label for="carousel-css-slide-<?php echo $i; ?>" data-value="slide-<?php echo $i; ?>"></label>
-
-      <div class="carousel-wrapper">
-        <div class="carousel-slide">
-          <div class="img"><img src="<?php echo $film['image']; ?>"></div>
-          <div class="description">
-            <h4><?php echo $film['titre']; ?></h4>
-            <p><?php echo $film['description']; ?></p>
-            <?php if ($film['note'] !== -1) : ?>
-              <aside>
-                <div>★</div>
-                <div><?php echo $film['note']; ?></div>
-              </aside>
-            <?php endif; ?>
-          </div>
-        </div>
-      </div>
-    <?php
+      echo  "<div class=\"carousel-slide\">";
+      echo  "  <div class=\"img\"><img src=\"./images/poster_sans_film.png\"></div>";
+      echo  "  <div class=\"description\">";
+      echo  "    <h4>", $film['titre'], "</h4>";
+      echo  "    <p>", $film['description'],"</p>";
+      if ($film['note'] != -1){
+          echo    "<aside>";
+          echo     "<div>★</div>";
+          echo      "<div>", $film['note'],"</div>";
+          echo    "</aside>";
+      }
+      echo    "</div>";
+      echo  "</div>";
     }
     ?>
+    </div>
   </div>
 </section>
 

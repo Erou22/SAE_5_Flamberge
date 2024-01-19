@@ -327,7 +327,12 @@ article:last-child {
 
 .film a {
     text-decoration: none;
+    transition: .2s;
     color: #FFF;
+}
+
+.film a:hover{
+    transform: scale(1.1);
 }
 
 .film a article {
