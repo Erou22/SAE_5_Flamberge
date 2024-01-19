@@ -182,33 +182,84 @@ form{
     justify-content: center;
 }
 
-.result{
+.result {
     border: none;
     box-shadow: none;
 }
 
-.ligneResult{
+.result a {
+    text-decoration: none;
+    color: #FFF;
+    border-bottom: 1px solid var(--couleur-secondaire); /* Add this line to apply border to the link */
+    display: block; /* Make the link a block element to occupy the full width */
+}
+
+.ligneResult {
     display: flex;
     flex-direction: row;
     padding: 1em;
-    border-bottom: 1px dotted var(--couleur-secondaire);
+    transition: .2s;
 }
 
-.ligneResult:last-child{
+.ligneResult a{
+    border: none;
+    box-shadow: none;
+}
+
+.ligneResult:last-child {
     border-bottom: none;
 }
 
-
-.ligneResult img{
-    margin: 2em;
-    height: 15%;
-    width: 15%;
+.ligneResult img {
+    margin: 1em 2em;
+    width: 20%;
+    height: auto;
+    max-width: 100%;
+    min-width: 20%;
+    object-fit: scale-down;
+    justify-content: space-evenly;
 }
 
-.real{
+@media (max-width: 768px) {
+    .ligneResult {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ligneResult img {
+        max-width: 60%;
+        min-width: 50%;
+    }
+}
+
+.real {
     margin-top: 1em;
 }
 
+.desc aside {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    margin-top: 2em;
+    background-color: var(--couleur-principal);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button:hover{
+    background-color: var(--principale-sombre);
+}
+
+.result a:hover{
+    transform: scale(1.02);
+}
 
 
 /* ----------------------- */
