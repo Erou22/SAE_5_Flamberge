@@ -66,28 +66,55 @@ function displayNoResultsMessage(message) {
 }
 
 function addData(film) {
-  var res = document.getElementById("result")
-  var ligne = document.createElement("div")
-  ligne.classList.add("ligneResult")
-  var img = document.createElement("img")
-  img.src = "./images/logo_loupe.png"
-  img.alt = film.titre
-  var desc = document.createElement("div")
-  desc.classList.add("desc")
-  var titre = document.createElement("h4")
-  titre.innerHTML = film.titre
-  var description = document.createElement("p")
-  description.innerHTML = "Lorem ipsum"
-  var aside = document.createElement("aside")
-  var etoile = document.createElement("div")
-  etoile.innerHTML = "★"
-  var note = document.createElement("div")
-  note.innerHTML = film.note
-  var real = document.createElement("div")
+  var res = document.getElementById("result");
 
+  // Creating the container for each film result
+  var ligne = document.createElement("div");
+  ligne.classList.add("ligneResult");
+
+  // Creating the film details link
+  var filmLink = document.createElement("a");
+  filmLink.href = "http://localhost:8080/detail_film.php?idFilm=" + film.idFilm;
+
+  // Creating the film poster image
+  var img = document.createElement("img");
+  img.src = "./images/poster_sans_film.png";
+  img.alt = film.titre;
+
+  // Creating the description container
+  var desc = document.createElement("div");
+  desc.classList.add("desc");
+
+  // Creating the film title
+  var titre = document.createElement("h4");
+  titre.innerHTML = film.titre;
+
+  // Creating the film description
+  var description = document.createElement("p");
+  var originalText =
+    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur doloremque nobis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur .";
+
+  if (originalText.length > 400) {
+    description.innerHTML = originalText.substring(0, 400) + "...";
+  } else {
+    description.innerHTML = originalText;
+  }
+
+  // Creating the aside container for rating and note
+  var aside = document.createElement("aside");
+  var etoile = document.createElement("div");
+  etoile.innerHTML = "★";
+
+  var note = document.createElement("div");
+  note.innerHTML = film.note;
+
+  // Creating the container for the director information
+  var real = document.createElement("div");
+
+  // Fetching director information using XMLHttpRequest
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://127.0.0.1:8000/realisateurs/' + film["idFilm"], true);
-  listreal = []
+  xhr.open("GET", "http://127.0.0.1:8000/realisateurs/" + film["idFilm"], true);
+  listreal = [];
   xhr.onload = function () {
     if (this.status == 200) {
       let realisateurs = JSON.parse(this.responseText).director;
@@ -106,19 +133,41 @@ function addData(film) {
     } else if (this.status == 404) {
       real.innerHTML = "Réalisateur : inconnu";
     }
-  }
+  };
   xhr.send();
 
-  res.appendChild(ligne)
-  ligne.appendChild(img)
-  ligne.appendChild(desc)
-  desc.appendChild(titre)
-  desc.appendChild(description)
-  desc.appendChild(aside)
-  desc.appendChild(real)
-  aside.appendChild(etoile)
-  aside.appendChild(note)
+  // Creating the "Faire plus de recommendations" button
+  var recoButton = document.createElement("button");
+  recoButton.classList.add("button");
+  recoButton.innerHTML = "Faire plus de recommendations";
+
+  recoButton.addEventListener("click", function (event) {
+    // Prevent the link's default behavior when the button is clicked
+    event.preventDefault();
+    // Redirect to the recommendation page
+    window.location.href = "recommandation.php?idFilm=" + film.idFilm;
+  });
+
+  // Appending elements to the document
+  res.appendChild(filmLink);
+  filmLink.appendChild(ligne);
+  ligne.appendChild(img);
+  ligne.appendChild(desc);
+  desc.appendChild(titre);
+  desc.appendChild(description);
+  desc.appendChild(aside);
+  real.classList.add("real");
+  desc.appendChild(real);
+  recoButton.style.marginTop = "2em"; // Adjusting the button margin
+  desc.appendChild(recoButton); // Adding the button to the desc element
+  aside.appendChild(etoile);
+  aside.appendChild(note);
 }
+
+
+
+
+
 
 
 

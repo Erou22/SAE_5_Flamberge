@@ -107,7 +107,7 @@
             </aside>
           </article>
       </div>
-      <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire des recommendations</button></a></div>
+      <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
     </section>
   </main>
 
