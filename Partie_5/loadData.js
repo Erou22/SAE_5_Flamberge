@@ -7,7 +7,7 @@ function loadRecherche() {
   xhr.onload = function () {
     if (this.status == 200) {
       let obj = JSON.parse(this.responseText);
-      console.log(obj.films);
+      //console.log(obj.films);
 
       if (obj.films.length > 0) {
         obj.films.forEach(film => {
@@ -18,7 +18,7 @@ function loadRecherche() {
       }
     } else if (this.status == 404) {
       let obj = JSON.parse(this.responseText);
-      console.log(obj.error);
+      //console.log(obj.error);
       displayNoResultsMessage(obj.error);
     }
   }
@@ -42,19 +42,43 @@ function addData(film) {
   ligne.classList.add("ligneResult")
   var img = document.createElement("img")
   img.src = "./images/logo_loupe.png"
-  img.alt = film["titre"]
+  img.alt = film.titre
   var desc = document.createElement("div")
   desc.classList.add("desc")
   var titre = document.createElement("h4")
-  titre.innerHTML = film["titre"]
+  titre.innerHTML = film.titre
   var description = document.createElement("p")
   description.innerHTML = "Lorem ipsum"
   var aside = document.createElement("aside")
   var etoile = document.createElement("div")
   etoile.innerHTML = "★"
   var note = document.createElement("div")
-  note.innerHTML = film["note"]
+  note.innerHTML = film.note
   var real = document.createElement("div")
+
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/realisateurs/' + film["idFilm"], true);
+  listreal = []
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let obj = JSON.parse(this.responseText);
+      if (obj.director && obj.director.length > 0) {
+        for (let i = 0; i < obj.director.length; i++) {
+          listreal.push(obj.director[i].nomArtiste);
+        }
+        if (listreal.length > 1) {
+          real.innerHTML = "Réalisateurs : " + listreal.join(", ");
+        } else {
+          real.innerHTML = "Réalisateur : " + listreal[0];
+        }
+      } else {
+        real.innerHTML = "Réalisateur : inconnu";
+      }
+    } else if (this.status == 404) {
+      real.innerHTML = "Réalisateur : inconnu";
+    }
+  }
+  xhr.send();
 
   res.appendChild(ligne)
   ligne.appendChild(img)
