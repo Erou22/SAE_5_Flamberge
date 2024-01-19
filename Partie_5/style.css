@@ -390,7 +390,7 @@ article:last-child {
     align-self: center;
 }
 
-.img img {
+.img a img {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
@@ -405,6 +405,7 @@ article:last-child {
     flex-direction: column;
     align-items: start;
     padding: 1em !important;
+    text-decoration: none;
 }
 
 .description h4 {

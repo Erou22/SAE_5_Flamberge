@@ -1,3 +1,20 @@
+
+function getFilmIdFromUrl() {
+  // Get the query string from the URL
+  var queryString = window.location.search;
+
+  // Create a URLSearchParams object with the query string
+  var urlSearchParams = new URLSearchParams(queryString);
+
+  // Get the value of 'idFilm' from the query string
+  var idFilm = urlSearchParams.get('idFilm');
+
+  return idFilm;
+}
+
+
+
+
 function loadRecherche() {
   // Assuming `resultat` is the variable holding the "titre" value
   let resultatModified = resultat.replace(/ /g, '+');
@@ -67,10 +84,13 @@ function addData(film) {
   aside.appendChild(note)
 }
 
+
+
 // Permet de remplir la page de détails d'un film
 function loadFilmDetails() {
   // Récupère l'id du film dans la page, et l'envoie à l'API
-  let id = document.getElementById("id_detail_film").innerHTML;
+  let id = getFilmIdFromUrl();
+  console.log(id)
   let div_genres = document.getElementById("div_button_genres");
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://127.0.0.1:8000/films/' + id + '/fiche', true);
@@ -164,3 +184,8 @@ function loadFilmDetails() {
   }
   xhr.send();
 }
+
+
+
+
+

@@ -17,39 +17,42 @@
 <body>
   <?php require("./header.php") ?>
   <main>
-    <section class="laUne">
+  <section class="laUne">
   <div class="carousel">
-      <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
-      <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
-      <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
-      <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
-      
-      <label for="carousel-css-slide-1" data-value="slide-1"></label>
-      <label for="carousel-css-slide-2" data-value="slide-2"></label>
-      <label for="carousel-css-slide-3" data-value="slide-3"></label>
-      <label for="carousel-css-slide-4" data-value="slide-4"></label>
-      <div class="carousel-wrapper">"
-    <?php
-    $numberOfCarouselSlides = 4;
+    <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
+    <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
+    <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
+    <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
+    
+    <label for="carousel-css-slide-1" data-value="slide-1"></label>
+    <label for="carousel-css-slide-2" data-value="slide-2"></label>
+    <label for="carousel-css-slide-3" data-value="slide-3"></label>
+    <label for="carousel-css-slide-4" data-value="slide-4"></label>
 
-    for ($i = 0; $i < $numberOfCarouselSlides; $i++) {
-      $max = getNumberFilms();
-      $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
-      echo  "<div class=\"carousel-slide\">";
-      echo  "  <div class=\"img\"><img src=\"./images/poster_sans_film.png\"></div>";
-      echo  "  <div class=\"description\">";
-      echo  "    <h4>", $film['titre'], "</h4>";
-      echo  "    <p>", $film['description'],"</p>";
-      if ($film['note'] != -1){
-          echo    "<aside>";
-          echo     "<div>★</div>";
-          echo      "<div>", $film['note'],"</div>";
-          echo    "</aside>";
+    <div class="carousel-wrapper">
+      <?php
+      $numberOfCarouselSlides = 4;
+
+      for ($i = 0; $i < $numberOfCarouselSlides; $i++) {
+        $max = getNumberFilms();
+        $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
+      ?>
+        <div class="carousel-slide">
+          <div class="img"><a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="./images/poster_sans_film.png" alt="<?php echo $film['titre']; ?>"></a></div>
+          <a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>" class="description">
+            <h4><?php echo $film['titre']; ?></h4>
+            <p><?php echo $film['description']; ?></p>
+            <?php if ($film['note'] != -1): ?>
+              <aside>
+                <div>★</div>
+                <div><?php echo $film['note']; ?></div>
+              </aside>
+            <?php endif; ?>
+          </a>
+        </div>
+      <?php
       }
-      echo    "</div>";
-      echo  "</div>";
-    }
-    ?>
+      ?>
     </div>
   </div>
 </section>
