@@ -122,6 +122,7 @@ function loadFilmDetails() {
     if (this.status == 200) {
       let film = JSON.parse(this.responseText).film[0];
       document.getElementById("titre_detail_film").innerHTML = film.titre;
+      document.getElementById('reco_link').setAttribute('href', 'recommandation.php?idFilm=' + getFilmIdFromUrl());
       //document.getElementById("affiche_film").src = film.poster;
       //document.getElementById("resume").innerHTML = film.resume;
       document.getElementById("annee").innerHTML = film.annee;
