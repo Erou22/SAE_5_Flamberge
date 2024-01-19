@@ -156,5 +156,5 @@ def getAllFilm():
         return films
     except KeyError:
         return "Aucun film"
-    
+
 # print(getAllFilm())

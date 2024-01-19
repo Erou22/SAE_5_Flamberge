@@ -18,7 +18,7 @@ def init():
     # Films
     cur.execute(f"SELECT * FROM {connect.schema}._film")
     films = pd.DataFrame(cur.fetchall())
-    films.columns = ['idFilm', 'titre', 'annee', 'note', 'nbVotes']
+    films.columns = ['idFilm', 'titre', 'isAdult', 'annee', 'poster', 'description', 'dureeMinutes', 'note', 'nbVotes']
 
     # Genres
     cur.execute(f"SELECT * FROM {connect.schema}._genre")
@@ -164,7 +164,7 @@ def getFilmsAvecActeur(id_acteur):
             if films_data.empty:
                 return "Aucun film n'a été trouvé pour cet acteur ou actrice."
             else:
-                return films_data[["idFilm", "titre", "annee", "note", "nbVotes"]].to_dict(orient="records")
+                return films_data[['idFilm', 'titre', 'isAdult', 'annee', 'poster', 'description', 'dureeMinutes', 'note', 'nbVotes']].to_dict(orient="records")
         else: 
             return "Aucun acteur ou actrice n'a été trouvé avec cet identifiant."
     else:
@@ -185,7 +185,7 @@ def getFilmsAvecRealisateur(id_real):
             if films_data.empty:
                 return "Aucun film n'a été trouvé pour ce réalisateur."
             else:
-                return films_data[["idFilm", "titre", "annee", "note", "nbVotes"]].to_dict(orient="records")
+                return films_data[['idFilm', 'titre', 'isAdult', 'annee', 'poster', 'description', 'dureeMinutes', 'note', 'nbVotes']].to_dict(orient="records")
         else: 
             return "Aucun réalisateur n'a été trouvé avec cet identifiant."
         

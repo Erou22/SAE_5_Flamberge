@@ -61,7 +61,11 @@ def read_recommendation(id_film: int):
             recommendation_dict = {
                 "idFilm" : id,
                 "titre": str(row["titre"]),
+                "isAdult" : row["isAdult"],
                 "annee": row["annee"],
+                'poster': row["poster"],
+                'description': row["description"],
+                'dureeMinutes': row["dureeMinutes"],
                 "note": row["note"],
                 "nbVotes": row["nbVotes"],
                 "nomGenre": row["nomGenre"]
@@ -89,7 +93,11 @@ def read_recommendation(id_film: int):
             recommendation_dict = {
                 "idFilm" : row["idFilm"],
                 "titre": str(row["titre"]),
+                "isAdult" : row["isAdult"],
                 "annee": row["annee"],
+                'poster': row["poster"],
+                'description': row["description"],
+                'dureeMinutes': row["dureeMinutes"],
                 "note": row["note"],
                 "nbVotes": row["nbVotes"],
                 "nomGenre": row["nomGenre"]
@@ -104,6 +112,7 @@ def read_recommendation(id_film: int):
 @app.get("/films/")
 def read_films():
     films_data = Recommendation.getAllFilm()
+    print(films_data)
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getAllFilm()
         return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
@@ -137,8 +146,12 @@ def read_film(id_film: int):
         return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
     else:
         # Extraction des champs utiles
-        annee = films_data.get("annee", None).item()
         titre = str(films_data.get("titre", None))
+        isAdult = films_data.get("isAdult", None).item()
+        annee = films_data.get("annee", None).item()
+        poster = films_data.get("poster", None)
+        description = films_data.get("description", None)
+        dureeMinutes = films_data.get("dureeMinutes", None)
         note = films_data.get("note", None).item()
         nbVotes = films_data.get("nbVotes", None).item()
         nomGenre = films_data.get("nomGenre", None)
@@ -146,8 +159,12 @@ def read_film(id_film: int):
         # Création d'un dictionnaire avec ces champs
         result_dict = {
             "id film": id_film,
-            "annee": annee,
             "titre": titre,
+            "isAdult": isAdult,
+            "annee": annee,
+            "poster": poster,
+            "description": description,
+            "dureeMinutes": dureeMinutes,
             "note": note,
             "nbVotes": nbVotes,
             "nomGenre": nomGenre

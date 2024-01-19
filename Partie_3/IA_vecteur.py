@@ -42,7 +42,7 @@ def sim_eucli(A,B) :
     if (somme > 0) : 
         rep = 1/math.sqrt(somme)
     else :
-        rep = 1
+        rep = 2
     return rep
 
 
@@ -122,8 +122,9 @@ def recommandation_affichage(nom_film) :
 
     recommandation = {}
     id_vecteur = data.films_genres.loc[data.films_genres['titre'].str.lower() == nom_film.lower(), 'idFilm'].values[0]   # Donne l'ID du film selon son titres
+    print(id_vecteur)
     for i in list(vecteurs.keys()) :
-        recommandation[i] = sim_cos(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
+        recommandation[i] = sim_eucli(vecteurs[id_vecteur], vecteurs[i])   # Similarité entre les différents vecteurs 
 
     # pour ne pas recommandé le même film
     del recommandation[id_vecteur]
@@ -137,7 +138,7 @@ def recommandation_affichage(nom_film) :
     if len(max_values) > 10 : 
         # Ici on prends les films qui ont la note maximal sur la similarité
         # donc sont égaux, pour ne pas faire resortir les mêmes films en boucle 
-        reco_random_top = random.choice(max_values, 10)
+        reco_random_top = random.sample(max_values, 10)
 
         # Montre les films 
         print("------------- Résultats ---------------")
@@ -179,7 +180,7 @@ def getRecommendation(id_film) :
     
     recommandation = {}
     for i in list(vecteurs.keys()) :
-        recommandation[i] = sim_cos(vecteurs[id_film], vecteurs[i])   # Similarité entre les différents vecteurs 
+        recommandation[i] = sim_eucli(vecteurs[id_film], vecteurs[i])   # Similarité entre les différents vecteurs 
 
     # pour ne pas recommandé le même film
     del recommandation[id_film]
@@ -201,19 +202,37 @@ def getRecommendation(id_film) :
         for i in reco_random_top : 
 
             df = data.films_genres.loc[data.films_genres['idFilm'] == i]
-            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 'titre' : 'first','annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
-            df_reco = pd.concat([grouped_df,df_reco])
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 
+                                                              'titre' : 'first', 
+                                                              'isAdult': 'first',
+                                                              'annee': 'first', 
+                                                              'poster': 'first',
+                                                              'description': 'first',
+                                                              'dureeMinutes': 'first',
+                                                              'note': 'first', 
+                                                              'nbVotes': 'first', 
+                                                              'idGenre': 'first', 
+                                                              'nomGenre': lambda x: ', '.join(x)})
+            df_reco = pd.concat([grouped_df,df_reco])    
 
     else : 
         # res dans dataFrame
          for i in recommandation_trie_premiers.keys() : 
             
             df = data.films_genres.loc[data.films_genres['idFilm'] == i]
-            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 'titre' : 'first','annee': 'first', 'note': 'first', 'nbVotes': 'first', 'idGenre': 'first', 'nomGenre': lambda x: ', '.join(x)})
-
+            grouped_df = df.groupby(['idFilm', 'titre']).agg({'idFilm' : 'first', 
+                                                              'titre' : 'first', 
+                                                              'isAdult': 'first',
+                                                              'annee': 'first', 
+                                                              'poster': 'first',
+                                                              'description': 'first',
+                                                              'dureeMinutes': 'first',
+                                                              'note': 'first', 
+                                                              'nbVotes': 'first', 
+                                                              'idGenre': 'first', 
+                                                              'nomGenre': lambda x: ', '.join(x)})
             df_reco = pd.concat([grouped_df,df_reco])
 
-    
     return df_reco
 
 # transformation_vecteur()
@@ -227,12 +246,12 @@ if __name__ == '__main__' :
         nom_film = input("Sur quel film voulez vous faire la recommandation (nom du film sans faute ni d'espace après) ? (Entrez -1 pour quitter)\n")
 
         if nom_film != "-1" :
-            recommandation_affichage(nom_film)
+            getRecommendation(int(nom_film))
         
         else : 
             rep = input("C'est un film ? (y/n) ?\n")
             if (rep == "y") : 
                 print("Ce n'est pas bien de mentir, il n'y a pas de films \"-1\" dans cette BDD, il y aura donc une erreur...")
-                recommandation_affichage(nom_film)        # retire si on ne veut pas d'erreur
+                getRecommendation(nom_film)        # retire si on ne veut pas d'erreur
             else :
                 print("Au revoir :(")
