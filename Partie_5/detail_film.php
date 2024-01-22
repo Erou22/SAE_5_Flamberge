@@ -26,8 +26,7 @@
           <div id="titre_note">
             <h2 id="titre_detail_film">Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
-              <div id="note">6.4</div>
-              <div>★</div>
+            <div id="note"></div>
             </div>
           </div>
           <div id="div_button_genres">
