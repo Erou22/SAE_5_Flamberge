@@ -207,7 +207,7 @@ form{
     box-shadow: none;
 }
 
-.ligneResult:last-child {
+.result a:last-child {
     border-bottom: none;
 }
 
@@ -217,7 +217,7 @@ form{
     height: auto;
     max-width: 100%;
     min-width: 20%;
-    object-fit: scale-down;
+    object-fit: cover;
     justify-content: space-evenly;
 }
 
