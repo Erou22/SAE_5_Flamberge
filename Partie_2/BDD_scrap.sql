@@ -80,7 +80,7 @@ create table flamberge_V2._temp(
     role varchar(20)
 );
 
-WbimpoRT -FILE=30K_csv_test.csv
+WbimpoRT -FILE=../30K_csv_test.csv
         -TABLE=flamberge_V2._TEMP
         -DELIMITER=';'
         -QUOTECHAR="'"
