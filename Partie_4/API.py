@@ -279,3 +279,22 @@ def read_realisteur(id_film: int):
         # Création d'un dictionnaire avec le résultat
         result_dict = {"director": directors_data}
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
+    
+    
+    
+# ============================================================================================
+# ===================================== Retourne des genres ==================================
+# ============================================================================================
+
+# Retourne tous les genres
+@app.get("/genres")
+def read_genres():
+    genres_data = Donnees.getGenres()
+    
+    if isinstance(genres_data, str):
+        # Si il y a un message d'erreur de getGenres()
+        return JSONResponse(content={"error": genres_data}, media_type="application/json", status_code=404)
+    else:
+        # Création d'un dictionnaire avec le résultat
+        result_dict = {"genres": genres_data}
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)

@@ -58,7 +58,7 @@ def init():
     #
 
     # Supprimer les films avec des genres qui ont moins de 1000 films, car ils ne sont pas assez pertinents
-    films_genres = films_genres[films_genres.groupby('nomGenre').nomGenre.transform(len) > 1000]
+    # films_genres = films_genres[films_genres.groupby('nomGenre').nomGenre.transform(len) > 1000]
     # print(films_genres['nomGenre'].value_counts())
 
     # Supprimer les films qui n'ont pas de genres ("\N")
@@ -68,6 +68,7 @@ def init():
     # Supprimer dans les autres DataFrames les films qui ont été supprimés
     films = films[films['idFilm'].isin(films_genres['idFilm'])]
     films_roles = films_roles[films_roles['idFilm'].isin(films_genres['idFilm'])]
+    genres = genres[genres['idGenre'].isin(films_genres['idGenre'])]
     possede_genres = possede_genres[possede_genres['idFilm'].isin(films_genres['idFilm'])]
     roles = roles[roles['idFilm'].isin(films_genres['idFilm'])]
     artistes = artistes[artistes['idArtiste'].isin(films_roles['idArtiste'])]
@@ -215,3 +216,7 @@ def getFilmsGenre(nom_genre):
             return films_data.to_dict(orient="records")
     else:
         return "Le genre n'existe pas dans la liste des films"
+
+def getGenres():
+    genres_list = genres['nomGenre'].to_list()
+    return genres_list
