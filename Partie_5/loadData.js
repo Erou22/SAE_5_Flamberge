@@ -78,7 +78,16 @@ function addData(film) {
 
   // Creating the film poster image
   var img = document.createElement("img");
-  img.src = film.poster;
+
+  console.log(film.poster)
+  if(film.poster!="\\N"){
+    img.src = film.poster;
+  }else{
+    img.src = './images/poster_sans_film.png'
+  }
+  
+
+
   img.alt = film.titre;
 
   // Creating the description container
@@ -183,10 +192,26 @@ function loadFilmDetails() {
       let film = JSON.parse(this.responseText).film[0];
       document.getElementById("titre_detail_film").innerHTML = film.titre;
       document.getElementById('reco_link').setAttribute('href', 'recommandation.php?idFilm=' + getFilmIdFromUrl());
-      document.getElementById("affiche_film_detail").src = film.poster;
-      document.getElementById("resume_detail_film").innerHTML = film.description;
+
+      if(film.poster!='\\N'){
+        document.getElementById("affiche_film_detail").src = film.poster
+      }else{
+        document.getElementById("affiche_film_detail").src = './images/poster_sans_film.png'
+      }
+
+      if(film.description!='\\N'){
+        document.getElementById("resume_detail_film").innerHTML = film.description;
+      }else{
+        document.getElementById("resume_detail_film").innerHTML = "Aucune description pour ce film."
+      }
+
       document.getElementById("annee").innerHTML = film.annee;
-      document.getElementById("note").innerHTML = film.note;
+
+      if(film.note!=-1){
+        document.getElementById("note").innerHTML = film.note+'★';
+      }
+
+
       for (let i = 0; i < film.genres.length; i++) {
         let genre = film.genres[i];
         let button = document.createElement("button");

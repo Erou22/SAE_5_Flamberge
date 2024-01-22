@@ -38,7 +38,14 @@
         $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
       ?>
         <div class="carousel-slide">
-          <div class="img"><a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="<?php echo $film['poster'] ?>" alt="<?php echo $film['titre']; ?>"></a></div>
+          <?php
+                  if ($film['poster'] == '\N') {
+                     $affiche="./images/poster_sans_film.png"; 
+                    }else{
+                      $affiche=$film['poster'];
+                    }
+          ?>
+          <div class="img"><a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>"></a></div>
           <a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>" class="description">
             <h4><?php echo $film['titre']; ?></h4>
             <?php 
@@ -79,7 +86,14 @@
           <article>
             <!-- Your existing article content -->
             <div class="image-container">
-              <img src="<?php echo $film['poster'] ?>" alt="<?php echo $limitedTitle; ?>">
+            <?php
+                  if ($film['poster'] == '\N') {
+                     $affiche="./images/poster_sans_film.png"; 
+                    }else{
+                      $affiche=$film['poster'];
+                    }
+            ?>
+              <img src="<?php echo $affiche ?>" alt="<?php echo $limitedTitle; ?>">
             </div>
             <h3><?php echo $limitedTitle; ?></h3>
             <aside>
@@ -106,7 +120,14 @@
     ?>
         <a href="detail_film.php?idFilm=<?php echo $film["idfilm"];?>" ><article>
           <!-- Your existing article content -->
-          <img src="<?php echo $film['poster'] ?>" alt="<?php echo $film['titre']; ?>">
+          <?php
+                  if ($film['poster'] == '\N') {
+                     $affiche="./images/poster_sans_film.png"; 
+                    }else{
+                      $affiche=$film['poster'];
+                    }
+            ?>
+          <img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>">
           <h3><?php echo $film['titre']; ?></h3>
           <aside>
             <?php if($film['note']!=-1){
