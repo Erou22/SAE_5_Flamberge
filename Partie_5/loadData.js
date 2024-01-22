@@ -98,23 +98,31 @@ function addData(film) {
   var titre = document.createElement("h4");
   titre.innerHTML = film.titre;
 
+  
   // Creating the film description
   var description = document.createElement("p");
   var originalText = film.description
 
+
   if (originalText.length > 400) {
     description.innerHTML = originalText.substring(0, 400) + "...";
   } else {
-    description.innerHTML = originalText;
+    if(originalText!='\\N'){
+      description.innerHTML = originalText;
+    }else{
+      description.innerHTML = 'Aucune description pour ce film.'
+    }
   }
 
   // Creating the aside container for rating and note
   var aside = document.createElement("aside");
+  
+  
   var etoile = document.createElement("div");
   etoile.innerHTML = "★";
-
   var note = document.createElement("div");
   note.innerHTML = film.note;
+
 
   // Creating the container for the director information
   var real = document.createElement("div");
@@ -168,8 +176,10 @@ function addData(film) {
   desc.appendChild(real);
   recoButton.style.marginTop = "2em"; // Adjusting the button margin
   desc.appendChild(recoButton); // Adding the button to the desc element
+  if(film.note!=-1){
   aside.appendChild(etoile);
   aside.appendChild(note);
+  }
 }
 
 
@@ -203,6 +213,7 @@ function loadFilmDetails() {
         document.getElementById("resume_detail_film").innerHTML = film.description;
       }else{
         document.getElementById("resume_detail_film").innerHTML = "Aucune description pour ce film."
+        document.getElementById("resume_detail_film").style.color = "lightgrey";
       }
 
       document.getElementById("annee").innerHTML = film.annee;
