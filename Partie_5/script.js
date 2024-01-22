@@ -79,9 +79,3 @@ if (val != null){
         articles[2].style.marginBottom = "0";
     }
 }
-
-
-/* ----------------------- */
-/*  Recommendations        */
-/* ----------------------- */
-
