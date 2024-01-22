@@ -175,7 +175,7 @@ function addData(film) {
 function loadFilmDetails() {
   // Récupère l'id du film dans la page, et l'envoie à l'API
   let id = getFilmIdFromUrl();
-  console.log(id)
+  //console.log(id)
   let div_genres = document.getElementById("div_button_genres");
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://127.0.0.1:8000/films/' + id + '/fiche', true);
@@ -276,7 +276,7 @@ function loadFilmDetails() {
 function loadGenre() {
   let genre = getGenreFromUrl();
   let h3_genres = document.querySelector(".result > h3");
-  h3_genres.innerHTML += genre +"\"";
+  h3_genres.innerHTML += genre + "\"";
 
   let xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://127.0.0.1:8000/films/genre/' + genre, true);
@@ -286,7 +286,7 @@ function loadGenre() {
       //console.log(films);
 
       if (films.length > 0) {
-        films.slice(0,10).forEach(film => {
+        films.slice(0, 10).forEach(film => {
           addData(film);
         });
       } else {
@@ -296,6 +296,36 @@ function loadGenre() {
       let obj = JSON.parse(this.responseText);
       //console.log(obj.error);
       displayNoResultsMessage(obj.error);
+    }
+  }
+  xhr.send();
+}
+
+
+function addGenre(genre) {
+  let div_genres = document.getElementById("div_genres");
+  let anchor = document.createElement("a");
+  anchor.innerHTML = genre;
+  anchor.onclick = function () {
+    window.location.href = "http://localhost:8080/genre.php?genre=" + genre;
+  }
+  div_genres.appendChild(anchor);
+}
+
+
+function loadGenres() {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://127.0.0.1:8000/genres', true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      let genres = JSON.parse(this.responseText).genres.sort();
+      //console.log(genres);
+
+      if (genres.length > 0) {
+        genres.forEach(genre => {
+          addGenre(genre);
+        });
+      }
     }
   }
   xhr.send();
