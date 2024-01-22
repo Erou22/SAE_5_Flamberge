@@ -41,11 +41,19 @@
           <div class="img"><a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="<?php echo $film['poster'] ?>" alt="<?php echo $film['titre']; ?>"></a></div>
           <a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>" class="description">
             <h4><?php echo $film['titre']; ?></h4>
-            <p><?php echo $film['description']; ?></p>
+            <?php 
+              if ($film['description'] != '\N') {
+                echo "<p>";
+                echo $film['description']; 
+                echo "</p>";
+                }
+                ?>
             <?php if ($film['note'] != -1): ?>
               <aside>
-                <div>★</div>
-                <div><?php echo $film['note']; ?></div>
+              <?php if ($film['note'] != -1) {
+                echo "<div>★</div>";
+                echo "<div>", $film['note'], "</div>";
+              } ?>
               </aside>
             <?php endif; ?>
           </a>

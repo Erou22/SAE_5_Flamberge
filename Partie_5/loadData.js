@@ -78,7 +78,7 @@ function addData(film) {
 
   // Creating the film poster image
   var img = document.createElement("img");
-  img.src = "./images/poster_sans_film.png";
+  img.src = film.poster;
   img.alt = film.titre;
 
   // Creating the description container
@@ -91,8 +91,7 @@ function addData(film) {
 
   // Creating the film description
   var description = document.createElement("p");
-  var originalText =
-    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur doloremque nobis. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi illum optio voluptatum mollitia odio asperiores quaerat harum nisi et accusantium natus obcaecati dolorem temporibus, suscipit id. Amet aspernatur .";
+  var originalText = film.description
 
   if (originalText.length > 400) {
     description.innerHTML = originalText.substring(0, 400) + "...";
@@ -184,8 +183,8 @@ function loadFilmDetails() {
       let film = JSON.parse(this.responseText).film[0];
       document.getElementById("titre_detail_film").innerHTML = film.titre;
       document.getElementById('reco_link').setAttribute('href', 'recommandation.php?idFilm=' + getFilmIdFromUrl());
-      //document.getElementById("affiche_film").src = film.poster;
-      //document.getElementById("resume").innerHTML = film.resume;
+      document.getElementById("affiche_film_detail").src = film.poster;
+      document.getElementById("resume_detail_film").innerHTML = film.description;
       document.getElementById("annee").innerHTML = film.annee;
       document.getElementById("note").innerHTML = film.note;
       for (let i = 0; i < film.genres.length; i++) {
