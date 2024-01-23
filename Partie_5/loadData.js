@@ -438,47 +438,31 @@ function loadRecommandationSimilarite() {
       const obj = JSON.parse(this.responseText);
       var recomSimi = obj.recommendations;
 
+      for (let i = 0; i < recomSimi.length; i++) {
+        let film = recomSimi[i];
 
-      recomSimi.forEach((reco) => {
-        console.log(reco.idFilm);
+        // Limiter la longueur du titre à 20 caractères
+        const limitedTitle = film.titre.length > 20 ? film.titre.substring(0, 20) + '...' : film.titre;
 
-        xhr.open('GET', 'http://127.0.0.1:8000/films/' + reco.idFilm, true);
-        xhr.onload = function () {
-          if (this.status == 200) {
-            let film = JSON.parse(this.responseText);
-            // console.log(film);
+        // Créer un élément d'article avec les détails du film
+        const anchor = document.createElement('a');
+        anchor.href = "http://localhost:8080/detail_film.php?idFilm=" + film.idFilm;
+        //href="detail_film.php?idFilm=${film.idFilm}"
+        anchor.innerHTML = `
+          <article>
+            <div class="image-container">
+              <img src="${film.poster}" alt="${limitedTitle}">
+            </div>
+            <h3>${limitedTitle}</h3>
+            <aside>
+              ${film.note !== -1 ? `<div>★</div><div>${film.note}</div>` : ''}
+            </aside>
+          </article>
+        `;
 
-            // Limiter la longueur du titre à 20 caractères
-            const limitedTitle = film.titre.length > 20 ? film.titre.substring(0, 20) + '...' : film.titre;
-
-            // Créer un élément d'article avec les détails du film
-            const anchor = document.createElement('a');
-            anchor.href = "http://localhost:8080/detail_film.php?idFilm=" + reco.idFilm;
-            //href="detail_film.php?idFilm=${film.idFilm}"
-            anchor.innerHTML = `
-              <article>
-                <div class="image-container">
-                  <img src="${film.poster}" alt="${limitedTitle}">
-                </div>
-                <h3>${limitedTitle}</h3>
-                <aside>
-                  ${film.note !== -1 ? `<div>★</div><div>${film.note}</div>` : ''}
-                </aside>
-              </article>
-            `;
-
-            // Ajouter l'élément d'article à la section
-            document.getElementById('row-1').appendChild(anchor);
-
-          } else if (this.status == 404) {
-            let obj = JSON.parse(this.responseText);
-            //console.log(obj.error);
-            displayNoResultsMessage(obj.error);
-          };
-        };
-        xhr.send();
+        // Ajouter l'élément d'article à la section
+        document.getElementById('row-1').appendChild(anchor);
       }
-      );
 
     }
   }
