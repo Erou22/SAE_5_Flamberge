@@ -196,6 +196,24 @@ def getFilmsAvecRealisateur(id_real):
 # real = Christopher Nolan
 # print(getFilmsAvecRealisateur(55470))
 
+def getFilmsAvecAutreArtiste(id_autre):
+    if id_autre in artistes['idArtiste'].unique():
+        if ((films_roles['idArtiste'] == id_autre) & (films_roles['nomRole'].str.contains('actor|actress|director', case=False) == False)).any():
+            films_data = films_roles[
+                (films_roles['idArtiste'] == id_autre) & 
+                (films_roles['nomRole'].str.contains('actor|actress|director', case=False) == False)
+            ]
+            
+            if films_data.empty:
+                return "Aucun film n'a été trouvé pour cet artiste."
+            else:
+                return films_data[['idFilm', 'titre', 'isAdult', 'annee', 'poster', 'description', 'dureeMinutes', 'note', 'nbVotes']].to_dict(orient="records")
+        else: 
+            return "Aucun autre artiste n'a été trouvé avec cet identifiant."
+        
+    else:
+        return "Aucun artiste ne possède cet identifiant."
+
 def getFilmsGenre(nom_genre):
     dfGenres = films_genres.groupby('idFilm')['nomGenre'].agg(list).reset_index()
     data=pd.merge(films, dfGenres, on="idFilm", how="left")
