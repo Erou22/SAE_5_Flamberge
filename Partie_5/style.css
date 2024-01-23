@@ -191,8 +191,11 @@ form{
 .result a {
     text-decoration: none;
     color: #FFF;
-    border-bottom: 1px solid var(--couleur-secondaire); /* Add this line to apply border to the link */
     display: block; /* Make the link a block element to occupy the full width */
+}
+
+.result hr{
+    color: var(--couleur-secondaire);
 }
 
 .ligneResult {
@@ -207,8 +210,8 @@ form{
     box-shadow: none;
 }
 
-.result a:last-child {
-    border-bottom: none;
+.result hr:last-child {
+    display: none;
 }
 
 .ligneResult img {

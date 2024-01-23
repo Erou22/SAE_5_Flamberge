@@ -122,7 +122,7 @@ function addData(film) {
   var titre = document.createElement("h4");
   titre.innerHTML = film.titre;
 
-  
+
   // Creating the film description
   var description = document.createElement("p");
   var originalText = film.description
@@ -131,17 +131,17 @@ function addData(film) {
   if (originalText.length > 400) {
     description.innerHTML = originalText.substring(0, 400) + "...";
   } else {
-    if(originalText!='\\N'){
+    if (originalText != '\\N') {
       description.innerHTML = originalText;
-    }else{
+    } else {
       description.innerHTML = 'Aucune description pour ce film.'
     }
   }
 
   // Creating the aside container for rating and note
   var aside = document.createElement("aside");
-  
-  
+
+
   var etoile = document.createElement("div");
   etoile.innerHTML = "★";
   var note = document.createElement("div");
@@ -200,10 +200,11 @@ function addData(film) {
   desc.appendChild(real);
   recoButton.style.marginTop = "2em"; // Adjusting the button margin
   desc.appendChild(recoButton); // Adding the button to the desc element
-  if(film.note!=-1){
-  aside.appendChild(etoile);
-  aside.appendChild(note);
+  if (film.note != -1) {
+    aside.appendChild(etoile);
+    aside.appendChild(note);
   }
+  res.appendChild(document.createElement("hr"));
 }
 
 
@@ -397,7 +398,7 @@ function loadArtiste() {
   let id = getIdArtisteFromUrl();
   let type = getArtistTypeFromURL();
   let xhr = new XMLHttpRequest();
-  txt=document.querySelector(".result > h3");
+  txt = document.querySelector(".result > h3");
   if (type == "acteur") {
     xhr.open('GET', 'http://127.0.0.1:8000/films/acteur/' + id, true);
     txt.innerHTML = "Filmographie de l'acteur.ice : "
