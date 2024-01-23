@@ -196,26 +196,32 @@ def getFilmsAvecRealisateur(id_real):
 # real = Christopher Nolan
 # print(getFilmsAvecRealisateur(55470))
 
+import numpy as np  # Import numpy for NaN handling
+
 def getFilmsGenre(nom_genre):
     dfGenres = films_genres.groupby('idFilm')['nomGenre'].agg(list).reset_index()
-    data=pd.merge(films, dfGenres, on="idFilm", how="left")
+    data = pd.merge(films, dfGenres, on="idFilm", how="left")
     
     # Trier les genres par ordre alphabétique
-    data['nomGenre'] = data['nomGenre'].apply(lambda x: sorted(x))
+    data['nomGenre'] = data['nomGenre'].apply(lambda x: sorted(x) if isinstance(x, list) else [])
     # Convertir la liste de genres en chaîne de caractères
-    data['nomGenre'] = data['nomGenre'].apply(lambda x: ','.join(x))
+    data['nomGenre'] = data['nomGenre'].apply(lambda x: ','.join(x) if isinstance(x, list) else '')
 
     if data['nomGenre'].str.lower().eq(nom_genre.lower()).any():        
         films_data = data[data['nomGenre'].str.contains(nom_genre, case=False)]
         
-        
         if films_data.empty:
             return "Aucun film n'a été trouvé pour ce genre."
         else:
-            films_data=films_data.rename(columns={'nomGenre': 'Genres'})
+            films_data = films_data.rename(columns={'nomGenre': 'Genres'})
+            
+            # Handle NaN values before converting to dictionary
+            films_data = films_data.replace({np.nan: None})
+            
             return films_data.to_dict(orient="records")
     else:
         return "Le genre n'existe pas dans la liste des films"
+
 
 def getGenres():
     genres_list = genres['nomGenre'].to_list()
