@@ -215,6 +215,19 @@ def read_filmsAvecRealisateur(id_realisateur: int):
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
     
 
+@app.get("/films/autreArtiste/{id_artiste}")
+def read_filmsAvecAutreArtiste(id_artiste: int):
+    films_data = Donnees.getFilmsAvecAutreArtiste(id_artiste)
+    
+    if isinstance(films_data, str):
+        # Si il y a un message d'erreur de getFilmsAvecAutreArtiste()
+        return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)
+    else:
+        # Création d'un dictionnaire avec le résultat
+        result_dict = {"films": films_data}
+        return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
+    
+
 # Retourne tous les films avec le genre demandé
 @app.get("/films/genre/{nom_genre}")
 def read_genre(nom_genre: str):
@@ -269,7 +282,7 @@ def read_acteurs(id_film: int):
 
 # Retourne tous les realisateur d'un film
 @app.get("/realisateurs/{id_film}")
-def read_realisteur(id_film: int):
+def read_realisateur(id_film: int):
     directors_data = Donnees.getRealisateurs(id_film)
     
     if isinstance(directors_data, str):

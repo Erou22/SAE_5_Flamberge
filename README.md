@@ -23,6 +23,17 @@ clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Parti
 vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
 ```
 
+__connect.php__
+``` php
+<?php
+$server = 'host';
+$driver = 'pgsql';
+$dbname = 'dbname';
+$user = 'user';
+$pass = 'password';
+?>
+```
+
 ## Analyse des données 
 Un graphique par fichier :
 * __1__ : Nombre de films par année de 2015 à 2020
@@ -46,19 +57,36 @@ Fichier sql de la création et du peuplement de la BDD. Il faut le fichier __dat
 Données au format __JSON__
 
 ### GET
-* __/__ : Voit si l'API est en fonctionnement 
-* __/update__ : Recharge les clusters et les vecteurs
-* __/recommendations/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné
-* __/recommendations/similarite/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné utilisant la méthode de similarite
-* __/films/__ : Renvoie la liste de tous les films 
-* __/films/{id_film}__ : Renvoie le film lié à l'identifiant donné
-* __/films/{id_film}/fiche__ : Renvoie la fiche complète du film lié à l'identifiant donné (Info base + acteurs + realisateurs + autres personnes liées)
-* __/films/acteur/{id_acteur}__ : Renvoie les films où a joué l'acteur donné
-* __/films/realisateur/{id_realisateur}__ : Renvoie les films qui ont été réalisés le réalisateur donné
-* __/films/genre/{nom_genre}__ : Renvoie tous les films pour un genre donné
-* __/films/recherche/{titre}__ : Renvoie des films qui ont un titre proche du titrre donné
-* __/acteurs/{id_film}__ : Renvoie les acteurs d'un film 
-* __/realisateurs/{id_film}__ : Renvoie les réalisateurs d'un film
+* __/__ : Voit si l'API est en fonctionnement.
+
+* __/update__ : Recharge les clusters et les vecteurs.
+
+* __/recommandations/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné, en utilisant la méthode par défaut, les clusters.
+
+* __/recommandations/similarite/{id_film}__ : Renvoie la recommandation de plusieurs films pour un identifiant de film donné utilisant la méthode de similarité.
+
+* __/films__ : Renvoie la liste de tous les films.
+
+* __/films/{id_film}__ : Renvoie le film lié à l'identifiant donné.
+
+* __/films/{id_film}/fiche__ : Renvoie la fiche complète du film lié à l'identifiant donné (Info de base + acteurs + réalisateurs + autres personnes liées).
+
+* __/films/genre/{nom_genre}__ : Renvoie tous les films pour un genre donné (insensible à la casse).
+
+* __/films/acteur/{id_acteur}__ : Renvoie les films où a joué l'acteur donné.
+
+* __/films/realisateur/{id_realisateur}__ : Renvoie les films qui ont été réalisés par le réalisateur donné.
+
+* __/films/autreArtiste/{id_artiste}__ : Renvoie les films où l'artiste donné, qui n'est ni acteur ni réalisateur, a participé.
+
+* __/films/recherche/{titre}__ : Renvoie des films qui ont un titre proche du titre donné.
+
+* __/genres__ : Renvoie la liste de tous les genres.
+
+* __/acteurs/{id_film}__ : Renvoie la liste des acteurs pour un film donné.
+
+* __/realisateurs/{id_film}__ : Renvoie la liste des réalisateurs pour un film donné.
+
 
 ## Installation
 
@@ -66,6 +94,7 @@ Données au format __JSON__
 * Python 3.9.2 ou supérieur
 * PostgreSQL 13.11 ou supérieur
 * pip 20.3.4 ou supérieur
+* PHP 7.0.33 ou supérieur
 
 ### Installation des dépendances
 ``` bash
@@ -81,4 +110,12 @@ Depuis le dossier __Partie_4__ :
 * PC perso Windows:
 ``` bash
 python3 -m uvicorn API:app --reload
+```
+
+### Lancement du serveur PHP
+Depuis le dossier __Partie_5__ :
+
+(Il est important d'utiliser le port 8080 !!)
+``` bash
+php -S localhost:8080
 ```

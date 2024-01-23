@@ -14,7 +14,7 @@
         <a href="index.php">
             <div>Accueil</div>
         </a>
-        <a href="detail_film.php">
+        <a href="genres.php">
             <div>Genres</div>
         </a>
         <a href="contacts.php">
