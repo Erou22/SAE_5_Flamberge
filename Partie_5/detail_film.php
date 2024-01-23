@@ -55,12 +55,11 @@
         <script> loadRecommandationSimilarite(); </script>
       </section>
 
-      <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
+      <div id="bouton_reco"><button class="button" href="#">Faire plus de recommendations</button></div>
     </section>
   </main>
 
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
-  <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
   <?php require("./footer.php") ?>
 </body>
 
