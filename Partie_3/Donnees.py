@@ -1,6 +1,7 @@
 import pandas as pd
 import psycopg2
 import connect
+import numpy as np
 
 # Connexion à la base de données
 conn = connect.conn
