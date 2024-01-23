@@ -227,7 +227,9 @@ function loadFilmDetails() {
       let film = JSON.parse(this.responseText).film[0];
       document.getElementById("titre_detail_film").innerHTML = film.titre;
       document.querySelector("title").innerHTML = film.titre + " - Fiche film";
-      document.getElementById('reco_link').setAttribute('href', 'recommandation.php?idFilm=' + getFilmIdFromUrl());
+      document.getElementById('reco_link').addEventListener("click", function (event) {
+        window.location.href = "http://localhost:8080/recommandation.php?idFilm=" + film.idFilm;
+      });
 
       if (film.poster != '\\N') {
         document.getElementById("affiche_film_detail").src = film.poster
@@ -436,7 +438,7 @@ function loadRecommandationSimilarite() {
       const obj = JSON.parse(this.responseText);
       var recomSimi = obj.recommendations;
 
-      
+
       recomSimi.forEach((reco) => {
         console.log(reco.idFilm);
 
@@ -476,6 +478,9 @@ function loadRecommandationSimilarite() {
         };
         xhr.send();
       }
-    );
+      );
 
-    }}}
+    }
+  }
+  xhr.send();
+}
