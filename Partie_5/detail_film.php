@@ -55,7 +55,7 @@
         <script> loadRecommandationSimilarite(); </script>
       </section>
 
-      <div id="bouton_reco"><button class="button" href="#">Faire plus de recommendations</button></div>
+      <div id="bouton_reco"><button class="button" id="reco_link">Faire plus de recommendations</button></div>
     </section>
   </main>
 
