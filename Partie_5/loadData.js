@@ -368,9 +368,7 @@ function addGenre(genre) {
   let div_genres = document.getElementById("div_genres");
   let anchor = document.createElement("a");
   anchor.innerHTML = genre;
-  anchor.onclick = function () {
-    window.location.href = "http://localhost:8080/genre.php?genre=" + genre;
-  }
+  anchor.href = "http://localhost:8080/genre.php?genre=" + genre;
   div_genres.appendChild(anchor);
 }
 
