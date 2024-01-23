@@ -154,7 +154,7 @@ function addData(film) {
   // Fetching director information using XMLHttpRequest
   let xhr = new XMLHttpRequest();
   xhr.open("GET", "http://127.0.0.1:8000/realisateurs/" + film["idFilm"], true);
-  listreal = [];
+  let listreal = [];
   xhr.onload = function () {
     if (this.status == 200) {
       let realisateurs = JSON.parse(this.responseText).director;
