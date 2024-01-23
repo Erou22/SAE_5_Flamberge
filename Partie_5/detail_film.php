@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-  <?php //require("./film.php") ?>
+  <?php require("./film.php") ?>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiche film</title>
@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="./sidescroll.js"></script>
+  <script src="loadData.js"></script>
 </head>
 
 <body>
@@ -46,72 +48,20 @@
       <h3>Liste des autres intervenants</h4>
       <div id="div_autres_intervenants"></div>
     </section>
-    <script src=loadData.js></script>
     <script>loadFilmDetails();</script>
+
     <section>
       <h3>Recommendations</h3>
-      <div class="film_reco">
-        <section class="film">
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4</div>
-            </aside>
-          </article>
-    
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4</div>
-            </aside>
-          </article>
-    
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4</div>
-            </aside>
-          </article>
+      <section class="film film-section" id="row-1">
+        <script> loadRecommandationSimilarite(); </script>
+      </section>
 
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4</div>
-            </aside>
-          </article>
-
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4</div>
-            </aside>
-          </article>
-
-          <article class="detail_film_recommendation">
-            <img src="./images/logo_loupe.png">
-            <h3 class="">Titre du film</h3>
-            <aside>
-              <div>★</div>
-              <div>6.4 <span class="weak">(1500)<span></div>
-            </aside>
-          </article>
-      </div>
       <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
     </section>
   </main>
 
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
-
+  <div id="bouton_reco"><a href="#" id="reco_link"><button class="button">Faire plus de recommendations</button></a></div>
   <?php require("./footer.php") ?>
 </body>
 
