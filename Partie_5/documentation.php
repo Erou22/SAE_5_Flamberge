@@ -108,10 +108,10 @@
 
         <h4>Par similarité item-based</h4>
         <p>
-            Le système de recommandation basé sur la similarité item-based repose sur la mesure de la similarité
-            entre les films en se basant sur leurs genres. Pour ce faire, nous utilisons la distance euclidienne,
-            le cosinus, et le coefficient de Jaccard pour évaluer la similarité entre les vecteurs représentant les genres
-            des films.
+        Le système de recommandation basé sur la similarité item-based repose sur la mesure de la similarité entre les films en se basant sur leurs genres. 
+        Pour ce faire, nous avons implémenté plusieurs méthodes comme la distance euclidienne, le cosinus, 
+        et le coefficient de Jaccard pour évaluer la similarité entre les vecteurs représentant les genres des films. 
+        La méthode présentement utilisée est la distance euclidienne entre 2 vecteurs de genres.
         </p>
 
         <h4>Grâce à des clusters</h4>
@@ -123,7 +123,7 @@
             Voici comment nous réalisons le clustering :
             <pre><code class="python">
     <!-- Code de clustering -->
-    <span class="python-keyword"> import </span><span class="python-library">Donnees</span> <span class="python-keyword">as </span><span class="python-variable">data</span>
+    <span class="python-keyword">import </span><span class="python-library">Donnees</span> <span class="python-keyword">as </span><span class="python-variable">data</span>
     <span class="python-keyword">import </span><span class="python-library">IA_vecteur</span>
     <span class="python-keyword">import </span><span class="python-library">pandas</span> <span class="python-keyword">as</span> <span class="python-variable">pd</span>
     <span class="python-keyword">from </span><span class="python-library">sklearn.cluster</span> <span class="python-keyword">import</span> <span class="python-library">KMeans</span>
@@ -154,7 +154,7 @@
     <span class="python-variable">dftout.to_csv</span>(<span class="python-variable">clusters_path</span>, <span class="python-variable">index</span>=<span class="python-keyword">False</span>)
     <!-- Fin du code de clustering -->
 </code></pre>
-
+        <p>
             Au final, même si la méthode par clustering est notre algorithme principale, nous avons implémenté les deux dans notre site.
         </p>
     </div>
