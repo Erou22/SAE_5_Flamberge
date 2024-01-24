@@ -28,11 +28,6 @@ section > h3 {
     padding-top: 0;
 }
 
-.film .details_film_recommendation {
-    height: 15em;
-    width: 11em;
-}
-
 .film_reco {
     display: flex;
     justify-content: center;
