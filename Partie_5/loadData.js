@@ -141,13 +141,12 @@ function addData(film) {
   // Creating the aside container for rating and note
   var aside = document.createElement("aside");
 
-
-  var etoile = document.createElement("div");
-  etoile.innerHTML = "★";
   var note = document.createElement("div");
   note.innerHTML = film.note;
+  var etoile = document.createElement("div");
+  etoile.innerHTML = "★";
 
-
+  
   // Creating the container for the director information
   var real = document.createElement("div");
 
