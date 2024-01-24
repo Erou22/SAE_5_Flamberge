@@ -467,3 +467,43 @@ function loadRecommandationSimilarite() {
   }
   xhr.send();
 }
+
+
+function loadRecommandationCluster() {
+  let idFilm = getFilmIdFromUrl();
+
+  let h3_recommandations = document.querySelector(".result > h3");
+
+  let xhr_1 = new XMLHttpRequest();
+  xhr_1.open('GET', 'http://127.0.0.1:8000/films/' + idFilm, true);
+  xhr_1.onload = function () {
+    
+    if (this.status == 200) {
+      const film = JSON.parse(this.responseText);
+      console.log(film.titre);
+      h3_recommandations.innerHTML = "Recommandations pour le film '" + film.titre + "' :"; 
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://127.0.0.1:8000/recommendations/' + idFilm, true);
+      xhr.onload = function () {
+        if (this.status == 200) {
+          const obj = JSON.parse(this.responseText);
+          var recomCluster = obj.recommendations;
+
+          if (recomCluster.length > 0) {
+            recomCluster.forEach(film => {
+              addData(film);
+            });
+          } else {
+            displayNoResultsMessage("Aucune recommandation pour ce film :'( " + genre);
+          }
+        }
+      }
+      xhr.send();
+
+    } else {
+      h3_recommandations.innerHTML = "Y a pas gros "; 
+    }
+  }
+  xhr_1.send();
+}
