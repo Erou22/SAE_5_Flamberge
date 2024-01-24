@@ -16,13 +16,13 @@
     <h1>Contacts</h1>
 
     <aside class="presentation">
-      <p>Nous sommes 3 étudiants (précédemment <span id="valerian">4</span>) en 3ème année en BUT Informatique à l'IUT de Lannion.</p>
-      <br>
-      <p>Pour la SAÉ 5C, il nous a fallu réaliser un système de recommandation de films, et celui-ci est intégré à ce
-        site par le biais d'une API.</p>
-      <hr>
-      <p>Vous pouvez nous contacter par mail ou sur Discord, avec les liens suivants :</p>
-    </aside>
+  <p>Nous sommes trois étudiants, originellement <span id="valerian">quatre</span>, actuellement en 3ème année du BUT Informatique à l'IUT de Lannion.</p>
+  <br>
+  <p>Dans le cadre de notre SAÉ 5C, nous avons entrepris la création d'un système de recommandation de films, intégré de manière transparente à ce site grâce à une API soigneusement mise en place.</p>
+  <p>Dans le but de nous distinguer dans le concours, nous mettons en œuvre des algorithmes avancés et des techniques de traitement de données innovantes pour concevoir le meilleur système de recommandation. Notre équipe est animée par la passion de relever ce défi compétitif et de faire une contribution significative au domaine des recommandations de films.</p>
+  <hr>
+  <p>Pour toute communication, n'hésitez pas à nous contacter par mail ou sur Discord en utilisant les liens suivants :</p>
+</aside>
 
     <article>
       <h2>Erwan FERTRAY</h2>
