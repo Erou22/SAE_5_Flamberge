@@ -100,6 +100,17 @@ section > h3 {
     justify-content: space-evenly;
 }
 
+.section-reco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#row-reco {
+    padding: 0.5em;
+    width: 95%;
+}
+
 #bouton_reco {
     display: flex;
     justify-content: center;

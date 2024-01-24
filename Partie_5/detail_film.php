@@ -49,13 +49,13 @@
     </section>
     <script>loadFilmDetails();</script>
 
-    <section>
-      <h3>Recommendations</h3>
-      <section class="film film-section" id="row-1">
+    <section class="section-reco">
+      <h3>Recommandations</h3>
+      <div class="film film-section" id="row-reco">
         <script> loadRecommandationSimilarite(); </script>
-      </section>
+      </div>
 
-      <div id="bouton_reco"><button class="button" id="reco_link">Faire plus de recommendations</button></div>
+      <div id="bouton_reco"><button class="button" id="reco_link">Faire plus de recommandations</button></div>
     </section>
   </main>
 

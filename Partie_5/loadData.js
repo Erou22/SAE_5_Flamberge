@@ -176,15 +176,15 @@ function addData(film) {
   };
   xhr.send();
 
-  // Creating the "Faire plus de recommendations" button
+  // Creating the "Faire plus de recommandations" button
   var recoButton = document.createElement("button");
   recoButton.classList.add("button");
-  recoButton.innerHTML = "Faire plus de recommendations";
+  recoButton.innerHTML = "Faire plus de recommandations";
 
   recoButton.addEventListener("click", function (event) {
     // Prevent the link's default behavior when the button is clicked
     event.preventDefault();
-    // Redirect to the recommendation page
+    // Redirect to the recommandation page
     window.location.href = "recommandation.php?idFilm=" + film.idFilm;
   });
 
@@ -451,7 +451,7 @@ function loadRecommandationSimilarite() {
         anchor.innerHTML = `
           <article>
             <div class="image-container">
-              <img src="${film.poster}" alt="${limitedTitle}">
+              <img src="${film.poster!="\\N" ? film.poster : "./images/poster_sans_film.png"}" alt="${limitedTitle}">
             </div>
             <h3>${limitedTitle}</h3>
             <aside>
@@ -461,7 +461,7 @@ function loadRecommandationSimilarite() {
         `;
 
         // Ajouter l'élément d'article à la section
-        document.getElementById('row-1').appendChild(anchor);
+        document.getElementById('row-reco').appendChild(anchor);
       }
 
     }
