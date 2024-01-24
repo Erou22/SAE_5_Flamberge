@@ -45,7 +45,7 @@ Un graphique par fichier :
 ## Base de Données
 Fichier sql de la création et du peuplement de la BDD. Il faut le fichier __datasetIMDb.csv__ à la racine du projet 
 
-## Création de la Recommendation via IA
+## Création de la Recommandation via IA
 * __IA_vecteur.py__ et __recommandation.py__ sont les 2 scripts qui font une recommandation ! 
 * __IA_vecteur__ utilise la similarité entre 2 vecteurs, ici que sur les genres. 
 * __Recommandation__ utilise les clusters pour faire la reco. 

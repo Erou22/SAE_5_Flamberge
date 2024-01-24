@@ -45,7 +45,7 @@ def update():
 # ===================================== Retourne des films ===================================
 # ============================================================================================
 
-# Retourne les recommendations d'un film avec le clustering
+# Retourne les recommandations d'un film avec le clustering
 @app.get("/recommendations/{id_film}")
 def read_recommendation(id_film: int):
     recommendations_data = Recommendation.getRecommendation(id_film)
