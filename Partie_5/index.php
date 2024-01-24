@@ -58,8 +58,8 @@
                 <?php if ($film['note'] != -1) : ?>
                   <aside>
                     <?php if ($film['note'] != -1) {
-                      echo "<div>★</div>";
                       echo "<div>", $film['note'], "</div>";
+                      echo "<div>★</div>";
                     } ?>
                   </aside>
                 <?php endif; ?>

@@ -103,7 +103,7 @@ function addData(film) {
   // Creating the film poster image
   var img = document.createElement("img");
 
-  console.log(film.poster)
+  //console.log(film.poster)
   if (film.poster != "\\N") {
     img.src = film.poster;
   } else {
@@ -455,7 +455,7 @@ function loadRecommandationSimilarite() {
             </div>
             <h3>${limitedTitle}</h3>
             <aside>
-              ${film.note !== -1 ? `<div>★</div><div>${film.note}</div>` : ''}
+              ${film.note !== -1 ? `<div>${film.note}</div><div>★</div>` : ''}
             </aside>
           </article>
         `;
