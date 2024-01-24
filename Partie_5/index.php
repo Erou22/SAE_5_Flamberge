@@ -98,8 +98,8 @@
             <h3><?php echo $limitedTitle; ?></h3>
             <aside>
               <?php if ($film['note'] != -1) {
-                echo "<div>★</div>";
                 echo "<div>", $film['note'], "</div>";
+                echo "<div>★</div>";
               } ?>
             </aside>
           </article>
@@ -132,8 +132,8 @@
             <h3><?php echo $film['titre']; ?></h3>
             <aside>
               <?php if ($film['note'] != -1) {
-                echo "<div>★</div>";
                 echo "<div>", $film['note'], "</div>";
+                echo "<div>★</div>";
               } ?>
             </aside>
           </article>
