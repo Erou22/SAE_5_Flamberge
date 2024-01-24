@@ -98,7 +98,7 @@ function addData(film) {
 
   // Creating the film details link
   var filmLink = document.createElement("a");
-  filmLink.href = "http://localhost:8080/detail_film.php?idFilm=" + film.idFilm;
+  filmLink.href = "http://localhost:8080/details_film.php?idFilm=" + film.idFilm;
 
   // Creating the film poster image
   var img = document.createElement("img");
@@ -225,7 +225,7 @@ function loadFilmDetails() {
   xhr.onload = function () {
     if (this.status == 200) {
       let film = JSON.parse(this.responseText).film[0];
-      document.getElementById("titre_detail_film").innerHTML = film.titre;
+      document.getElementById("titre_details_film").innerHTML = film.titre;
       document.querySelector("title").innerHTML = film.titre + " - Fiche film";
       document.getElementById('reco_link').addEventListener("click", function (event) {
         window.location.href = "http://localhost:8080/recommandation.php?idFilm=" + film.idFilm;
@@ -238,10 +238,10 @@ function loadFilmDetails() {
       }
 
       if (film.description != '\\N') {
-        document.getElementById("resume_detail_film").innerHTML = film.description;
+        document.getElementById("resume_details_film").innerHTML = film.description;
       } else {
-        document.getElementById("resume_detail_film").innerHTML = "Aucune description pour ce film."
-        document.getElementById("resume_detail_film").style.color = "lightgrey";
+        document.getElementById("resume_details_film").innerHTML = "Aucune description pour ce film."
+        document.getElementById("resume_details_film").style.color = "lightgrey";
       }
 
       document.getElementById("annee").innerHTML = film.annee;
@@ -263,7 +263,7 @@ function loadFilmDetails() {
       let acteurs = film.artistes.Acteurs;
       let realisateurs = film.artistes.Réalisateur;
       let autres = film.artistes.Autres;
-      let div_realisateurs = document.getElementById("real_detail_film");
+      let div_realisateurs = document.getElementById("real_details_film");
       let div_acteurs = document.getElementById("div_acteurs");
       let div_autres = document.getElementById("div_autres_intervenants");
       // Création des boutons pour les acteurs
@@ -446,8 +446,8 @@ function loadRecommandationSimilarite() {
 
         // Créer un élément d'article avec les détails du film
         const anchor = document.createElement('a');
-        anchor.href = "http://localhost:8080/detail_film.php?idFilm=" + film.idFilm;
-        //href="detail_film.php?idFilm=${film.idFilm}"
+        anchor.href = "http://localhost:8080/details_film.php?idFilm=" + film.idFilm;
+        //href="details_film.php?idFilm=${film.idFilm}"
         anchor.innerHTML = `
           <article>
             <div class="image-container">

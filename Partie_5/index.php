@@ -17,63 +17,63 @@
 <body>
   <?php require("./header.php") ?>
   <main>
-  <section class="laUne">
-  <div class="carousel">
-    <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
-    <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
-    <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
-    <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
-    
-    <label for="carousel-css-slide-1" data-value="slide-1"></label>
-    <label for="carousel-css-slide-2" data-value="slide-2"></label>
-    <label for="carousel-css-slide-3" data-value="slide-3"></label>
-    <label for="carousel-css-slide-4" data-value="slide-4"></label>
+    <section class="laUne">
+      <div class="carousel">
+        <input type="radio" id="carousel-css-slide-1" name="carousel-css" value="slide-1" checked />
+        <input type="radio" id="carousel-css-slide-2" name="carousel-css" value="slide-2" />
+        <input type="radio" id="carousel-css-slide-3" name="carousel-css" value="slide-3" />
+        <input type="radio" id="carousel-css-slide-4" name="carousel-css" value="slide-4" />
 
-    <div class="carousel-wrapper">
-      <?php
-      $numberOfCarouselSlides = 4;
+        <label for="carousel-css-slide-1" data-value="slide-1"></label>
+        <label for="carousel-css-slide-2" data-value="slide-2"></label>
+        <label for="carousel-css-slide-3" data-value="slide-3"></label>
+        <label for="carousel-css-slide-4" data-value="slide-4"></label>
 
-      for ($i = 0; $i < $numberOfCarouselSlides; $i++) {
-        $max = getNumberFilms();
-        $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
-      ?>
-        <div class="carousel-slide">
+        <div class="carousel-wrapper">
           <?php
-                  if ($film['poster'] == '\N') {
-                     $affiche="./images/poster_sans_film.png"; 
-                    }else{
-                      $affiche=$film['poster'];
-                    }
+          $numberOfCarouselSlides = 4;
+
+          for ($i = 0; $i < $numberOfCarouselSlides; $i++) {
+            $max = getNumberFilms();
+            $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get film details
           ?>
-          <div class="img"><a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>"></a></div>
-          <a href="detail_film.php?idFilm=<?php echo $film["idfilm"]; ?>" class="description">
-            <h4><?php echo $film['titre']; ?></h4>
-            <?php 
-              if ($film['description'] != '\N') {
-                echo "<p>";
-                echo $film['description']; 
-                echo "</p>";
+            <div class="carousel-slide">
+              <?php
+              if ($film['poster'] == '\N') {
+                $affiche = "./images/poster_sans_film.png";
+              } else {
+                $affiche = $film['poster'];
+              }
+              ?>
+              <div class="img"><a href="details_film.php?idFilm=<?php echo $film["idfilm"]; ?>"><img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>"></a></div>
+              <a href="details_film.php?idFilm=<?php echo $film["idfilm"]; ?>" class="description">
+                <h4><?php echo $film['titre']; ?></h4>
+                <?php
+                if ($film['description'] != '\N') {
+                  echo "<p>";
+                  echo $film['description'];
+                  echo "</p>";
                 }
                 ?>
-            <?php if ($film['note'] != -1): ?>
-              <aside>
-              <?php if ($film['note'] != -1) {
-                echo "<div>★</div>";
-                echo "<div>", $film['note'], "</div>";
-              } ?>
-              </aside>
-            <?php endif; ?>
-          </a>
+                <?php if ($film['note'] != -1) : ?>
+                  <aside>
+                    <?php if ($film['note'] != -1) {
+                      echo "<div>★</div>";
+                      echo "<div>", $film['note'], "</div>";
+                    } ?>
+                  </aside>
+                <?php endif; ?>
+              </a>
+            </div>
+          <?php
+          }
+          ?>
         </div>
-      <?php
-      }
-      ?>
-    </div>
-  </div>
-</section>
+      </div>
+    </section>
 
     <section class="film film-section" id="row-1">
-    <?php
+      <?php
       // Loop through your existing movies to create placeholders
       for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
         $max = getNumberFilms();
@@ -81,18 +81,18 @@
 
         // Limit title length to 20 characters (adjust as needed)
         $limitedTitle = strlen($film['titre']) > 20 ? substr($film['titre'], 0, 20) . '...' : $film['titre'];
-    ?>
-        <a href="detail_film.php?idFilm=<?php echo $film["idfilm"];?>">
+      ?>
+        <a href="details_film.php?idFilm=<?php echo $film["idfilm"]; ?>">
           <article>
             <!-- Your existing article content -->
             <div class="image-container">
-            <?php
-                  if ($film['poster'] == '\N') {
-                     $affiche="./images/poster_sans_film.png"; 
-                    }else{
-                      $affiche=$film['poster'];
-                    }
-            ?>
+              <?php
+              if ($film['poster'] == '\N') {
+                $affiche = "./images/poster_sans_film.png";
+              } else {
+                $affiche = $film['poster'];
+              }
+              ?>
               <img src="<?php echo $affiche ?>" alt="<?php echo $limitedTitle; ?>">
             </div>
             <h3><?php echo $limitedTitle; ?></h3>
@@ -104,47 +104,50 @@
             </aside>
           </article>
         </a>
-    <?php
+      <?php
       }
-    ?>
-</section>
+      ?>
+    </section>
 
 
 
 
-<section class="film film-section" id="row-2">
-    <?php
+    <section class="film film-section" id="row-2">
+      <?php
       // Loop through your existing movies to create placeholders
       for ($i = 0; $i < 20; $i++) { // Adjust the number as needed
-        $film = getFilmById(rand(1,$max['count'])); // Replace with your function to get movie details
-    ?>
-        <a href="detail_film.php?idFilm=<?php echo $film["idfilm"];?>" ><article>
-          <!-- Your existing article content -->
-          <?php
-                  if ($film['poster'] == '\N') {
-                     $affiche="./images/poster_sans_film.png"; 
-                    }else{
-                      $affiche=$film['poster'];
-                    }
+        $film = getFilmById(rand(1, $max['count'])); // Replace with your function to get movie details
+      ?>
+        <a href="details_film.php?idFilm=<?php echo $film["idfilm"]; ?>">
+          <article>
+            <!-- Your existing article content -->
+            <?php
+            if ($film['poster'] == '\N') {
+              $affiche = "./images/poster_sans_film.png";
+            } else {
+              $affiche = $film['poster'];
+            }
             ?>
-          <img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>">
-          <h3><?php echo $film['titre']; ?></h3>
-          <aside>
-            <?php if($film['note']!=-1){
-              echo "<div>★</div>";
-              echo "<div>", $film['note'],"</div>";
-            }?>
-          </aside>
-        </article></a>
-    <?php
+            <img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>">
+            <h3><?php echo $film['titre']; ?></h3>
+            <aside>
+              <?php if ($film['note'] != -1) {
+                echo "<div>★</div>";
+                echo "<div>", $film['note'], "</div>";
+              } ?>
+            </aside>
+          </article>
+        </a>
+      <?php
       }
-    ?>
+      ?>
 
-</section>
+    </section>
   </main>
 
   <button id="retourHaut" onclick="retourEnHaut()"><i class="fa-solid fa-circle-up"></i></button>
 
   <?php require("./footer.php") ?>
 </body>
+
 </html>

@@ -2,7 +2,7 @@ section > h3 {
     margin-left: 2em;
 }
 
-.main_p_detail_film section article {
+.main_p_details_film section article {
     display: flex;
 }
 
@@ -28,7 +28,7 @@ section > h3 {
     padding-top: 0;
 }
 
-.film .detail_film_recommendation {
+.film .details_film_recommendation {
     height: 15em;
     width: 11em;
 }

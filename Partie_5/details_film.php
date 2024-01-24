@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiche film</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="detail_film.css">
+  <link rel="stylesheet" href="details_film.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -17,7 +17,7 @@
 <body>
 <?php require("./header.php") ?>
 
-  <main class="main_p_detail_film">
+  <main class="main_p_details_film">
     <section class="section_resumer_detail">
       <article id="article_1_film_detail">
         <aside>
@@ -25,7 +25,7 @@
         </aside>
         <div id="infos_pricipales">
           <div id="titre_note">
-            <h2 id="titre_detail_film">Titre  du film qui est trop bien</h2>
+            <h2 id="titre_details_film">Titre  du film qui est trop bien</h2>
             <div class="note_etoile">
             <div id="note"></div>
             </div>
@@ -37,8 +37,8 @@
         </div>
       </article>
       <article id="article_2_film_detail">
-        <div id="resume_detail_film">resume : ceci va être un piti resume du film, mtn il faut le rajouter à la BDD</div>
-        <div id="real_detail_film">Réalisateurs</div>
+        <div id="resume_details_film">resume : ceci va être un piti resume du film, mtn il faut le rajouter à la BDD</div>
+        <div id="real_details_film">Réalisateurs</div>
       </article>
     </section>
     <section>

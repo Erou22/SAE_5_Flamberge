@@ -504,15 +504,15 @@ article:last-child {
 }
 
 /* ----------------------- */
-/* detail_film             */
+/* details_film             */
 /* ----------------------- */
 
-#main_p_detail_film section {
+#main_p_details_film section {
     display: flex;
     flex-direction: column;
 }
 
-#main_p_detail_film section article {
+#main_p_details_film section article {
     display: flex;
 }
 
