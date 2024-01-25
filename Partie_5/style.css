@@ -3,7 +3,8 @@
 /* ----------------------- */
 
 :root {
-    --couleur-principal: #000; /*ou #5271ff*/
+    --couleur-principal: #000;
+    /*ou #5271ff*/
     --couleur-secondaire: #8bd1ff;
     --principale-sombre: #1e528e;
 }
@@ -55,7 +56,7 @@ header {
     border-bottom: var(--couleur-secondaire) solid 1px;
 }
 
-header > div {
+header>div {
     display: flex;
 }
 
@@ -177,7 +178,7 @@ nav div:hover {
 /* Recherche */
 
 
-form{
+form {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -191,10 +192,11 @@ form{
 .result a {
     text-decoration: none;
     color: #FFF;
-    display: block; /* Make the link a block element to occupy the full width */
+    display: block;
+    /* Make the link a block element to occupy the full width */
 }
 
-.result hr{
+.result hr {
     color: var(--couleur-secondaire);
 }
 
@@ -205,7 +207,7 @@ form{
     transition: .2s;
 }
 
-.ligneResult a{
+.ligneResult a {
     border: none;
     box-shadow: none;
 }
@@ -257,11 +259,11 @@ form{
     font-size: 14px;
 }
 
-.button:hover{
+.button:hover {
     background-color: var(--principale-sombre);
 }
 
-.result a:hover{
+.result a:hover {
     transform: scale(1.02);
 }
 
@@ -274,12 +276,12 @@ footer {
     z-index: 0;
     height: 6em;
     width: 100%;
-    padding-top : 1em;
+    padding-top: 1em;
     background-color: var(--couleur-principal);
     position: absolute;
     bottom: 0;
     display: flex;
-    flex-direction: column  ;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -292,7 +294,7 @@ footer a {
 /* Documentation           */
 /* ----------------------- */
 
-li ul{
+li ul {
     margin-top: 1em;
     margin-bottom: 1em;
 }
@@ -319,7 +321,7 @@ section h4 {
     margin-left: 1em;
 }
 
-section h4{
+section h4 {
     font-weight: 800;
 }
 
@@ -351,7 +353,8 @@ main {
 
 /* Styles de code */
 pre {
-    background-color: #222; /* Bleu-gris foncé */
+    background-color: #222;
+    /* Bleu-gris foncé */
     padding: 20px;
     border-radius: 5px;
     overflow-x: auto;
@@ -360,32 +363,39 @@ pre {
 
 code {
     font-family: 'Courier New', monospace;
-    color: #ecf0f1; /* Blanc crème */
+    color: #ecf0f1;
+    /* Blanc crème */
 }
 
-.python-library{
+.python-library {
     color: #07571f;
 }
 
 .python-keyword {
-    color: #a749dd; /* Rouge */
+    color: #a749dd;
+    /* Rouge */
 }
 
 .python-function {
-    color: #e2cf23; /* Bleu */
+    color: #e2cf23;
+    /* Bleu */
 }
 
 .python-variable {
-    color: #4fcbeb; /* Vert émeraude */
+    color: #4fcbeb;
+    /* Vert émeraude */
 }
 
 .python-comment {
-    color: #95a5a6; /* Gris clair */
+    color: #95a5a6;
+    /* Gris clair */
 }
 
 .python-string {
-    color: #e67e22; /* Orange foncé */
+    color: #e67e22;
+    /* Orange foncé */
 }
+
 /* ----------------------- */
 /* Contacts                */
 /* ----------------------- */
@@ -397,6 +407,8 @@ code {
 
 i {
     margin-right: 0.25em;
+    width: 1.25em;
+    text-align: center;
 }
 
 article a {
@@ -417,14 +429,16 @@ article:last-child {
 /* ----------------------- */
 
 
-  
+
 
 .film {
     display: flex;
     border: none;
     box-shadow: none;
-    overflow-x: hidden; /* Hide the horizontal scrollbar */
-    padding: 20px; /* Adjusted as needed */
+    overflow-x: hidden;
+    /* Hide the horizontal scrollbar */
+    padding: 20px;
+    /* Adjusted as needed */
 }
 
 .film a {
@@ -433,7 +447,7 @@ article:last-child {
     color: #FFF;
 }
 
-.film a:hover{
+.film a:hover {
     transform: scale(1.1);
 }
 
@@ -441,39 +455,51 @@ article:last-child {
     box-shadow: #ccc 0px 0px 2px;
     margin: 1em;
     padding: 0.5em;
-    max-width: 15em; /* Adjusted to max-width for responsiveness */
+    max-width: 15em;
+    /* Adjusted to max-width for responsiveness */
     height: 20em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px; /* Adjusted margin for spacing between articles */
-    transition: transform .2s; /* Animation */
-    overflow: hidden; /* Hide overflow content */
+    margin-right: 20px;
+    /* Adjusted margin for spacing between articles */
+    transition: transform .2s;
+    /* Animation */
+    overflow: hidden;
+    /* Hide overflow content */
 }
 
 .film a article img {
     width: 9em;
-    height: 14em; /* Adjusted height to fit inside the article */
-    object-fit: cover; /* Scale down the image to fit within the container */
+    height: 14em;
+    /* Adjusted height to fit inside the article */
+    object-fit: cover;
+    /* Scale down the image to fit within the container */
 }
 
 .film a article .image-container {
     flex: 1;
-    overflow: hidden; /* Hide overflow content for the container */
+    overflow: hidden;
+    /* Hide overflow content for the container */
 }
 
 .film a article h3 {
     text-align: center;
-    margin-top: 0.2em; /* Added margin for spacing */
-    height: 2.2em; /* Fixed height for the title container */
-    overflow: hidden; /* Hide overflow content for the title */
+    margin-top: 0.2em;
+    /* Added margin for spacing */
+    height: 2.2em;
+    /* Fixed height for the title container */
+    overflow: hidden;
+    /* Hide overflow content for the title */
 }
 
 .film a article aside {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Added for better alignment */
-    margin-top: 0.2em; /* Added margin for spacing */
+    justify-content: space-between;
+    /* Added for better alignment */
+    margin-top: 0.2em;
+    /* Added margin for spacing */
 }
 
 
