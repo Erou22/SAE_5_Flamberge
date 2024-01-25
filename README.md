@@ -2,14 +2,8 @@
 Création d'un système de recommandation 
 
 ## .gitignore
-__path.py__
-``` py
-from pathlib import Path
 
-partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
-```
-
-__connect.py__
+__Partie_3/connect.py__
 ``` py
 import psycopg2
 
@@ -25,7 +19,14 @@ clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Parti
 vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
 ```
 
-__connect.php__
+__Partie_4/path.py__
+``` py
+from pathlib import Path
+
+partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
+```
+
+__Partie_5/connect.php__
 ``` php
 <?php
 $server = 'host';
