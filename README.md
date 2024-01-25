@@ -1,5 +1,5 @@
 # SAE_5_Flamberge
-Création d'un système de recommandation 
+Création d'un système de recommandation de films
 
 ## .gitignore
 
@@ -104,21 +104,18 @@ Données au format __JSON__
 pip install -r requirements.txt
 ```
 
+Le site web peut être lancé manuellement en activant l'API et le serveur PHP, ou en utilisant le script __start_webSite.sh__ pour les systèmes Unix/Linux ou __start_webSite.bat__ pour les systèmes Windows.
+
 ### Lancement de l'API
-Depuis le dossier __Partie_4__ :
-* PC IUT :
+Depuis le root du projet :
 ``` bash
-~/.local/bin/uvicorn API:app --reload
-```
-* PC perso Windows:
-``` bash
-python3 -m uvicorn API:app --reload
+python3 -m uvicorn Partie_4.API:app --reload
 ```
 
 ### Lancement du serveur PHP
-Depuis le dossier __Partie_5__ :
+Depuis le root du projet :
 
 (Il est important d'utiliser le port 8080 !!)
 ``` bash
-php -S localhost:8080
+php -S localhost:8080 -t Partie_5
 ```
