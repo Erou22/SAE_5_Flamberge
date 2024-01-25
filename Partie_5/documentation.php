@@ -225,7 +225,91 @@
                 <i class="fas fa-chevron-right arrow-icon"></i>
             </div>
             <div class="content" style="display: none;">
+                <p>
+                    <strong>Prérequis</strong>
+                </p>
+                <br>
+                <ul>
+                    <li><strong>Python 3.9.2</strong> ou supérieur</li>
+                    <li><strong>PostgreSQL 13.11</strong> ou supérieur</li>
+                    <li><strong>pip 20.3.4</strong> ou supérieur</li>
+                    <li><strong>PHP 7.0.33</strong> ou supérieur</li>
 
+                </ul>
+                <br>
+                <br>
+
+                <p>
+                    <strong>Installation des dépendances</strong> 
+                    <pre><code>
+                        pip install -r requirements.txt
+                    </code></pre>
+                </p>
+            
+
+                <p>
+                <strong>.gitignore</strong> 
+                <br><br>
+                <strong>Partie_3/connect.py</strong> 
+                <pre> <code>
+                    import psycopg2
+
+                    conn = psycopg2.connect(
+                        host=host,
+                        database=database,
+                        user=user,
+                        password=password)
+
+                    schema = "flamberge_V2"
+
+                    clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/clusters.csv"
+                    vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
+                </code></pre>
+                </p>
+
+                <p>
+                <strong>Partie_4/path.py</strong> 
+                <pre> <code>
+                    from pathlib import Path
+
+                    partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
+                </code></pre>
+                </p>
+                
+                <p>
+                <strong>Partie_5/connect.php</strong> 
+                <pre><code>
+                    <?php echo htmlspecialchars("<?php
+                    $server = 'host';
+                    $driver = 'pgsql';
+                    $dbname = 'dbname';
+                    $user = 'user';
+                    $pass = 'password';
+                    ?>")
+                    ?></code></pre>
+                
+                <p>
+                Le site web peut être lancé manuellement en activant l'API et le serveur PHP, ou en utilisant le script <strong>start_webSite.sh</strong> pour les systèmes Unix/Linux ou __start_webSite.bat__ pour les systèmes Windows.
+                <br><br>
+                <strong>Lancement de l'API</strong> 
+                <br><br>
+                Depuis le <strong>root</strong> du projet :
+                <br><br>
+                <pre><code>
+                    python3 -m uvicorn Partie_4.API:app --reload
+                </pre></code>
+                
+                <p>
+                <strong>Lancement du serveur PHP</strong> 
+                Depuis le <strong>root</strong> du projet :
+                <br>
+                (Il est important d'utiliser le <strong>port 8080</strong> !!)
+                <br>
+                <pre><code>
+                    php -S localhost:8080 -t Partie_5
+                </pre></code>
+                
+                </p>
             </div>
         </section>
     </main>
