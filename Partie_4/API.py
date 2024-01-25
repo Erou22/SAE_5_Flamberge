@@ -36,8 +36,8 @@ def read_root():
 # Met à jour les données et les clusters
 @app.get("/update")
 def update():
-    Cluster.init()
     IA_vecteur.transformation_vecteur()
+    Cluster.init()
     return {"Mise à jour": "Terminée"}
 
 
