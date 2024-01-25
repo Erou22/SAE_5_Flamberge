@@ -113,13 +113,13 @@ function addData(film) {
   var img = document.createElement("img");
 
   //console.log(film.poster)
-  if (film.poster != "\\N") {
-    img.src = film.poster;
+  if (film.isAdult == 1) {
+    img.src = './images/poster_moins_18.png'
+  } else if (film.poster != "\\N") {
+    img.src = film.poster
   } else {
     img.src = './images/poster_sans_film.png'
   }
-
-
 
   img.alt = film.titre;
 
@@ -244,7 +244,9 @@ function loadFilmDetails() {
         window.location.href = "http://localhost:8080/recommandation.php?idFilm=" + film.idFilm;
       });
 
-      if (film.poster != '\\N') {
+      if (film.isAdult == 1) {
+        document.getElementById("affiche_film_detail").src = './images/poster_moins_18.png'
+      } else if (film.poster != '\\N') {
         document.getElementById("affiche_film_detail").src = film.poster
       } else {
         document.getElementById("affiche_film_detail").src = './images/poster_sans_film.png'
