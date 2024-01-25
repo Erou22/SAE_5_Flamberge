@@ -227,6 +227,7 @@ function loadFilmDetails() {
   xhr.onload = function () {
     if (this.status == 200) {
       let film = JSON.parse(this.responseText).film[0];
+      document.querySelector("head > title").innerHTML = film.titre + " - Fiche film";
       document.getElementById("titre_details_film").innerHTML = film.titre;
       document.querySelector("title").innerHTML = film.titre + " - Fiche film";
       document.getElementById('reco_link').addEventListener("click", function (event) {
