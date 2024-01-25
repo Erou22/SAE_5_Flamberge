@@ -289,7 +289,7 @@
                     ?></code></pre>
                 
                 <p>
-                Le site web peut être lancé manuellement en activant l'API et le serveur PHP, ou en utilisant le script <strong>start_webSite.sh</strong> pour les systèmes Unix/Linux ou __start_webSite.bat__ pour les systèmes Windows.
+                Le site web peut être lancé manuellement en activant l'API et le serveur PHP, ou en utilisant le script <strong>start_webSite.sh</strong> pour les systèmes Unix/Linux ou <strong>start_webSite.bat</strong> pour les systèmes Windows.
                 <br><br>
                 <strong>Lancement de l'API</strong> 
                 <br><br>
