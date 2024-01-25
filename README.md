@@ -1,41 +1,6 @@
 # SAE_5_Flamberge
 Création d'un système de recommandation de films
 
-## .gitignore
-
-__Partie_3/connect.py__
-``` py
-import psycopg2
-
-conn = psycopg2.connect(
-    host=host,
-    database=database,
-    user=user,
-    password=password)
-
-schema = "flamberge_V2"
-
-clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/clusters.csv"
-vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
-```
-
-__Partie_4/path.py__
-``` py
-from pathlib import Path
-
-partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
-```
-
-__Partie_5/connect.php__
-``` php
-<?php
-$server = 'host';
-$driver = 'pgsql';
-$dbname = 'dbname';
-$user = 'user';
-$pass = 'password';
-?>
-```
 
 ## Analyse des données 
 Un graphique par fichier :
@@ -102,6 +67,42 @@ Données au format __JSON__
 ### Installation des dépendances
 ``` bash
 pip install -r requirements.txt
+```
+
+### .gitignore
+
+__Partie_3/connect.py__
+``` py
+import psycopg2
+
+conn = psycopg2.connect(
+    host=host,
+    database=database,
+    user=user,
+    password=password)
+
+schema = "flamberge_V2"
+
+clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/clusters.csv"
+vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
+```
+
+__Partie_4/path.py__
+``` py
+from pathlib import Path
+
+partie_3_path = Path("/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/").expanduser().resolve()
+```
+
+__Partie_5/connect.php__
+``` php
+<?php
+$server = 'host';
+$driver = 'pgsql';
+$dbname = 'dbname';
+$user = 'user';
+$pass = 'password';
+?>
 ```
 
 Le site web peut être lancé manuellement en activant l'API et le serveur PHP, ou en utilisant le script __start_webSite.sh__ pour les systèmes Unix/Linux ou __start_webSite.bat__ pour les systèmes Windows.
