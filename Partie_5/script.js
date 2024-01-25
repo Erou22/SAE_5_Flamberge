@@ -62,14 +62,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const articles = document.querySelectorAll("article");
 const val = document.getElementById("valerian");
+hr_val = document.getElementById("hr-val");
 
 if (val != null){
     val.addEventListener("click", () => {
         if (articles[3].style.display == "none") {
             articles[3].style.display = "block";
+            hr_val.style.display = "block";
             articles[2].style.marginBottom = "0";
         } else {
             articles[3].style.display = "none";
+            hr_val.style.display = "none";
             articles[2].style.marginBottom = "2em";
         }});
     

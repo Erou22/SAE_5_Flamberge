@@ -45,10 +45,10 @@
       <a href="mailto:matheo.allain@etudiant.univ-rennes1.fr"><i class="fa fa-envelope"></i>matheo.allain@etudiant.univ-rennes1.fr</a>
       <br>
       <a href="https://discord.com/users/213310416103800832" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-discord"></i>teyllss </a>
+      <hr id="hr-val" style="display: none;">
     </article>
 
     <article style="display: none;">
-      <hr>
       <h2>Valérian GALLE</h2>
       <p>Il n'est plus là, donc à la place il y a <a href="https://youtu.be/EZEfN5z8Mlg">ça</a>.</p>
     </article>
