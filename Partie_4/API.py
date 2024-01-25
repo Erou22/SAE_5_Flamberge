@@ -112,7 +112,7 @@ def read_recommendation(id_film: int):
 @app.get("/films/")
 def read_films():
     films_data = Recommendation.getAllFilm()
-    print(films_data)
+    # print(films_data)
     if isinstance(films_data, str):
         # Si il y a un message d'erreur de getAllFilm()
         return JSONResponse(content={"error": films_data}, media_type="application/json", status_code=404)

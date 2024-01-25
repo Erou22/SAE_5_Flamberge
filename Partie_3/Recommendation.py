@@ -138,6 +138,10 @@ def getRecommendation(id_film):
     film_trouve = chercher_film_par_id(df, id_film)
     if film_trouve is not None:
         df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
+
+        # Exclure le film avec l'ID donné de la liste des films
+        df_filtre = df_filtre[df_filtre.index != id_film].copy()
+
         df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
         df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
         df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
