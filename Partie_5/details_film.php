@@ -14,9 +14,11 @@
   <script src="loadData.js"></script>
 </head>
 
-<body>
+<body class="page-container">
 <?php require("./header.php") ?>
-
+  <div id="spinner-overlay"> <!-- Div pour le spinner -->
+    <img id="spinner" class="spinner" src="/images/spinner.gif" alt="Chargement en cours">
+  </div>
   <main class="main_p_details_film">
     <section class="section_resumer_detail">
       <article id="article_1_film_detail">
