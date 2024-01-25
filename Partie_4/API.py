@@ -1,7 +1,7 @@
 # python3 -m uvicorn API:app --reload
 import pandas as pd
 import sys
-import path
+from Partie_4 import path
 
 sys.path.append(str(path.partie_3_path))
 
@@ -54,7 +54,7 @@ def read_recommendation(id_film: int):
         # Si il y a un message d'erreur de getRecommendation()
         return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
     else:
-        print(recommendations_data)
+        # print(recommendations_data)
         # Récupère les données et stock les données sous forme de dictionnaire
         recommendations_list = []
         for id, row in recommendations_data.iterrows():
@@ -86,7 +86,7 @@ def read_recommendation(id_film: int):
         # Si il y a un message d'erreur de getRecommendation()
         return JSONResponse(content={"error": recommendations_data}, media_type="application/json", status_code=404)
     else:
-        print(recommendations_data)
+        # print(recommendations_data)
         # Récupère les données et stock les données sous forme de dictionnaire
         recommendations_list = []
         for id, row in recommendations_data.iterrows():
