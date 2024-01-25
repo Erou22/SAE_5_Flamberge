@@ -79,13 +79,13 @@ def film_aleatoires(dataframe):
         return None
 
 
-def film_titre_proche(dataframe, id_film):
+def film_titre_proche(dataframe, film):
     try:
-        # Obtenez le titre du film avec l'ID donné
-        titre_reference = str(dataframe.loc[id_film, 'titre'])
+        # Obtenez le titre du film donné
+        titre_reference = film['titre'].values[0]
 
         # Exclure le film avec l'ID donné de la liste des films
-        films = dataframe[dataframe.index != id_film].copy()
+        films = dataframe[dataframe.index != film.index[0]].copy()
 
         # Calculez les distances d'édition avec tous les titres
         films['distance_edit'] = films['titre'].apply(lambda x: distance.levenshtein(titre_reference, str(x)))
@@ -140,11 +140,12 @@ def getRecommendation(id_film):
         df_filtre = chercher_films_par_cluster(df, film_trouve["cluster"])
 
         # Exclure le film avec l'ID donné de la liste des films
+        film = df_filtre[df_filtre.index == id_film].copy()
         df_filtre = df_filtre[df_filtre.index != id_film].copy()
 
         df_film_recommende = pd.concat([meilleur_film(df_filtre),df_film_recommende])
         df_film_recommende = pd.concat([film_aleatoires(df_filtre),df_film_recommende])
-        df_film_recommende = pd.concat([film_titre_proche(df_filtre,id_film),df_film_recommende])
+        df_film_recommende = pd.concat([film_titre_proche(df_filtre,film),df_film_recommende])
         return df_film_recommende
     else :
         return "Aucun film ne possède cet identifiant"
