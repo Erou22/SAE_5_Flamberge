@@ -292,6 +292,11 @@ footer a {
 /* Documentation           */
 /* ----------------------- */
 
+li ul{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 h1 {
     text-align: center;
 }
@@ -344,11 +349,49 @@ main {
     padding-bottom: 7em;
 }
 
+/* Styles de code */
+pre {
+    background-color: #222; /* Bleu-gris foncé */
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+    color: #ecf0f1; /* Blanc crème */
+}
+
+.python-library{
+    color: #07571f;
+}
+
+.python-keyword {
+    color: #a749dd; /* Rouge */
+}
+
+.python-function {
+    color: #e2cf23; /* Bleu */
+}
+
+.python-variable {
+    color: #4fcbeb; /* Vert émeraude */
+}
+
+.python-comment {
+    color: #95a5a6; /* Gris clair */
+}
+
+.python-string {
+    color: #e67e22; /* Orange foncé */
+}
 /* ----------------------- */
 /* Contacts                */
 /* ----------------------- */
 
 .presentation {
+    width: 50%;
     margin: 1em;
 }
 

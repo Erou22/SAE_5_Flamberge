@@ -74,7 +74,7 @@ def read_recommendation(id_film: int):
         
         # Creation d'un dictionnaire avec les recommendations
         result_dict = {"recommendations": recommendations_list}
-        print(result_dict)
+        # print(result_dict)
         return JSONResponse(content=result_dict, media_type="application/json", status_code=200)
 
 # Retourne les recommendations d'un film avec les vecteurs et la similarité Item-based

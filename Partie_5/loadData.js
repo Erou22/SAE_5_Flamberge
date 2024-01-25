@@ -145,6 +145,8 @@ function addData(film) {
   note.innerHTML = film.note;
   var etoile = document.createElement("div");
   etoile.innerHTML = "★";
+  var nbVote = document.createElement("div");
+  nbVote.innerHTML = " (" + film.nbVotes + ") ";
 
   
   // Creating the container for the director information
@@ -200,8 +202,9 @@ function addData(film) {
   recoButton.style.marginTop = "2em"; // Adjusting the button margin
   desc.appendChild(recoButton); // Adding the button to the desc element
   if (film.note != -1) {
-    aside.appendChild(etoile);
     aside.appendChild(note);
+    aside.appendChild(etoile);
+    aside.appendChild(nbVote);
   }
   res.appendChild(document.createElement("hr"));
 }
@@ -246,7 +249,7 @@ function loadFilmDetails() {
       document.getElementById("annee").innerHTML = film.annee;
 
       if (film.note != -1) {
-        document.getElementById("note").innerHTML = film.note + '★';
+        document.getElementById("note").innerHTML = film.note + ' ★  (' + film.nbVotes + ')';
       }
 
 

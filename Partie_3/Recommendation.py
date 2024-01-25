@@ -60,13 +60,15 @@ def meilleur_film(dataframe):
 
 
 def film_aleatoires(dataframe):
+    nombre_films = 10
+
     # Filtrer les films avec une note supérieure à 4.0
     films_filtres = dataframe[dataframe['note'] > 4.0]
 
     # Vérifier si au moins trois films sont disponibles
-    if len(films_filtres) >= 3:
+    if len(films_filtres) >= nombre_films:
         # Sélectionner trois indices aléatoires
-        indices_aleatoires = np.random.choice(films_filtres.index, size=3, replace=False)
+        indices_aleatoires = np.random.choice(films_filtres.index, size=nombre_films, replace=False)
 
         # Obtenir le sous-DataFrame avec les indices sélectionnés
         films_aleatoires = films_filtres.loc[indices_aleatoires]
