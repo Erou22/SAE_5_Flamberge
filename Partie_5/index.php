@@ -39,7 +39,9 @@
           ?>
             <div class="carousel-slide">
               <?php
-              if ($film['poster'] == '\N') {
+              if ($film['isAdult'] == 1) {
+                $affiche = "./images/poster_moins_18.png";
+              } else if ($film['poster'] == '\N') {
                 $affiche = "./images/poster_sans_film.png";
               } else {
                 $affiche = $film['poster'];
@@ -87,7 +89,9 @@
             <!-- Your existing article content -->
             <div class="image-container">
               <?php
-              if ($film['poster'] == '\N') {
+              if ($film['isAdult'] == 1) {
+                $affiche = "./images/poster_moins_18.png";
+              } else if ($film['poster'] == '\N') {
                 $affiche = "./images/poster_sans_film.png";
               } else {
                 $affiche = $film['poster'];
@@ -122,11 +126,13 @@
           <article>
             <!-- Your existing article content -->
             <?php
-            if ($film['poster'] == '\N') {
-              $affiche = "./images/poster_sans_film.png";
-            } else {
-              $affiche = $film['poster'];
-            }
+              if ($film['isAdult'] == 1) {
+                $affiche = "./images/poster_moins_18.png";
+              } else if ($film['poster'] == '\N') {
+                $affiche = "./images/poster_sans_film.png";
+              } else {
+                $affiche = $film['poster'];
+              }
             ?>
             <img src="<?php echo $affiche ?>" alt="<?php echo $film['titre']; ?>">
             <h3><?php echo $film['titre']; ?></h3>
