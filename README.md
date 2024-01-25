@@ -19,6 +19,8 @@ conn = psycopg2.connect(
     user=user,
     password=password)
 
+schema = "flamberge_V2"
+
 clusters_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/clusters.csv"
 vecteurs_path = "/home/etuinfo/userIUT/Documents/SAE_5/git/SAE_5_Flamberge/Partie_3/vecteurs.json"
 ```
