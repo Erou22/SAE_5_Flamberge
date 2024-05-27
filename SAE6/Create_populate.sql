@@ -220,13 +220,20 @@ DROP TABLE IF EXISTS olympicgames._athlete_tmp;
 DROP TABLE IF EXISTS olympicgames._tmp;
 DROP TABLE IF EXISTS olympicgames.tmp_game;
 
-SELECT * from _athlete ORDER BY age DESC;
-
 
 -------------------------------------------------
 -- VUES
 -------------------------------------------------
 
-CREATE OR REPLACE VIEW _view_athlete AS
-     SELECT athlete_id, athlete_full_name, games_participations, athlete_year_birth, athlete_state, age
-     FROM olympicgames._athlete;
+CREATE OR REPLACE VIEW athlete AS
+    SELECT athlete_id, athlete_full_name, athlete_state, age
+    FROM olympicgames._athlete;
+     
+
+CREATE OR REPLACE VIEW discipline AS
+    SELECT discipline_id, discipline_title
+    FROM olympicgames._discipline;
+
+SELECT * FROM athlete;
+
+SELECT * FROM discipline;
