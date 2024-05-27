@@ -100,9 +100,6 @@ $$ language plpgsql;
 	
 create or replace view win(athlete_id, game_id, discipline_id, medal) AS
 SELECT athlete_id, game_id, discipline_id, attributeMedal(rank_position) FROM _results WHERE rank_position='1' OR rank_position='2' OR rank_position='3'; 
-			
--- Populate
--- _________________________		
 
 
 -- Triggers
@@ -121,6 +118,10 @@ CREATE TRIGGER trigger_age
      BEFORE INSERT OR UPDATE ON olympicgames._athlete
      FOR EACH ROW
      EXECUTE FUNCTION trigger_function_age();
+
+
+-- Populate
+-- _________________________		
 
 create table _athlete_tmp (
 		athlete_id serial not null,
