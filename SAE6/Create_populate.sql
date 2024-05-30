@@ -138,6 +138,38 @@ WbImport -file=./olympicsGames/olympic_athletes.csv
          -fileColumns=athlete_url,athlete_full_name,games_participations,$wb_skip$,athlete_year_birth,$wb_skip$,$wb_skip$
          -importColumns=$wb_skip$,athlete_url,athlete_full_name,games_participations,$wb_skip$,athlete_year_birth,$wb_skip$
          -ENCODING='UTF8';
+
+-- CREATE OR REPLACE FUNCTION randomize_full_names()
+-- RETURNS VOID AS $$
+-- BEGIN
+--     -- Ajouter une colonne temporaire pour stocker les noms mélangés
+--     ALTER TABLE olympicgames._athlete_tmp ADD COLUMN full_name_temp VARCHAR(50);
+    
+--     -- Utiliser une sous-requête pour mélanger les noms aléatoirement
+--     WITH noms_melanges AS (
+--         SELECT athlete_id, athlete_full_name,
+--                ROW_NUMBER() OVER (ORDER BY athlete_id) AS original_id,
+--                ROW_NUMBER() OVER (ORDER BY random()) AS random_id
+--         FROM olympicgames._athlete_tmp
+--     )
+--     UPDATE olympicgames._athlete_tmp a
+--     SET full_name_temp = (
+--         SELECT nm2.athlete_full_name
+--         FROM noms_melanges nm1
+--         JOIN noms_melanges nm2 ON nm1.random_id = nm2.original_id
+--         WHERE nm1.athlete_id = a.athlete_id
+--     );
+
+--     -- Mettre à jour la colonne athlete_full_name avec les noms mélangés
+--     UPDATE olympicgames._athlete_tmp
+--     SET athlete_full_name = full_name_temp;
+    
+--     -- Supprimer la colonne temporaire
+--     ALTER TABLE olympicgames._athlete_tmp DROP COLUMN full_name_temp;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- SELECT randomize_full_names();
 	
 DROP TABLE IF EXISTS olympicgames.tmp_game;
 create table olympicgames.tmp_game (
@@ -204,7 +236,7 @@ INSERT INTO olympicgames._athlete (athlete_url,athlete_full_name,games_participa
      ON a.athlete_url=t.athlete_url AND a.athlete_full_name=t.athlete_full_name
      INNER JOIN olympicgames.tmp_game g ON g.game_id=t.slug_game;
 
- 
+
 INSERT INTO olympicgames._discipline (discipline_title,event_title) 
 SELECT DISTINCT discipline_title,event_title FROM olympicgames._tmp;
 
@@ -233,6 +265,7 @@ CREATE OR REPLACE VIEW athlete AS
 CREATE OR REPLACE VIEW discipline AS
     SELECT discipline_id, discipline_title
     FROM olympicgames._discipline;
+
 
 SELECT * FROM athlete;
 
