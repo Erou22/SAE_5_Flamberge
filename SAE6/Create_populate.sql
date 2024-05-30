@@ -270,3 +270,39 @@ CREATE OR REPLACE VIEW discipline AS
 SELECT * FROM athlete;
 
 SELECT * FROM discipline;
+
+ -- Stats 
+-- Analyse des âges des joueurs d'après : leur pays, leur discipline, l'année des jeux
+
+
+-- Classement des joueurs d'après leur âge
+Select rank_position, avg(age) as age_moyen from olympicgames.athlete natural join olympicgames._results GROUP BY rank_position ORDER BY rank_position asc;
+
+SELECT age, 
+       AVG(CASE 
+               WHEN rank_position IN ('YCD', 'WDR', 'PEN', 'LAP', 'DSQ', 'DQB', 'DNS', 'DNF') THEN NULL
+               ELSE CAST(rank_position AS INTEGER) 
+           END) AS rank_moyen
+FROM olympicgames.athlete natural join olympicgames._results 
+GROUP BY age 
+ORDER BY age asc;
+
+-- Résultats dans les disciplines d'après les pays
+
+Select athlete_state, 
+      discipline_title,
+          AVG(CASE 
+               WHEN rank_position IN ('YCD', 'WDR', 'PEN', 'LAP', 'DSQ', 'DQB', 'DNS', 'DNF') THEN NULL
+               ELSE CAST(rank_position AS INTEGER) 
+           END) AS rank_moyen
+FROM olympicgames.athlete natural join olympicgames._results natural join olympicgames.discipline
+GROUP BY athlete_state, discipline_title;
+
+select * FROM olympicgames.athlete natural join olympicgames._results natural join olympicgames.discipline WHERE athlete_state like '%Portugal%';
+-- Durée moyenne des jeux d'après leur année
+
+
+-- Corrélation entre le pays d'accueil des Jeux Olympique et les médailles remportées-
+
+
+-- Analyse entre la saison et le lieu d'accueil des Jeux (il serait aberrant de faire les jeux d'hiver au Sahara n'est-ce pas...)
