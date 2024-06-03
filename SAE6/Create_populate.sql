@@ -348,6 +348,7 @@ FROM olympicgames.athlete natural join olympicgames._results
 GROUP BY age 
 ORDER BY age asc;
 
+
 -- Résultats dans les disciplines d'après les pays
 
 Select athlete_state, 
@@ -359,11 +360,22 @@ Select athlete_state,
 FROM olympicgames.athlete natural join olympicgames._results natural join olympicgames.discipline
 GROUP BY athlete_state, discipline_title;
 
-select * FROM olympicgames.athlete natural join olympicgames._results natural join olympicgames.discipline WHERE athlete_state like '%Portugal%';
+
 -- Durée moyenne des jeux d'après leur année
 
+WITH duree_jour_tt as ( 
+  select game_id, game_end_date - game_start_date as duree_jour from _game
+ )
+select avg(duree_jour) as duree_moyenne from _game natural join duree_jour_tt;
 
--- Corrélation entre le pays d'accueil des Jeux Olympique et les médailles remportées-
+select game_id, game_end_date - game_start_date as duree_jour from _game;
+
+
+-- Corrélation entre le pays d'accueil des Jeux Olympique et les médailles remportées
+
+select game_location, athlete_state, count(*) as nombre_medailles from win natural join athlete natural join _game WHERE athlete_state = game_location GROUP BY athlete_state, game_location;
 
 
 -- Analyse entre la saison et le lieu d'accueil des Jeux (il serait aberrant de faire les jeux d'hiver au Sahara n'est-ce pas...)
+
+ 
