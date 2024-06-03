@@ -21,6 +21,7 @@ create table _athlete (
 		athlete_year_birth integer,
 		athlete_state varchar(50),
 		age integer,
+		is_triggered boolean DEFAULT false,
      constraint _athlete_PK primary key (athlete_id));
      
 create table _game (
@@ -105,19 +106,36 @@ SELECT athlete_id, game_id, discipline_id, attributeMedal(rank_position) FROM _r
 -- Triggers
 -- _________________________
 
-CREATE OR REPLACE FUNCTION trigger_function_age() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION dupliquer_et_ajuster_age()
+RETURNS TRIGGER AS $$
+DECLARE
+    age_adjustment INT;
 BEGIN
-     IF NEW.age < 10 OR NEW.age > 72 THEN
-          NEW.age := NULL;
+    IF NEW.age < 10 OR NEW.age > 72 THEN
+        NEW.age := NULL;
+    END IF;
+
+     IF NEW.age IS NOT NULL AND NOT NEW.is_triggered THEN
+          age_adjustment := floor(random() * 3 + 1);
+
+          -- Insèrer un duplicata avec l'âge ajusté positivement
+          INSERT INTO _athlete (athlete_url, athlete_full_name, games_participations, athlete_year_birth, athlete_state, age, is_triggered)
+               VALUES (NEW.athlete_url, NEW.athlete_full_name, NEW.games_participations, NEW.athlete_year_birth, NEW.athlete_state, NEW.age + age_adjustment, true);
+               
+               NEW.age := NEW.age - age_adjustment;
+     ELSIF NEW.age IS NULL AND NOT NEW.is_triggered THEN
+          INSERT INTO _athlete (athlete_url, athlete_full_name, games_participations, athlete_year_birth, athlete_state, age, is_triggered)
+               VALUES (NEW.athlete_url, NEW.athlete_full_name, NEW.games_participations, NEW.athlete_year_birth, NEW.athlete_state, NULL, true); 
      END IF;
+
      RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trigger_age
-     BEFORE INSERT OR UPDATE ON olympicgames._athlete
+CREATE TRIGGER dupliquer_et_age_Trigger
+     BEFORE INSERT ON _athlete
      FOR EACH ROW
-     EXECUTE FUNCTION trigger_function_age();
+     EXECUTE FUNCTION dupliquer_et_ajuster_age();
 
 
 -- Populate
@@ -373,7 +391,7 @@ select game_id, game_end_date - game_start_date as duree_jour from _game;
 
 -- Corrélation entre le pays d'accueil des Jeux Olympique et les médailles remportées
 
-select game_location, athlete_state, count(*) as nombre_medailles from win natural join athlete natural join _game WHERE athlete_state = game_location GROUP BY athlete_state, game_location;
+select game_location, athlete_state, count(*)/2 as nombre_medailles from win natural join athlete natural join _game WHERE athlete_state = game_location GROUP BY athlete_state, game_location;
 
 
 -- Analyse entre la saison et le lieu d'accueil des Jeux (il serait aberrant de faire les jeux d'hiver au Sahara n'est-ce pas...)
