@@ -109,11 +109,11 @@ SELECT athlete_id, game_id, discipline_id, attributeMedal(rank_position) FROM _r
 CREATE OR REPLACE FUNCTION dupliquer_et_ajuster_age()
 RETURNS TRIGGER AS $$
 DECLARE
-    age_adjustment INT;
+     age_adjustment INT;
 BEGIN
-    IF NEW.age < 10 OR NEW.age > 72 THEN
-        NEW.age := NULL;
-    END IF;
+     IF NEW.age < 10 OR NEW.age > 72 THEN
+          NEW.age := NULL;
+     END IF;
 
      IF NEW.age IS NOT NULL AND NOT NEW.is_triggered THEN
           age_adjustment := floor(random() * 3 + 1);
@@ -162,7 +162,7 @@ WbImport -file=./olympicsGames/olympic_athletes.csv
 -- BEGIN
 --     -- Ajouter une colonne temporaire pour stocker les noms mélangés
 --     ALTER TABLE olympicgames._athlete_tmp ADD COLUMN full_name_temp VARCHAR(50);
-    
+
 --     -- Utiliser une sous-requête pour mélanger les noms aléatoirement
 --     WITH noms_melanges AS (
 --         SELECT athlete_id, athlete_full_name,
@@ -181,7 +181,7 @@ WbImport -file=./olympicsGames/olympic_athletes.csv
 --     -- Mettre à jour la colonne athlete_full_name avec les noms mélangés
 --     UPDATE olympicgames._athlete_tmp
 --     SET athlete_full_name = full_name_temp;
-    
+
 --     -- Supprimer la colonne temporaire
 --     ALTER TABLE olympicgames._athlete_tmp DROP COLUMN full_name_temp;
 -- END;
@@ -191,12 +191,12 @@ WbImport -file=./olympicsGames/olympic_athletes.csv
 
 DROP TABLE IF EXISTS olympicgames.tmp_game;
 create table olympicgames.tmp_game (
-        game_id varchar(30) not null,
-        game_end_date date not null,
-        game_start_date date not null,
-        game_season varchar(6) not null,
-        game_location varchar(50),
-        game_year integer not null,
+     game_id varchar(30) not null,
+     game_end_date date not null,
+     game_start_date date not null,
+     game_season varchar(6) not null,
+     game_location varchar(50),
+     game_year integer not null,
      constraint tmp_game_PK primary key (game_id));
 
 WbImport -file=./olympicsGames/olympic_hosts.csv
@@ -237,51 +237,39 @@ BEGIN
      CREATE SEQUENCE IF NOT EXISTS edition_number_seq;
      UPDATE olympicgames.tmp_game SET country_code = t.country_3_letter_code FROM olympicgames._tmp t WHERE tmp_game.game_id = t.slug_game AND tmp_game.game_location LIKE t.country_name;
      
-     UPDATE tmp_game
-        SET country_code = 'CHN'
-        WHERE game_id = 'beijing-2022';
-     UPDATE tmp_game
-        SET country_code = 'CHN'
-        WHERE game_id = 'beijing-2008';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'salt-lake-city-2002';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'atlanta-1996';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'los-angeles-1984';
-     UPDATE tmp_game
-        SET country_code = 'RUS'
-        WHERE game_id = 'moscow-1980';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'lake-placid-1980';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'squaw-valley-1960';
-     UPDATE tmp_game
-        SET country_code = 'AUS'
-        WHERE game_id = 'melbourne-1956';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'los-angeles-1932';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'lake-placid-1932';
-     UPDATE tmp_game
-        SET country_code = 'USA'
-        WHERE game_id = 'st-louis-1904';
+     UPDATE tmp_game SET country_code = 'CHN'
+          WHERE game_id = 'beijing-2022';
+     UPDATE tmp_game SET country_code = 'CHN'
+          WHERE game_id = 'beijing-2008';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'salt-lake-city-2002';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'atlanta-1996';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'los-angeles-1984';
+     UPDATE tmp_game SET country_code = 'RUS'
+          WHERE game_id = 'moscow-1980';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'lake-placid-1980';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'squaw-valley-1960';
+     UPDATE tmp_game SET country_code = 'AUS'
+          WHERE game_id = 'melbourne-1956';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'los-angeles-1932';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'lake-placid-1932';
+     UPDATE tmp_game SET country_code = 'USA'
+          WHERE game_id = 'st-louis-1904';
 
 
      UPDATE olympicgames.tmp_game SET game_id_tmp = country_code || '-' || nextval('edition_number_seq') WHERE game_id_tmp IS NULL;
      UPDATE olympicgames._tmp SET slug_game = tmp_game.game_id_tmp FROM olympicgames.tmp_game WHERE _tmp.slug_game = tmp_game.game_id;
      UPDATE olympicgames.tmp_game SET game_id = game_id_tmp;
 
-    ALTER TABLE olympicgames.tmp_game
-        DROP COLUMN country_code,
-        DROP COLUMN game_id_tmp;
+     ALTER TABLE olympicgames.tmp_game
+          DROP COLUMN country_code,
+          DROP COLUMN game_id_tmp;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -337,20 +325,20 @@ DROP TABLE IF EXISTS olympicgames.tmp_game;
 -------------------------------------------------
 
 CREATE OR REPLACE VIEW athlete AS
-    SELECT athlete_id, athlete_state, age
-    FROM olympicgames._athlete;
+     SELECT athlete_id, athlete_state, age
+     FROM olympicgames._athlete;
      
 
 CREATE OR REPLACE VIEW discipline AS
-    SELECT discipline_id, discipline_title
-    FROM olympicgames._discipline;
+     SELECT discipline_id, discipline_title
+     FROM olympicgames._discipline;
 
 
 SELECT * FROM athlete;
 
 SELECT * FROM discipline;
 
- -- Stats 
+-- Stats 
 -- Analyse des âges des joueurs d'après : leur pays, leur discipline, l'année des jeux
 
 
